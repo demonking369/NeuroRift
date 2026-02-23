@@ -1,16 +1,13 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
-import { TopCommandBar } from '@/components/layout/TopCommandBar';
-import { LeftNav } from '@/components/layout/LeftNav';
-import { StatusStrip } from '@/components/layout/StatusStrip';
-import { ChatWidget } from '@/components/chat/ChatWidget';
+import { CommandCenterFrame } from '@/components/webmode/CommandCenterFrame';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'NeuroRift - Security Intelligence Workspace',
-    description: 'A persistent multi-agent security workspace by demonking369',
+    title: 'NeuroRift Web Mode - Command Interface',
+    description: 'AI-native command interface for OpenClaw + NeuroRift.',
 };
 
 export default function RootLayout({
@@ -21,20 +18,11 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.className}>
-                <div className="h-screen flex flex-col">
-                    <TopCommandBar />
-
-                    <div className="flex-1 flex overflow-hidden">
-                        <LeftNav />
-
-                        <main className="flex-1 overflow-auto">
-                            {children}
-                        </main>
-                    </div>
-
-                    <StatusStrip />
-                    <ChatWidget />
-                </div>
+                <CommandCenterFrame>
+                    <main className="h-full">
+                        {children}
+                    </main>
+                </CommandCenterFrame>
             </body>
         </html>
     );

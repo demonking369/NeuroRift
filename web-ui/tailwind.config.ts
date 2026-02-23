@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             colors: {
                 neuro: {
+                    void: '#05070f',
                     bg: '#0a0e1a',
                     surface: '#141b2d',
                     border: '#1e293b',
@@ -37,6 +38,13 @@ const config: Config = {
             },
             animation: {
                 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'float-slow': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0px)' },
+                    '50%': { transform: 'translateY(-6px)' },
+                },
             },
         },
     },

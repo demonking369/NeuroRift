@@ -60,6 +60,14 @@ pub enum WSEvent {
         task_id: String,
         error: String,
     },
+    TaskOutput {
+        task_id: String,
+        chunk: String,
+    },
+    TaskCancelled {
+        task_id: String,
+        timestamp: DateTime<Utc>,
+    },
     
     // Approval events
     ApprovalRequired {
@@ -102,6 +110,12 @@ pub enum WSEvent {
         active: bool,
         url: Option<String>,
     },
+    OllamaStatus {
+        available: bool,
+        model: Option<String>,
+        model_count: usize,
+        needs_pull: bool,
+    },
     
     // Error events
     Error {
@@ -132,6 +146,9 @@ pub enum WSEvent {
         target: String,
         args: serde_json::Value,
     },
+    CancelTask {
+        task_id: String,
+    },
     ApproveAction {
         approval_id: String,
     },
@@ -147,6 +164,7 @@ pub enum WSEvent {
         message: String,
         model: Option<String>,
     },
+    GetOllamaStatus,
     ChatResponse {
         response: String,
         model: String,

@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-        @apply bg-neuro-bg text-neuro-text-primary font-sans antialiased;
+        @apply bg-neuro-void text-neuro-text-primary font-sans antialiased;
     }
 
     /* Custom scrollbar */
@@ -24,6 +24,18 @@
 @layer components {
     .glass-card {
         @apply bg-neuro-surface/80 backdrop-blur-sm border border-neuro-border rounded-lg shadow-lg;
+    }
+
+    .glass-panel {
+        @apply bg-neuro-surface/70 backdrop-blur-xl border border-neuro-border/60 rounded-2xl shadow-[0_0_30px_rgba(59,130,246,0.12)];
+    }
+
+    .neon-border {
+        @apply border border-cyan-400/40 shadow-[0_0_20px_rgba(34,211,238,0.2)];
+    }
+
+    .command-chip {
+        @apply inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-neuro-surface/80 border border-neuro-border/60 text-xs text-neuro-text-secondary hover:text-neuro-text-primary hover:border-cyan-400/40 transition;
     }
 
     .terminal-text {

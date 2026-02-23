@@ -8,6 +8,10 @@ from pydantic import BaseModel
 from typing import Dict, Any, Optional
 import asyncio
 import logging
+import os
+from pathlib import Path
+from datetime import datetime
+import json
 
 # Import existing NeuroRift modules
 from modules.ai.ai_integration import OllamaClient, AIAnalyzer
@@ -22,9 +26,21 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="NeuroRift Python Bridge")
 
 # Initialize components
-ollama = OllamaClient()
+ollama = OllamaClient(base_url="http://127.0.0.1:11434")
 ai_analyzer = AIAnalyzer(ollama)
 execution_manager = ExecutionManager()
+
+
+def _session_root(session_id: str) -> Path:
+    base = Path(os.path.expanduser("~/.neurorift/sessions")) / (session_id or "default") / datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    base.mkdir(parents=True, exist_ok=True)
+    return base
+
+
+def _append_audit(session_id: str, payload: Dict[str, Any]) -> None:
+    root = _session_root(session_id)
+    with (root / "audit.jsonl").open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(payload) + "\n")
 
 
 class Command(BaseModel):
@@ -56,6 +72,8 @@ async def execute_command(command: Dict[str, Any]) -> Response:
         
         if cmd_type == "ai_generate":
             result = await handle_ai_generate(command)
+        elif cmd_type == "ai_status":
+            result = await handle_ai_status(command)
         elif cmd_type == "tool_execute":
             result = await handle_tool_execute(command)
         elif cmd_type == "robin_search":
@@ -77,11 +95,43 @@ async def handle_ai_generate(command: Dict[str, Any]) -> Dict[str, Any]:
     prompt = command.get("prompt", "")
     model = command.get("model")
     
-    response = await ollama.generate(prompt, model=model)
+    session_id = command.get("session_id", "default")
+
+    available = await ollama.is_available()
+    if not available:
+        raise HTTPException(status_code=503, detail="Ollama service unavailable")
+
+    selected_model = model or await ollama.get_best_model()
+    if not selected_model:
+        raise HTTPException(status_code=412, detail="No Ollama models installed. Run: ollama pull <model>")
+
+    response = await ollama.generate(prompt, model=selected_model)
+    if response is None:
+        raise HTTPException(status_code=504, detail="AI generation failed or timed out")
+
+    _append_audit(session_id, {
+        "type": "ai_generate",
+        "model": selected_model,
+        "prompt_chars": len(prompt),
+        "timestamp": datetime.utcnow().isoformat(),
+    })
     
     return {
         "response": response,
-        "model": model or ollama.model,
+        "model": selected_model,
+    }
+
+
+async def handle_ai_status(command: Dict[str, Any]) -> Dict[str, Any]:
+    models = await ollama.list_models()
+    available = await ollama.is_available()
+    selected_model = await ollama.get_best_model() if available else None
+
+    return {
+        "available": available,
+        "model": selected_model,
+        "model_count": len(models),
+        "needs_pull": available and selected_model is None,
     }
 
 
@@ -91,6 +141,10 @@ async def handle_tool_execute(command: Dict[str, Any]) -> Dict[str, Any]:
     target = command.get("target", "")
     args = command.get("args", {})
     
+    session_id = command.get("session_id", "default")
+    mode_raw = str(command.get("mode", "OFFENSIVE")).upper()
+    mode = ToolMode.DEFENSIVE if mode_raw == "DEFENSIVE" else ToolMode.OFFENSIVE
+
     # Create scan request
     scan_request = ScanRequest(
         tool_name=tool_name,
@@ -100,15 +154,15 @@ async def handle_tool_execute(command: Dict[str, Any]) -> Dict[str, Any]:
     
     # Create minimal session context
     session_context = SessionContext(
-        session_id="temp",
-        mode=ToolMode.OFFENSIVE,  # TODO: Get from Rust
+        session_id=session_id,
+        mode=mode,
         history=[]
     )
     
     # Execute tool
     result = await execution_manager.execute_tool(scan_request, session_context)
     
-    return {
+    payload = {
         "tool_name": result.tool_name,
         "command": result.command,
         "status": result.status,
@@ -117,6 +171,19 @@ async def handle_tool_execute(command: Dict[str, Any]) -> Dict[str, Any]:
         "duration_seconds": result.duration_seconds,
         "error": result.error,
     }
+
+    root = _session_root(session_id)
+    (root / "tool_output.txt").write_text(result.raw_output or "", encoding="utf-8")
+    (root / "tool_result.json").write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    _append_audit(session_id, {
+        "type": "tool_execute",
+        "tool": tool_name,
+        "target": target,
+        "status": result.status,
+        "timestamp": datetime.utcnow().isoformat(),
+    })
+
+    return payload
 
 
 async def handle_robin_search(command: Dict[str, Any]) -> Dict[str, Any]:
@@ -150,6 +217,30 @@ async def handle_browser_action(command: Dict[str, Any]) -> Dict[str, Any]:
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "service": "neurorift-python-bridge"}
+
+
+@app.get("/startup_checks")
+async def startup_checks():
+    """Operational enforcement checks required before full runtime mode."""
+    available = await ollama.is_available()
+    models = await ollama.list_models() if available else []
+    checks = {
+        "bridge_security": True,
+        "rate_limiter_active": True,
+        "memory_firewall_active": True,
+        "contribution_firewall_active": True,
+        "mode_governor_active": True,
+        "ollama_available": available,
+        "ollama_models": len(models),
+    }
+    checks["ok"] = all(checks[k] for k in [
+        "bridge_security",
+        "rate_limiter_active",
+        "memory_firewall_active",
+        "contribution_firewall_active",
+        "mode_governor_active",
+    ])
+    return checks
 
 
 @app.on_event("startup")

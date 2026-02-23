@@ -10,6 +10,20 @@ pub struct PythonBridge {
 }
 
 impl PythonBridge {
+    fn extract_data(result: Value) -> Result<Value> {
+        let success = result.get("success").and_then(|v| v.as_bool()).unwrap_or(false);
+
+        if !success {
+            let error = result
+                .get("error")
+                .and_then(|v| v.as_str())
+                .unwrap_or("python bridge execution failed");
+            anyhow::bail!(error.to_string());
+        }
+
+        Ok(result.get("data").cloned().unwrap_or(Value::Null))
+    }
+
     /// Create a new Python bridge
     pub fn new(base_url: impl Into<String>) -> Self {
         let client = Client::builder()
@@ -34,7 +48,7 @@ impl PythonBridge {
             .await?;
         
         let result = response.json::<Value>().await?;
-        Ok(result)
+        Self::extract_data(result)
     }
     
     /// Execute a tool
@@ -58,7 +72,7 @@ impl PythonBridge {
         });
         
         let result = self.execute(command).await?;
-        
+
         Ok(result["response"]
             .as_str()
             .unwrap_or("")

@@ -175,5 +175,10 @@
       "SimStudioAI (conceptual orchestration)",
       "Anti-Gravity AI"
     ]
+  },
+  "self_evolution": {
+    "enabled": true,
+    "require_human_approval": true,
+    "sandbox_branch": "ai-evolution"
   }
 }
