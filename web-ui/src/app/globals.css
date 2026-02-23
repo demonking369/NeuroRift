@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --neuro-bg: 10, 12, 18;
+    --neuro-surface: 18, 22, 32;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(45, 55, 72, 0.6) transparent;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: rgba(var(--neuro-bg), 1);
+    color: rgba(226, 232, 240, 1);
+}
+
+.command-chip {
+    @apply flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neuro-surface/80 border border-neuro-border/60 text-xs text-neuro-text-secondary hover:text-neuro-text-primary hover:border-cyan-400/40 transition cursor-pointer;
+}
