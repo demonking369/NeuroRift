@@ -9,8 +9,12 @@ ollama>=0.1.0
 pyyaml>=6.0
 requests>=2.26.0
 rich>=10.0.0
+<<<<<<< HEAD
+aiofiles>=23.1.0
+=======
 click>=8.0.0
 yaspin>=3.0.0
+>>>>>>> main
 
 # Security dependencies
 defusedxml>=0.7.1  # SECURITY: Safe XML parsing to prevent XXE attacks

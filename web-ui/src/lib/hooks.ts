@@ -42,30 +42,43 @@ const initialAgents: Record<string, AgentStatus> = {
         current_task: 'Synthesizing multi-agent scan lattice',
         last_update: new Date().toISOString(),
         queue_depth: 3,
+        dependencies: ['Analyst'],
+        signal_strength: 0.8,
+        sentiment: 'neutral'
     },
     Operator: {
         state: 'executing',
         current_task: 'Executing containment probes',
         last_update: new Date().toISOString(),
         queue_depth: 1,
+        dependencies: ['Planner'],
+        signal_strength: 0.9,
+        sentiment: 'cooperative'
     },
     Navigator: {
         state: 'idle',
         current_task: null,
         last_update: new Date().toISOString(),
         queue_depth: 0,
+        signal_strength: 0.1,
+        sentiment: 'neutral'
     },
     Analyst: {
         state: 'planning',
         current_task: 'Correlating memory decay signals',
         last_update: new Date().toISOString(),
         queue_depth: 2,
+        dependencies: [],
+        signal_strength: 0.6,
+        sentiment: 'neutral'
     },
     Scribe: {
         state: 'idle',
         current_task: null,
         last_update: new Date().toISOString(),
         queue_depth: 0,
+        signal_strength: 0.05,
+        sentiment: 'neutral'
     },
 };
 
@@ -90,6 +103,12 @@ export function useNeuroRift() {
         cpu: 41,
         memory: 63,
         latency: 120,
+        memory_metrics: {
+            usage: 0.45,
+            reinforcement: 0.2,
+            decay: 0.1,
+            type: 'episodic'
+        }
     });
     const [browserActive, setBrowserActive] = useState(false);
 
@@ -99,14 +118,28 @@ export function useNeuroRift() {
                 cpu: Math.min(95, Math.max(12, prev.cpu + (Math.random() * 8 - 4))),
                 memory: Math.min(92, Math.max(18, prev.memory + (Math.random() * 6 - 3))),
                 latency: Math.min(420, Math.max(40, prev.latency + (Math.random() * 20 - 10))),
+                memory_metrics: {
+                    ...prev.memory_metrics,
+                    // Simulate subtle organic decay and reinforcement pulses
+                    usage: Math.min(1, Math.max(0.2, prev.memory_metrics.usage + (Math.random() * 0.05 - 0.02))),
+                    reinforcement: Math.min(1, Math.max(0, prev.memory_metrics.reinforcement + (Math.random() * 0.1 - 0.04))),
+                }
             }));
 
             setAgents(prev => {
                 const updated = { ...prev };
                 Object.keys(updated).forEach(key => {
+                    const agent = updated[key];
+                    // Simulate dynamic signaling and dependency shifts
+                    const isActive = agent.state === 'executing' || agent.state === 'planning';
+
                     updated[key] = {
-                        ...updated[key],
+                        ...agent,
                         last_update: new Date().toISOString(),
+                        signal_strength: isActive ? Math.random() * 0.5 + 0.5 : Math.random() * 0.2, // Pulse if active
+                        dependencies: isActive && Math.random() > 0.7
+                            ? ['Planner', 'Operator'].filter(d => d !== key) // Randomly depend on others
+                            : []
                     };
                 });
                 return updated;
@@ -119,7 +152,7 @@ export function useNeuroRift() {
                         : task
                 )
             );
-        }, 4500);
+        }, 2000); // Faster update cycle for "liveness"
 
         return () => window.clearInterval(interval);
     }, []);

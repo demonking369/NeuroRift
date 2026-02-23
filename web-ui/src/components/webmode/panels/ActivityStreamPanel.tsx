@@ -8,7 +8,7 @@ export function ActivityStreamPanel() {
 
     return (
         <div className="space-y-3 max-h-[320px] overflow-y-auto pr-2">
-            {events.map(event => (
+            {events.map((event: any) => (
                 <div
                     key={event.id}
                     className={cn(

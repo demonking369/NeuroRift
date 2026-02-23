@@ -75,15 +75,15 @@ graph TD
 
 ### 1. **Multi-Agent Orchestration**
 *   **NR Planner**: Creates strategic execution plans with task decomposition and risk assessment
-*   **NR Operator**: Executes commands exclusively through terminal with mandatory human approval for external actions
+*   **NR Operator**: Executes commands with human-in-the-loop controls. Now features a dedicated **Operator Plane** for manual tool execution.
 *   **NR Analyst**: Performs advanced vulnerability analysis with CVSS 3.1 scoring and false positive reduction
 *   **NR Scribe**: Generates professional reports in multiple formats (Markdown, JSON, HTML, PDF)
 
-### 2. **Mode Governor**
-*   **OFFENSIVE Mode**: Research and discovery operations (reconnaissance, scanning, vulnerability assessment)
-*   **DEFENSIVE Mode**: Analysis and mitigation operations (vulnerability analysis, patch recommendations, hardening)
-*   **Strict Separation**: No cross-mode contamination, tool access controlled per mode
-*   **Violation Logging**: All mode violations are logged and reported
+### 2. **Advanced Web Control Plane (V2.1)**
+*   **Next.js Architecture**: A premium, high-performance React dashboard replacing legacy frameworks.
+*   **Manual Operator Plane**: Direct tool execution (nmap, nuclei, ffuf) with real-time output streaming.
+*   **Session & Artifact Management**: Comprehensive system to list, load, and browse session artifacts/reports via an interactive tree viewer.
+*   **Dynamic State Visualization**: Real-time rendering of agent dependencies, cognitive memory decay, and risk vectors.
 
 ### 3. **Human-in-the-Loop Controls**
 *   **Required Approval**: Browser navigation, external API calls, file modifications
@@ -113,6 +113,7 @@ graph TD
 ### **Prerequisites**
 *   **Operating System**: Linux (Kali Linux or Ubuntu 22.04+ recommended)
 *   **Python**: Version 3.10 or higher
+*   **Node.js & npm**: Required for the Web Mode dashboard
 *   **Tor**: Required for Dark Web functionality
     ```bash
     sudo apt update && sudo apt install tor -y
@@ -138,7 +139,7 @@ graph TD
     ```bash
     # Launch interactive configuration wizard
     source .venv/bin/activate
-    ./neurorift_main.py --configure
+    python3 neurorift_main.py --configure
     ```
 
 ---
@@ -147,29 +148,25 @@ graph TD
 
 ### **Mode A: Web Dashboard (Recommended)**
 ```bash
+# Standard Launch
 neurorift --webmod
+
+# Prototype/Demo Mode (Mock Backend)
+neurorift --webmod --prototype
 ```
-*   **Access**: Open your browser to `http://localhost:8501`
-*   **Features**: Full graphical control over all modules, real-time logs, and interactive reports
+*   **Access**: Open your browser to `http://localhost:3000`
+*   **Operator Plane**: Switch to the **'Operator'** tab to execute tools manually and browse session artifacts.
 
-#### 📸 Web Interface Gallery
-<img width="1920" height="1080" alt="Screenshot_2026-02-02_18_36_34" src="https://github.com/user-attachments/assets/1d8f4c62-7a48-405d-a5a0-22a802fe56e1" />
+#### 📸 Web Interface Gallery (V2.1)
+<img width="1920" height="1080" alt="NeuroRift Dashboard" src="https://github.com/user-attachments/assets/1d8f4c62-7a48-405d-a5a0-22a802fe56e1" />
 
+*(Dashboard Core: Intent Fabric & Agent Constellation)*
 
+<img width="1920" height="1080" alt="Operator Plane" src="https://github.com/user-attachments/assets/8e81abcd-1a59-46be-ba03-1993b4046618" />
 
-![Dashboard Overview}
-<img width="1920" height="1080" alt="Screenshot_2026-02-02_18_37_43" src="https://github.com/user-attachments/assets/a0fcfbcd-b32f-4fde-b220-5f4aeefebe14" />
+*(Operator Plane: Manual Tool Execution & Session Management)*
 
-![Security Tools]
-*(Security Tools Panel)*
-<img width="1920" height="1080" alt="Screenshot_2026-02-02_18_36_57" src="https://github.com/user-attachments/assets/8e81abcd-1a59-46be-ba03-1993b4046618" />
-
-![Robin Intelligence]
-*(Robin Intelligence panel)*
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a92a2ca9-d196-474d-bf0a-fc25bec5dd7b" />
-![Agent]
-*[Agent]*
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b0ac9819-db1b-4e69-aadc-73b687f6f3a3" />
+---
 
 ### **Mode B: NeuroRift Intelligence Mode (Orchestrated)**
 
@@ -183,21 +180,18 @@ neurorift --orchestrated --mode offensive -t example.com
 neurorift --orchestrated --mode defensive --analyze results/scan.json
 ```
 
-**Resume Interrupted Task:**
-```bash
-neurorift --resume task_20260124_092347
-```
+---
 
 ### **Mode C: Command Line Interface (CLI)**
 
 **Standard Recon Scan:**
 ```bash
-neurorift -t example.com --operation-mode recon
+neurorift -t example.com --mode recon
 ```
 
 **Dark Web Search:**
 ```bash
-neurorift darkweb --query "leaked credentials example.com"
+neurorift ask-ai "Find leaked credentials for example.com on hidden services"
 ```
 
 ---
@@ -216,10 +210,6 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
   "mode_governor": {
     "allow_mode_switching": false,
     "log_violations": true
-  },
-  "human_in_the_loop": {
-    "timeout_seconds": 300,
-    "default_on_timeout": "deny"
   }
 }
 ```
@@ -227,10 +217,8 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 | Variable | Description | Default |
 | :--- | :--- | :--- |
 | `AI_ENABLED` | Master switch for AI features | `true` |
-| `OLLAMA_MAIN_MODEL` | Primary LLM for complex reasoning | `llama3.2` |
-| `OLLAMA_ASSISTANT_MODEL` | Faster LLM for chat interactions | `llama3.2` |
+| `OLLAMA_MODEL` | Primary LLM for complex reasoning | `llama3.2` |
 | `ROBIN_TOR_PROXY` | SOCKS proxy for Dark Web traffic | `socks5h://127.0.0.1:9050` |
-| `LOG_LEVEL` | Application logging verbosity | `INFO` |
 
 ---
 
@@ -239,8 +227,8 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 **NeuroRift is purpose-built for AUTHORIZED security testing, red teaming, and educational research.**
 
 *   **Authorization Required**: You must have explicit, written permission from the owner of any system you scan or test.
-*   **Compliance**: Users are responsible for complying with all applicable local, state, and federal laws.
-*   **Liability**: The developer of NeuroRift is not liable for any misuse, damage, or illegal activities resulting from the use of this software.
+*   **Compliance**: Users are responsible for complying with all applicable laws.
+*   **Liability**: The developer is not liable for any misuse or damage.
 
 ---
 
@@ -248,18 +236,15 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 
 **NeuroRift is independently developed by demonking369.**
 
-The following open-source projects were used as references or components, and are gratefully acknowledged:
-
-### Referenced Projects
-- **[x1xhlol/system-prompts-and-models-of-ai-tools](https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools)** - System prompt patterns and AI agent design references
-- **[SimStudioAI](https://simstudio.ai)** - Conceptual orchestration design inspiration
-
 ### Core Dependencies
 - **[Ollama](https://ollama.com)** - Local LLM inference engine
 - **[ProjectDiscovery](https://projectdiscovery.io)** - Security tools (subfinder, nuclei, httpx)
-- **[Nmap](https://nmap.org)** - Network scanning and service detection
-- **[Streamlit](https://streamlit.io)** - Web dashboard framework
+- **[Next.js](https://nextjs.org)** - Web Mode dashboard framework
+- **[Lucide](https://lucide.dev)** - Iconography system
+- **[Tailwind CSS](https://tailwindcss.com)** - Design system framework
+- **[Nmap](https://nmap.org)** - Network scanning
 - **[Rich](https://rich.readthedocs.io)** - Terminal UI library
+
 
 ### Special Thanks
 - The open-source security community for continuous innovation

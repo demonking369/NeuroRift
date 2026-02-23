@@ -8,7 +8,7 @@ export function ExecutionTimelinePanel() {
 
     return (
         <div className="space-y-3">
-            {tasks.map(task => (
+            {tasks.map((task: any) => (
                 <div key={task.id} className="rounded-xl border border-neuro-border/60 bg-neuro-bg/70 p-4">
                     <div className="flex items-center justify-between text-xs text-neuro-text-muted">
                         <span className="uppercase tracking-[0.3em]">{task.status}</span>

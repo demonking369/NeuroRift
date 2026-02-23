@@ -370,6 +370,7 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             self.logger.error("Unexpected error in list_custom_tools: %s", e)
             return []
 
+>>>>>>> main
 
 async def dev_mode_shell(vf, session_dir):
     console = Console()
@@ -433,27 +434,25 @@ async def dev_mode_shell(vf, session_dir):
 def get_parser():
     parser = argparse.ArgumentParser(
         description="""
-╔══════════════════════════════════════════════════════════╗
-║ NeuroRift - Designed by demonking369 🧠                  ║
-║ GitHub: https://github.com/demonking369/NeuroRift        ║
-║ Multi-Agent Intelligence for Security Research ⚡        ║
-╚══════════════════════════════════════════════════════════╝
+NeuroRift - Designed by demonking369
+GitHub: https://github.com/demonking369/NeuroRift
+Multi-Agent Intelligence for Security Research
 
 A terminal-based multi-agent intelligence system for authorized security testing.
 
 Key Features:
-• 🆕 NeuroRift Intelligence Mode (--orchestrated)
+- NeuroRift Intelligence Mode (--orchestrated)
   - Multi-Agent Architecture (Planner, Operator, Analyst, Scribe)
   - OFFENSIVE/DEFENSIVE Mode Separation (--mode offensive|defensive)
   - Terminal-Only Execution with Human-in-the-Loop
   - Advanced CVSS Scoring & Professional Reporting
-• AI-Autonomous Operation (--ai-only, --agentic)
-• Advanced Reconnaissance & Dark Web OSINT
-• Stealth Mode Capabilities
-• Multi-format Reporting (Markdown, JSON, HTML, PDF)
-• Custom Tool Generation
-• Interactive AI Assistant
-• Development Mode
+- AI-Autonomous Operation (--ai-only, --agentic)
+- Advanced Reconnaissance & Dark Web OSINT
+- Stealth Mode Capabilities
+- Multi-format Reporting (Markdown, JSON, HTML, PDF)
+- Custom Tool Generation
+- Interactive AI Assistant
+- Development Mode
 
 Documentation: docs/NEURORIFT_README.md
 Migration Guide: docs/MIGRATION_GUIDE.md

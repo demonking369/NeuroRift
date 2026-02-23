@@ -9,15 +9,22 @@ export type PanelId =
     | 'memory-pulse'
     | 'config-matrix'
     | 'online-mode'
-    | 'permissions';
+    | 'permissions'
+    | 'manual-tool'
+    | 'session-manager'
+    | 'artifact-viewer'
+    | 'system-health';
 
 export type PanelSlot = 'primary' | 'secondary' | 'tertiary' | 'dock';
+
+export type PanelCategory = 'AI_CONTROL' | 'OPERATOR' | 'SYSTEM';
 
 export interface PanelDefinition {
     id: PanelId;
     title: string;
     description: string;
     slot: PanelSlot;
+    category: PanelCategory;
     policy: PanelPolicy;
     tone?: 'signal' | 'neutral' | 'warning';
 }
@@ -26,6 +33,7 @@ export interface PanelPolicy {
     controlOnly?: boolean;
     minTier?: DeviceTier;
     requiresSession?: boolean;
+    mode?: 'read' | 'control';
 }
 
 export interface PolicyContext {

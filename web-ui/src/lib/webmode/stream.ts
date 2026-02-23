@@ -42,7 +42,7 @@ export function useSignalStream() {
                     id: `evt-${Date.now()}`,
                     label: next,
                     time: new Date().toLocaleTimeString(),
-                    tone: Math.random() > 0.8 ? 'warning' : 'signal',
+                    tone: (Math.random() > 0.8 ? 'warning' : 'signal') as 'signal' | 'neutral' | 'warning',
                 },
                 ...prev
             ].slice(0, 12));
