@@ -1,0 +1,40 @@
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+
+# ── Rust ─────────────────────────────────────────────────────────────────────
+core/target/
+
+# ── Node.js ──────────────────────────────────────────────────────────────────
+web-ui/node_modules/
+web-ui/.next/
+
+# ── Git / IDE ─────────────────────────────────────────────────────────────────
+.git/
+.gitignore
+.github/
+.idx/
+*.md
+!README.md
+!DOCKER.md
+
+# ── Runtime / secrets ────────────────────────────────────────────────────────
+.env
+*.log
+test_report/
+sim/
+system-prompts-and-models-of-ai-tools/
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db

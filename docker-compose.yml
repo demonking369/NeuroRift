@@ -1,0 +1,175 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# NeuroRift × OpenClaw — Docker Compose
+#
+# Services:
+#   ollama     — AI model server  (internal port 11434)
+#   neurorift  — Python bridge    (internal port 8766)
+#   openclaw   — Rust WS core    (internal port 8765)
+#   web-ui     — Next.js UI       (host port 3000)
+#
+# Quick Start:
+#   docker compose up --build
+#   docker compose exec ollama ollama pull llama3
+#
+# ──────────────────────────────────────────────────────────────────────────────
+
+name: neurorift
+
+# ─── Named Volumes ────────────────────────────────────────────────────────────
+volumes:
+  ollama_models:
+    # Ollama model blobs — persists across restarts
+    driver: local
+  neurorift_sessions:
+    # Session state (JSON)
+    driver: local
+  neurorift_audit:
+    # Audit log files
+    driver: local
+  neurorift_evolution:
+    # Evolution / mutation data
+    driver: local
+
+# ─── Networks ─────────────────────────────────────────────────────────────────
+networks:
+  neurorift_net:
+    driver: bridge
+    internal: false # allows outbound internet for tool downloads / Ollama pulls
+
+# ─── Services ─────────────────────────────────────────────────────────────────
+services:
+
+  # ── Ollama AI model server ──────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: neurorift_ollama
+    restart: unless-stopped
+    networks:
+      - neurorift_net
+    volumes:
+      - ollama_models:/root/.ollama
+    ports:
+      # NOT exposed to host by default — internal only.
+      # Uncomment the line below ONLY if you need direct host access for debugging.
+      # - "127.0.0.1:11434:11434"
+    expose:
+      - "11434"
+    environment:
+      OLLAMA_HOST: "0.0.0.0"
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:11434/api/tags" ]
+      interval: 15s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
+    # ── Optional GPU support (NVIDIA) ─────────────────────────────────────────
+    # To enable GPU, uncomment the `deploy` block below and ensure the
+    # NVIDIA Container Toolkit is installed on your host:
+    #   https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+
+    # ── NeuroRift Python Bridge ─────────────────────────────────────────────────
+  neurorift:
+    build:
+      context: . # Build context is repo root
+      dockerfile: docker/neurorift/Dockerfile
+    image: neurorift/bridge:latest
+    container_name: neurorift_bridge
+    restart: unless-stopped
+    networks:
+      - neurorift_net
+    expose:
+      - "8766"
+    volumes:
+      - neurorift_sessions:/data/neurorift/sessions
+      - neurorift_audit:/data/neurorift/audit
+      - neurorift_evolution:/data/neurorift/evolution
+    environment:
+      OLLAMA_HOST: "http://ollama:11434"
+      BRIDGE_HOST: "0.0.0.0"
+      BRIDGE_PORT: "8766"
+      NEURORIFT_HOME: "/data/neurorift"
+      LOG_LEVEL: "${LOG_LEVEL:-info}"
+      OLLAMA_MAIN_MODEL: "${OLLAMA_MAIN_MODEL:-llama3}"
+      OLLAMA_ASSISTANT_MODEL: "${OLLAMA_ASSISTANT_MODEL:-llama3}"
+      AI_ENABLED: "${AI_ENABLED:-true}"
+      # API keys — leave blank to use Ollama only
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      GOOGLE_API_KEY: "${GOOGLE_API_KEY:-}"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-sf", "http://localhost:8766/health" ]
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
+      retries: 5
+
+  # ── OpenClaw (NeuroRift Rust Core) ──────────────────────────────────────────
+  openclaw:
+    build:
+      context: .
+      dockerfile: docker/openclaw/Dockerfile
+    image: neurorift/openclaw:latest
+    container_name: neurorift_openclaw
+    restart: unless-stopped
+    networks:
+      - neurorift_net
+    expose:
+      - "8765"
+    volumes:
+      - neurorift_sessions:/data/neurorift/sessions
+    environment:
+      NEURORIFT_HOME: "/data/neurorift"
+      NEURORIFT_WS_ADDR: "0.0.0.0:8765"
+      NEURORIFT_BRIDGE_URL: "http://neurorift:8766"
+      RUST_LOG: "${RUST_LOG:-info}"
+    depends_on:
+      neurorift:
+        condition: service_healthy
+    healthcheck:
+      # TCP-level check: try to open port 8765
+      test: [ "CMD-SHELL", "curl -sf http://localhost:8765/health 2>/dev/null || (echo >/dev/tcp/localhost/8765) 2>/dev/null || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      start_period: 45s
+      retries: 5
+
+  # ── Web UI (Next.js) ─────────────────────────────────────────────────────────
+  web-ui:
+    build:
+      context: .
+      dockerfile: docker/web-ui/Dockerfile
+      args:
+        NEURORIFT_BRIDGE_URL: "http://neurorift:8766"
+        OPENCLAW_WS_URL: "http://openclaw:8765"
+    image: neurorift/web-ui:latest
+    container_name: neurorift_webui
+    restart: unless-stopped
+    networks:
+      - neurorift_net
+    ports:
+      - "${WEB_UI_PORT:-3000}:3000" # Only port exposed to host
+    environment:
+      NODE_ENV: "production"
+      NEURORIFT_BRIDGE_URL: "http://neurorift:8766"
+      OPENCLAW_WS_URL: "http://openclaw:8765"
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+    depends_on:
+      openclaw:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "-qO-", "http://localhost:3000" ]
+      interval: 15s
+      timeout: 10s
+      start_period: 30s
+      retries: 5

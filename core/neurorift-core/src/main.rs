@@ -15,15 +15,22 @@ async fn main() -> Result<()> {
     
     tracing::info!("🧠 NeuroRift Core starting...");
     
-    // Configuration
+    // Configuration — all addresses driven by env vars for Docker compatibility
     let base_dir = PathBuf::from(std::env::var("NEURORIFT_HOME")
         .unwrap_or_else(|_| {
-            let home = std::env::var("HOME").unwrap();
+            let home = std::env::var("HOME").unwrap_or_else(|_| "/data".to_string());
             format!("{}/.neurorift", home)
         }));
-    
-    let ws_addr = "127.0.0.1:8765".parse()?;
-    let python_bridge_url = "http://127.0.0.1:8766".to_string();
+
+    // Bind to 0.0.0.0 inside Docker so container networking works.
+    // Override with NEURORIFT_WS_ADDR env var if needed.
+    let ws_addr_str = std::env::var("NEURORIFT_WS_ADDR")
+        .unwrap_or_else(|_| "0.0.0.0:8765".to_string());
+    let ws_addr = ws_addr_str.parse()?;
+
+    // Use Docker service name 'neurorift' when running inside compose.
+    let python_bridge_url = std::env::var("NEURORIFT_BRIDGE_URL")
+        .unwrap_or_else(|_| "http://neurorift:8766".to_string());
     
     // Create core
     let core = Arc::new(NeuroRiftCore::new(

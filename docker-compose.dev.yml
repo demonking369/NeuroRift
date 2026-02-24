@@ -1,0 +1,56 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# NeuroRift × OpenClaw — Development Override
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# Changes vs production:
+#   - Source code is volume-mounted for hot reload
+#   - Python bridge uses uvicorn --reload
+#   - Next.js runs in dev mode (npm run dev)
+#   - Extra ports exposed for debugging
+# ──────────────────────────────────────────────────────────────────────────────
+
+name: neurorift
+
+services:
+
+  neurorift:
+    build:
+      target: base # stop at base stage, skip entrypoint switch
+    volumes:
+      # Mount source directly for live reloads
+      - ./modules:/app/modules
+      - ./utils:/app/utils
+      - ./prompts:/app/prompts
+      - ./configs:/app/configs
+      - ./ai_wrapper:/app/ai_wrapper
+    environment:
+      LOG_LEVEL: "debug"
+    ports:
+      - "127.0.0.1:8766:8766" # expose for local debugging
+    command: >
+      uvicorn modules.web.bridge_server:app --host 0.0.0.0 --port 8766 --reload --log-level debug
+
+  openclaw:
+    ports:
+      - "127.0.0.1:8765:8765" # expose for local debugging
+    environment:
+      RUST_LOG: "debug"
+
+  web-ui:
+    build:
+      target: builder # use builder stage with full dev tooling
+    volumes:
+      - ./web-ui:/app
+      - /app/node_modules # anonymous volume to prevent host override
+      - /app/.next # prevent stale build cache from host
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: "development"
+    command: npm run dev
+
+  ollama:
+    ports:
+      - "127.0.0.1:11434:11434" # expose Ollama locally in dev for direct testing
