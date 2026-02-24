@@ -109,7 +109,24 @@ async fn main() -> Result<()> {
                 }
                 QueueTask { tool_name, target, args } => {
                     tracing::info!("Received QueueTask: {} -> {}", tool_name, target);
-                    if let Err(e) = core_cmd.queue_task(tool_name, target, args) {
+                    match core_cmd.queue_task(tool_name, target, args) {
+                        Ok(Some(task_id)) => {
+                            let core_exec = core_cmd.clone();
+                            tokio::spawn(async move {
+                                if let Err(e) = core_exec.execute_task(&task_id).await {
+                                    tracing::error!("Failed to execute task {}: {}", task_id, e);
+                                }
+                            });
+                        }
+                        Ok(None) => {}
+                        Err(e) => {
+                            tracing::error!("Failed to queue task: {}", e);
+                        }
+                    }
+                }
+                CancelTask { task_id } => {
+                    tracing::info!("Received CancelTask: {}", task_id);
+                    if let Err(e) = core_cmd.cancel_task(&task_id) {
                         tracing::error!("Failed to queue task: {}", e);
                     }
                 }
@@ -121,6 +138,14 @@ async fn main() -> Result<()> {
                              tracing::error!("Chat failed: {}", e);
                          }
                      });
+                }
+                GetOllamaStatus => {
+                    let core_ai = core_cmd.clone();
+                    tokio::spawn(async move {
+                        if let Err(e) = core_ai.get_ollama_status().await {
+                            tracing::error!("Failed to fetch Ollama status: {}", e);
+                        }
+                    });
                 }
                 _ => {} // Ignore other events
             }

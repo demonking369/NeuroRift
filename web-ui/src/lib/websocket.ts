@@ -1,91 +1,93 @@
 type WebSocketPayload = Record<string, any> & { type: string };
 
-class MockWebSocket {
-    private listeners = new Map<string, (payload: any) => void>();
+type EventCallback = (payload: any) => void;
 
-    send(payload: WebSocketPayload) {
-        switch (payload.type) {
-            case 'chat':
-                setTimeout(() => {
-                    window.dispatchEvent(
-                        new CustomEvent('neurorift:chat_response', {
-                            detail: {
-                                response: `Echoed intent received: ${payload.message}`
-                            }
-                        })
-                    );
-                }, 500);
-                break;
-            case 'get_session_list':
-                setTimeout(() => {
-                    window.dispatchEvent(
-                        new CustomEvent('neurorift:session_list', {
-                            detail: {
-                                type: 'session_list',
-                                sessions: sampleSessions
-                            }
-                        })
-                    );
-                }, 250);
-                break;
-            case 'create_session':
-                sampleSessions.unshift({
-                    id: `session-${Date.now()}`,
-                    name: payload.name,
-                    mode: payload.mode,
-                    status: 'active',
-                    updated_at: new Date().toISOString(),
-                    findings: [],
-                    artifacts: [],
-                    metadata: payload.metadata || {},
-                });
-                window.dispatchEvent(
-                    new CustomEvent('neurorift:session_list', {
-                        detail: {
-                            type: 'session_list',
-                            sessions: sampleSessions
-                        }
-                    })
-                );
-                break;
-            default:
-                break;
+class NeuroRiftSocket {
+    private ws: WebSocket | null = null;
+    private callbacks = new Set<EventCallback>();
+    private queue: WebSocketPayload[] = [];
+    private reconnectTimer: number | null = null;
+    private intentionallyClosed = false;
+
+    connect() {
+        if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
+            return;
         }
+
+        const endpoint = process.env.NEXT_PUBLIC_NEURORIFT_WS_URL ?? 'ws://127.0.0.1:8765';
+        this.ws = new WebSocket(endpoint);
+
+        this.ws.onopen = () => {
+            const pending = [...this.queue];
+            this.queue = [];
+            pending.forEach(payload => this.send(payload));
+            window.dispatchEvent(new CustomEvent('neurorift:connection', { detail: { connected: true } }));
+        };
+
+        this.ws.onmessage = event => {
+            try {
+                const payload = JSON.parse(event.data);
+                this.callbacks.forEach(callback => callback(payload));
+                window.dispatchEvent(new CustomEvent('neurorift:event', { detail: payload }));
+
+                if (payload.type === 'chat_response') {
+                    window.dispatchEvent(new CustomEvent('neurorift:chat_response', { detail: payload }));
+                }
+                if (payload.type === 'session_list') {
+                    window.dispatchEvent(new CustomEvent('neurorift:session_list', { detail: payload }));
+                }
+            } catch (error) {
+                console.error('Failed to parse websocket event', error);
+            }
+        };
+
+        this.ws.onerror = () => {
+            window.dispatchEvent(new CustomEvent('neurorift:connection', { detail: { connected: false } }));
+        };
+
+        this.ws.onclose = () => {
+            window.dispatchEvent(new CustomEvent('neurorift:connection', { detail: { connected: false } }));
+            this.ws = null;
+            if (!this.intentionallyClosed) {
+                this.reconnectTimer = window.setTimeout(() => this.connect(), 1200);
+            }
+        };
     }
 
-    on(event: string, handler: (payload: any) => void) {
-        this.listeners.set(event, handler);
+    close() {
+        this.intentionallyClosed = true;
+        if (this.reconnectTimer) {
+            window.clearTimeout(this.reconnectTimer);
+        }
+        this.ws?.close();
+        this.ws = null;
+    }
+
+    send(payload: WebSocketPayload) {
+        this.connect();
+
+        if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+            this.queue.push(payload);
+            return;
+        }
+
+        this.ws.send(JSON.stringify(payload));
+    }
+
+    subscribe(callback: EventCallback) {
+        this.callbacks.add(callback);
+        return () => {
+            this.callbacks.delete(callback);
+        };
     }
 }
 
-const sampleSessions = [
-    {
-        id: 'session-aurora',
-        name: 'Aurora Lattice Sweep',
-        mode: 'DEFENSIVE',
-        status: 'active',
-        updated_at: new Date(Date.now() - 1000 * 60 * 12).toISOString(),
-        findings: [],
-        artifacts: [],
-        metadata: { description: 'Continuous defense posture validation.' }
-    },
-    {
-        id: 'session-echo',
-        name: 'Echo Vector Audit',
-        mode: 'OFFENSIVE',
-        status: 'paused',
-        updated_at: new Date(Date.now() - 1000 * 60 * 120).toISOString(),
-        findings: [],
-        artifacts: [],
-        metadata: { description: 'Red-team simulation across agent mesh.' }
-    }
-];
-
-let instance: MockWebSocket | null = null;
+let instance: NeuroRiftSocket | null = null;
 
 export function getWebSocket() {
     if (!instance) {
-        instance = new MockWebSocket();
+        instance = new NeuroRiftSocket();
+        instance.connect();
     }
 
     return instance;

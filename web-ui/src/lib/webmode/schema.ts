@@ -6,16 +6,14 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Command Fabric',
         description: 'Chat-first control surface with intent routing.',
         slot: 'primary',
-        category: 'AI_CONTROL',
         policy: { requiresSession: true },
         tone: 'signal',
     },
     {
         id: 'activity',
-        title: 'Activity Stream',
+        title: 'Agent Activity Stream',
         description: 'Event-bus view of agent negotiation & critique.',
         slot: 'secondary',
-        category: 'SYSTEM',
         policy: { requiresSession: true },
     },
     {
@@ -23,7 +21,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Agent State Graph',
         description: 'Live topology of agent roles, states, and trust weights.',
         slot: 'primary',
-        category: 'AI_CONTROL',
         policy: { requiresSession: true, minTier: 'tablet' },
     },
     {
@@ -31,7 +28,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Intent → Action Flow',
         description: 'Policy-driven intent routing and gating map.',
         slot: 'primary',
-        category: 'AI_CONTROL',
         policy: { requiresSession: true },
     },
     {
@@ -39,7 +35,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Execution Pipeline',
         description: 'Deterministic execution path with enforcement checkpoints.',
         slot: 'secondary',
-        category: 'OPERATOR',
         policy: { requiresSession: true },
     },
     {
@@ -47,7 +42,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Memory Pulse',
         description: 'Short-term, episodic, preference, and decay indicators.',
         slot: 'tertiary',
-        category: 'AI_CONTROL',
         policy: { requiresSession: true, minTier: 'tablet' },
     },
     {
@@ -55,7 +49,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Permission Decisions',
         description: 'Approval lattice for sensitive actions.',
         slot: 'tertiary',
-        category: 'AI_CONTROL',
         policy: { requiresSession: true },
         tone: 'warning',
     },
@@ -64,7 +57,6 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Configuration Matrix',
         description: 'Policy-driven control matrix for OpenClaw + NeuroRift.',
         slot: 'dock',
-        category: 'SYSTEM',
         policy: { controlOnly: false },
     },
     {
@@ -72,52 +64,13 @@ export const panelDefinitions: PanelDefinition[] = [
         title: 'Online Mode',
         description: 'Secure tunnel exposure with explicit access control.',
         slot: 'dock',
-        category: 'AI_CONTROL',
         policy: { controlOnly: false },
-    },
-    {
-        id: 'manual-tool',
-        title: 'Manual Operator Plane',
-        description: 'Direct tool execution surface (No AI).',
-        slot: 'secondary',
-        category: 'OPERATOR',
-        policy: { controlOnly: true, requiresSession: true },
-        tone: 'warning',
-    },
-    {
-        id: 'session-manager',
-        title: 'Session Manager',
-        description: 'Lifecycle control for active/archived sessions.',
-        slot: 'dock',
-        category: 'OPERATOR',
-        policy: { controlOnly: false },
-        tone: 'neutral',
-    },
-    {
-        id: 'artifact-viewer',
-        title: 'Artifact Inspector',
-        description: 'Raw output and evidence explorer.',
-        slot: 'tertiary',
-        category: 'OPERATOR',
-        policy: { requiresSession: true },
-        tone: 'neutral',
-    },
-    {
-        id: 'system-health',
-        title: 'System Health',
-        description: 'Real-time system resource monitoring',
-        slot: 'dock',
-        category: 'SYSTEM',
-        policy: {
-            minTier: 'tablet',
-            mode: 'read',
-        },
     },
 ];
 
 export const layoutZones: Record<PanelSlot, PanelId[]> = {
     primary: ['command', 'agent-graph', 'intent-flow'],
-    secondary: ['activity', 'manual-tool', 'execution-timeline'],
-    tertiary: ['memory-pulse', 'permissions', 'artifact-viewer'],
-    dock: ['session-manager', 'config-matrix', 'online-mode', 'system-health'],
+    secondary: ['activity', 'execution-timeline'],
+    tertiary: ['memory-pulse', 'permissions'],
+    dock: ['config-matrix', 'online-mode'],
 };

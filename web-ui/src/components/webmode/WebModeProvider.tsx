@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext, useMemo } from 'react';
 import { useDeviceTier, useWebModeState } from '@/lib/webmode/state';
 import type { DeviceTier, WebModeConfig } from '@/lib/webmode/types';

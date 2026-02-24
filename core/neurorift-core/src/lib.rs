@@ -166,7 +166,7 @@ impl NeuroRiftCore {
     }
     
     /// Queue a task in the active session
-    pub fn queue_task(&self, tool_name: String, target: String, args: serde_json::Value) -> Result<()> {
+    pub fn queue_task(&self, tool_name: String, target: String, args: serde_json::Value) -> Result<Option<String>> {
         if let Some(session) = self.get_active_session() {
             let mut session = session.write();
             let args_map = args.as_object()
@@ -177,12 +177,134 @@ impl NeuroRiftCore {
             
             // Get the task that was just added
             if let Some(task) = session.task_queue.back() {
+                let task_id = task.id.clone();
                 self.ws_server.broadcast(WSEvent::TaskQueued {
                     task: task.clone(),
                 });
+                return Ok(Some(task_id));
             }
         }
         
+        Ok(None)
+    }
+
+    /// Cancel a queued/running task.
+    pub fn cancel_task(&self, task_id: &str) -> Result<()> {
+        if let Some(session) = self.get_active_session() {
+            let mut session = session.write();
+            if let Some(task) = session.task_queue.iter_mut().find(|task| task.id == task_id) {
+                task.status = crate::state::TaskStatus::Cancelled;
+                task.completed_at = Some(chrono::Utc::now());
+                session.touch();
+                self.ws_server.broadcast(WSEvent::TaskCancelled {
+                    task_id: task_id.to_string(),
+                    timestamp: chrono::Utc::now(),
+                });
+            }
+        }
+        Ok(())
+    }
+
+    /// Execute a task by ID through the Python bridge.
+    pub async fn execute_task(&self, task_id: &str) -> Result<()> {
+        let (session_id, tool_name, target, args, mode) = if let Some(session) = self.get_active_session() {
+            let mut session = session.write();
+            let session_id = session.id.clone();
+            let mode = session.mode;
+
+            if let Some(task) = session.task_queue.iter_mut().find(|task| task.id == task_id) {
+                task.status = crate::state::TaskStatus::Running;
+                task.started_at = Some(chrono::Utc::now());
+                let args = serde_json::Value::Object(task.args.clone().into_iter().collect());
+                let tool_name = task.tool_name.clone();
+                let target = task.target.clone();
+                self.ws_server.broadcast(WSEvent::TaskStarted {
+                    task_id: task.id.clone(),
+                    started_at: chrono::Utc::now(),
+                });
+                (session_id, tool_name, target, args, mode)
+            } else {
+                return Ok(());
+            }
+        } else {
+            return Ok(());
+        };
+
+        let command = serde_json::json!({
+            "type": "tool_execute",
+            "tool": tool_name,
+            "target": target,
+            "args": args,
+            "mode": format!("{:?}", mode).to_uppercase(),
+            "session_id": session_id,
+        });
+
+        let result = self.python_bridge.execute(command).await;
+
+        if let Some(session) = self.get_active_session() {
+            let mut session = session.write();
+            if let Some(task) = session.task_queue.iter_mut().find(|task| task.id == task_id) {
+                match result {
+                    Ok(data) => {
+                        let raw_output = data
+                            .get("raw_output")
+                            .and_then(|v| v.as_str())
+                            .unwrap_or_default()
+                            .to_string();
+                        let success = data
+                            .get("status")
+                            .and_then(|v| v.as_str())
+                            .map(|s| s.eq_ignore_ascii_case("completed"))
+                            .unwrap_or(true);
+
+                        task.status = if success {
+                            crate::state::TaskStatus::Completed
+                        } else {
+                            crate::state::TaskStatus::Failed
+                        };
+                        task.completed_at = Some(chrono::Utc::now());
+                        session.touch();
+
+                        self.ws_server.broadcast(WSEvent::TaskOutput {
+                            task_id: task_id.to_string(),
+                            chunk: raw_output.clone(),
+                        });
+
+                        if success {
+                            self.ws_server.broadcast(WSEvent::TaskCompleted {
+                                task_id: task_id.to_string(),
+                                result: crate::websocket::events::TaskResult {
+                                    success: true,
+                                    output: raw_output,
+                                    structured_data: data.get("structured_output").cloned(),
+                                    duration_ms: (data.get("duration_seconds").and_then(|v| v.as_f64()).unwrap_or(0.0) * 1000.0) as u64,
+                                },
+                            });
+                        } else {
+                            self.ws_server.broadcast(WSEvent::TaskFailed {
+                                task_id: task_id.to_string(),
+                                error: data.get("error").and_then(|v| v.as_str()).unwrap_or("tool execution failed").to_string(),
+                            });
+                        }
+                    }
+                    Err(error) => {
+                        task.status = crate::state::TaskStatus::Failed;
+                        task.completed_at = Some(chrono::Utc::now());
+                        session.touch();
+                        self.ws_server.broadcast(WSEvent::TaskFailed {
+                            task_id: task_id.to_string(),
+                            error: error.to_string(),
+                        });
+                    }
+                }
+            }
+        }
+
+        if let Some(session) = self.get_active_session() {
+            let session_id = session.read().id.clone();
+            let _ = self.save_session(&session_id);
+        }
+
         Ok(())
     }
     
@@ -207,14 +329,29 @@ impl NeuroRiftCore {
     
     /// Handle chat message
     pub async fn chat(&self, message: String, model: Option<String>) -> Result<()> {
+        let session_id = self
+            .get_active_session()
+            .map(|s| s.read().id.clone())
+            .unwrap_or_else(|| "default".to_string());
+
         // Forward to Python bridge
         let cmd = serde_json::json!({
             "type": "ai_generate",
             "prompt": message,
-            "model": model
+            "model": model,
+            "session_id": session_id,
         });
         
-        let data = self.python_bridge.execute(cmd).await?;
+        let data = match self.python_bridge.execute(cmd).await {
+            Ok(data) => data,
+            Err(error) => {
+                self.ws_server.broadcast(WSEvent::Error {
+                    message: "AI generation failed".to_string(),
+                    details: Some(error.to_string()),
+                });
+                return Ok(());
+            }
+        };
         
         if let Some(text) = data.get("response").and_then(|v| v.as_str()) {
             let model = data.get("model").and_then(|v| v.as_str()).unwrap_or("unknown").to_string();
@@ -226,6 +363,21 @@ impl NeuroRiftCore {
             });
         }
         
+        Ok(())
+    }
+
+    pub async fn get_ollama_status(&self) -> Result<()> {
+        let data = self.python_bridge.execute(serde_json::json!({
+            "type": "ai_status"
+        })).await?;
+
+        self.ws_server.broadcast(WSEvent::OllamaStatus {
+            available: data.get("available").and_then(|v| v.as_bool()).unwrap_or(false),
+            model: data.get("model").and_then(|v| v.as_str()).map(|s| s.to_string()),
+            model_count: data.get("model_count").and_then(|v| v.as_u64()).unwrap_or(0) as usize,
+            needs_pull: data.get("needs_pull").and_then(|v| v.as_bool()).unwrap_or(false),
+        });
+
         Ok(())
     }
 
