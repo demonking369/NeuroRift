@@ -135,7 +135,9 @@ class NeuroRiftOpenClawAdapter:
         rpc_method = self._map_method(tool_call)
         command_preview = json.dumps(tool_call, ensure_ascii=False)
 
-        approval = await self.approval_forwarder.evaluate(command_preview, self.session_id)
+        approval = await self.approval_forwarder.evaluate(
+            command_preview, self.session_id
+        )
         if not approval.approved:
             return {
                 "type": "rpc.reject",
@@ -155,7 +157,12 @@ class NeuroRiftOpenClawAdapter:
             "session": {
                 "id": self.session_id,
                 "mode": "isolated",
-                "pipeline": ["planner", "tool-selector/manus", "operator", "analyst/cursor"],
+                "pipeline": [
+                    "planner",
+                    "tool-selector/manus",
+                    "operator",
+                    "analyst/cursor",
+                ],
             },
             "method": rpc_method,
             "params": {
@@ -171,7 +178,9 @@ class NeuroRiftOpenClawAdapter:
     async def run(self) -> None:
         os.environ.update(normalize_env())
 
-        async with websockets.connect(GATEWAY_WS_URL, ping_interval=20, ping_timeout=20) as ws:
+        async with websockets.connect(
+            GATEWAY_WS_URL, ping_interval=20, ping_timeout=20
+        ) as ws:
             await ws.send(
                 json.dumps(
                     {
