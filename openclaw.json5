@@ -1,7 +1,13 @@
 {
   // NeuroRift + OpenClaw Gateway unified runtime configuration
-  version: "1.0",
+  version: "1.1",
   workspace: "/workspace/NeuroRift",
+
+  systemPrompt: {
+    visible: true,
+    name: "neurorift-openclaw-master-integration",
+    text: "Architecture: OpenClaw gateway with NeuroRift pipeline. Execution pipeline: Plan -> Select -> Execute -> Analyze. Operator must use terminal-only execution inside docker sandbox. High-risk operations require approval forwarding with timeout auto-deny. HEARTBEAT discipline: emit HEARTBEAT_OK when no action needed, otherwise generate structured task. Use session-memory hooks + SOUL.md persona. Redact sensitive errors and secrets. Respect channel routing, mention policy, and group policy. Do not bypass sandbox or simulate real-mode outputs.",
+  },
 
   gateway: {
     listener: {
@@ -9,10 +15,15 @@
       host: "0.0.0.0",
       port: 18789,
       path: "/gateway",
+      multiplexing: true,
     },
     heartbeatMs: 10000,
     yieldMs: 1500,
     pushNotifications: true,
+    protocol: {
+      frameTypes: ["rpc.request", "rpc.response", "event.signal", "lifecycle.update"],
+      rejectUnknownFrames: true,
+    },
   },
 
   agents: [
@@ -22,6 +33,10 @@
       enabled: true,
       entrypoint: "python3 integrations/openclaw/openclaw_gateway_adapter.py",
       sessionMode: "isolated",
+      sessionIsolation: {
+        collapseDirectMessagesByUser: true,
+        isolateGroupSessions: true,
+      },
       soul: {
         file: "SOUL.md",
         memoryHooks: {
@@ -39,12 +54,11 @@
       ],
       channels: {
         inbound: ["discord", "telegram", "whatsapp", "signal"],
-        outbound: ["discord", "telegram"],
+        outbound: ["discord", "telegram", "whatsapp", "signal"],
       },
     },
   ],
 
-  // 1) Execution Bridge
   executionBridge: {
     source: {
       service: "neurorift-fastapi",
@@ -64,7 +78,6 @@
     },
   },
 
-  // 2) Task Pipeline (Planner -> Tool Selector/Manus -> Operator -> Analyst/Cursor)
   taskPipeline: {
     profile: "neurorift-recon-default",
     openclawSessionType: "isolated",
@@ -76,11 +89,27 @@
     ],
   },
 
-  // 3) Security & Sandboxing
+  operatorPolicy: {
+    terminalOnly: true,
+    directHttpBlocked: true,
+    requireSandbox: true,
+    browserSandboxImage: "openclaw-sandbox-browser",
+    logExecCalls: true,
+    structuredOutputForAnalyst: true,
+  },
+
   sandbox: {
     runtime: "docker",
     image: "openclaw-sandbox:bookworm-slim",
+    browserImage: "openclaw-sandbox-browser",
+    defaultWorkdir: "/workspace",
     enforceForTools: ["nmap", "subfinder", "httpx"],
+    toolAllow: ["nmap", "subfinder", "httpx"],
+    toolDeny: ["rm", "mkfs", "shutdown", "reboot", "poweroff"],
+    idlePruning: {
+      enabled: true,
+      pruneAfterSeconds: 900,
+    },
     defaultNetworkPolicy: "egress-restricted",
     mountPolicy: {
       workspaceReadWrite: true,
@@ -88,7 +117,6 @@
     },
   },
 
-  // 4) Execution Approval Forwarder
   approvalForwarder: {
     enabled: true,
     defaultAction: "deny",
@@ -101,6 +129,7 @@
       "rm -rf",
       "curl .*\\|\\s*sh",
     ],
+    forwardToControllerChannelOnly: true,
     forwardTo: {
       discord: {
         enabled: true,
@@ -114,53 +143,74 @@
     },
   },
 
-  // 5) Channel Routing
   channelRouting: {
+    alwaysReplyToOriginChannel: true,
+    enforceMentionPolicy: true,
+    enforceGroupPolicy: true,
     bindings: [
       {
         channel: "discord",
         route: "neurorift-primary",
+        mentionPolicy: "required",
+        groupPolicy: "isolated-thread",
         triggerRegex: "(?i)(recon|scan|attack surface|osint)",
       },
       {
         channel: "telegram",
         route: "neurorift-primary",
+        mentionPolicy: "optional",
+        groupPolicy: "isolated-chat",
         triggerRegex: "(?i)(recon|scan|asset inventory)",
       },
       {
         channel: "whatsapp",
         route: "neurorift-primary",
+        mentionPolicy: "optional",
+        groupPolicy: "isolated-group",
         triggerRegex: "(?i)(security check|domain review)",
       },
       {
         channel: "signal",
         route: "neurorift-primary",
+        mentionPolicy: "optional",
+        groupPolicy: "isolated-group",
         triggerRegex: "(?i)(recurring scan|monitoring)",
       },
     ],
   },
 
-  // 6) Asynchronous orchestration via CronService
   scheduling: {
     cronService: {
       enabled: true,
+      guardSameSecondReschedule: true,
+      retryFromNextWholeSecond: true,
       jobs: [
         {
           id: "weekly-attack-surface-recon",
           cron: "0 3 * * 1",
           timezone: "UTC",
+          mode: "isolated",
           computeNextRunAtMs: true,
           payload: {
             workflow: "neurorift.recon",
             targetSource: "session.memory.targets",
-            notifyOnCompletion: true,
+            notifyOnSeverityThreshold: "medium",
           },
         },
       ],
+      relativeIntervals: [{ id: "heartbeat-cycle", every: "15m", mode: "isolated" }],
+      absoluteTimes: [{ id: "daily-summary", at: "2026-01-01T00:00:00Z", mode: "isolated" }],
     },
   },
 
-  // 7) Context & Memory
+  heartbeat: {
+    file: "HEARTBEAT.md",
+    intervalSeconds: 60,
+    noActionSignal: "HEARTBEAT_OK",
+    suppressNoiseWhenHealthy: true,
+    preventSpinLoop: true,
+  },
+
   memory: {
     session: {
       provider: "openclaw-session-memory",
@@ -174,9 +224,14 @@
     },
   },
 
-  // 8) Environment normalization
   environment: {
     normalizeEnv: true,
+    failFastRequired: [
+      "OPENCLAW_CONFIG_PATH",
+      "OPENCLAW_STATE_DIR",
+      "OLLAMA_HOST",
+      "NEURORIFT_BRIDGE_URL",
+    ],
     providers: {
       anthropic: ["ANTHROPIC_API_KEY", "CLAUDE_API_KEY"],
       openai: ["OPENAI_API_KEY"],
@@ -188,10 +243,40 @@
     logs: {
       level: "info",
       redactSecrets: true,
+      followCommand: "openclaw logs.follow",
+      emitEvents: [
+        "model.usage",
+        "webhook.processed",
+        "exec.finished",
+        "cron.triggered",
+        "approval.requested",
+        "approval.result",
+        "evolution.applied",
+      ],
     },
     metrics: {
       enabled: true,
       namespace: "neurorift_openclaw",
+      includeLatency: true,
+      includeTokenUsage: true,
+      includeCostTracking: true,
+    },
+  },
+
+  evolution: {
+    requireApprovalForExecutionLogic: true,
+    promptRefinementWithoutApproval: true,
+    applyInSandboxBranch: true,
+    rollbackOnRegression: true,
+    logEveryChange: true,
+  },
+
+  runtime: {
+    modeIsolation: {
+      prototypeAdapter: "PrototypeAdapter",
+      realAdapter: "RealAdapter",
+      prototypeNeverCallsBackend: true,
+      realNeverSimulates: true,
     },
   },
 }
