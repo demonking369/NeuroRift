@@ -59,6 +59,17 @@ TOOL_METHOD_MAP = {
     "workflow_state": "process",
 }
 
+TOOL_METHOD_MAP = {
+    "run_terminal_cmd": "exec",
+    "terminal": "exec",
+    "read_file": "read",
+    "file_read": "read",
+    "write_file": "write",
+    "file_write": "write",
+    "process_state": "process",
+    "workflow_state": "process",
+}
+
 REQUIRED_ENV = [
     "OPENCLAW_CONFIG_PATH",
     "OPENCLAW_STATE_DIR",
@@ -228,57 +239,14 @@ class NeuroRiftOpenClawAdapter:
 
     @staticmethod
     def _map_method(neurorift_tool_call: Dict[str, Any]) -> str:
-        call_type = str(neurorift_tool_call.get("type", "")).strip()
-        return TOOL_METHOD_MAP.get(call_type, "process")
-
-    @staticmethod
-    def _extract_command_preview(tool_call: Dict[str, Any], rpc_method: str) -> str:
-        if rpc_method != "exec":
-            return ""
-
-        for key in ("command", "cmd", "shell", "input"):
-            value = tool_call.get(key)
-            if isinstance(value, str) and value.strip():
-                return value.strip()
-
-        payload = tool_call.get("payload")
-        if isinstance(payload, dict):
-            for key in ("command", "cmd"):
-                value = payload.get(key)
-                if isinstance(value, str) and value.strip():
-                    return value.strip()
-
-        return json.dumps(tool_call, ensure_ascii=False)
-
-    @staticmethod
-    def _resolve_session_context(event: Dict[str, Any]) -> Dict[str, Any]:
-        session = event.get("session") or {}
-        channel = (event.get("channel") or session.get("channel") or "unknown").lower()
-        user_id = event.get("userId") or session.get("userId") or "anonymous"
-        group_id = event.get("groupId") or session.get("groupId")
-        mention_policy = event.get("mentionPolicy") or "required"
-
-        if group_id:
-            session_key = f"{channel}:group:{group_id}"
-        else:
-            session_key = f"{channel}:dm:{user_id}"
-
-        return {
-            "channel": channel,
-            "userId": user_id,
-            "groupId": group_id,
-            "sessionKey": session_key,
-            "mentionPolicy": mention_policy,
-        }
-
-    def _validate_exec_policy(self, command: str) -> None:
-        base_cmd = command.strip().split()[0] if command.strip() else ""
-        if not base_cmd:
-            raise ValueError("Empty exec command")
-        if base_cmd in DEFAULT_TOOL_DENY:
-            raise PermissionError(f"Tool denied by policy: {base_cmd}")
-        if base_cmd not in DEFAULT_TOOL_ALLOW:
-            raise PermissionError(f"Tool not in allow-list: {base_cmd}")
+        call_type = neurorift_tool_call.get("type")
+        if call_type == "run_terminal_cmd":
+            return "exec"
+        if call_type == "read_file":
+            return "read"
+        if call_type == "write_file":
+            return "write"
+        return "process"
 
     async def _call_neurorift(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         async with httpx.AsyncClient(timeout=self.request_timeout) as client:
@@ -305,32 +273,21 @@ class NeuroRiftOpenClawAdapter:
     async def _build_rpc_frame(self, event: Dict[str, Any]) -> Dict[str, Any]:
         tool_call = event.get("payload", {})
         rpc_method = self._map_method(tool_call)
-        command_preview = self._extract_command_preview(tool_call, rpc_method)
-        correlation_id = event.get("id") or str(uuid.uuid4())
-        started = time.time()
-        session_ctx = self._resolve_session_context(event)
+        command_preview = json.dumps(tool_call, ensure_ascii=False)
 
-        try:
-            if rpc_method == "exec":
-                self._validate_exec_policy(command_preview)
-                approval = await self.approval_forwarder.evaluate(
-                    command_preview,
-                    session_ctx["sessionKey"],
-                    str(correlation_id),
-                )
-                if not approval.approved:
-                    return {
-                        "type": "rpc.response",
-                        "id": correlation_id,
-                        "session": {
-                            "id": session_ctx["sessionKey"],
-                            "mode": "isolated",
-                        },
-                        "error": {
-                            "code": "approval_required",
-                            "message": approval.reason,
-                        },
-                    }
+        approval = await self.approval_forwarder.evaluate(
+            command_preview, self.session_id
+        )
+        if not approval.approved:
+            return {
+                "type": "rpc.reject",
+                "id": str(uuid.uuid4()),
+                "session": {"id": self.session_id, "mode": "isolated"},
+                "error": {
+                    "code": "approval_required",
+                    "message": approval.reason,
+                },
+            }
 
             bridged = await self._call_neurorift(tool_call)
         except PermissionError as exc:
