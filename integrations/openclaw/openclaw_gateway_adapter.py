@@ -99,7 +99,9 @@ def normalize_env() -> Dict[str, str]:
     if malformed:
         raise RuntimeError(f"Malformed provider keys: {', '.join(malformed)}")
 
-    out["OPENCLAW_REDACT_LOGS"] = "1" if _truthy(out.get("OPENCLAW_REDACT_LOGS", "1")) else "0"
+    out["OPENCLAW_REDACT_LOGS"] = (
+        "1" if _truthy(out.get("OPENCLAW_REDACT_LOGS", "1")) else "0"
+    )
     return out
 
 
@@ -117,7 +119,12 @@ class StructuredLogger:
         if not self.redact:
             return value
         if isinstance(value, str):
-            value = re.sub(r"(api[_-]?key|token|secret)=([^\s]+)", r"\1=[REDACTED]", value, flags=re.I)
+            value = re.sub(
+                r"(api[_-]?key|token|secret)=([^\s]+)",
+                r"\1=[REDACTED]",
+                value,
+                flags=re.I,
+            )
             value = re.sub(r"Bearer\s+[A-Za-z0-9._-]+", "Bearer [REDACTED]", value)
             return value
         if isinstance(value, dict):
@@ -151,7 +158,9 @@ class ExecutionApprovalForwarder:
     def _is_high_risk(self, command: str) -> bool:
         return any(p.search(command) for p in HIGH_RISK_PATTERNS)
 
-    async def evaluate(self, command: str, session_id: str, correlation_id: str) -> ApprovalResult:
+    async def evaluate(
+        self, command: str, session_id: str, correlation_id: str
+    ) -> ApprovalResult:
         if not self._is_high_risk(command):
             return ApprovalResult(approved=True, reason="low-risk command")
 
@@ -162,7 +171,9 @@ class ExecutionApprovalForwarder:
             f"command={command}\n"
             "Reply with APPROVE or DENY in your control channel."
         )
-        self.logger.emit("approval.requested", session_id=session_id, request_id=correlation_id)
+        self.logger.emit(
+            "approval.requested", session_id=session_id, request_id=correlation_id
+        )
         await asyncio.gather(
             self._notify_discord(message),
             self._notify_telegram(message),
@@ -171,7 +182,9 @@ class ExecutionApprovalForwarder:
 
         # Human callback hook should flip result in external controller.
         await asyncio.sleep(0)
-        result = ApprovalResult(approved=False, reason="approval pending/timeout -> deny")
+        result = ApprovalResult(
+            approved=False, reason="approval pending/timeout -> deny"
+        )
         self.logger.emit(
             "approval.result",
             session_id=session_id,
@@ -204,7 +217,9 @@ class NeuroRiftOpenClawAdapter:
         self.session_id = f"nr-{uuid.uuid4().hex[:12]}"
         self.request_timeout = 120
         self.bridge_url = os.getenv("NEURORIFT_BRIDGE_URL", "http://127.0.0.1:8766")
-        self.gateway_ws_url = os.getenv("OPENCLAW_WS_URL", "ws://127.0.0.1:18789/gateway")
+        self.gateway_ws_url = os.getenv(
+            "OPENCLAW_WS_URL", "ws://127.0.0.1:18789/gateway"
+        )
         self.yield_ms = int(os.getenv("OPENCLAW_YIELD_MS", "1500"))
         self.heartbeat_interval = int(os.getenv("OPENCLAW_HEARTBEAT_INTERVAL_S", "60"))
         self.approval_forwarder = ExecutionApprovalForwarder(self.logger)
@@ -271,7 +286,9 @@ class NeuroRiftOpenClawAdapter:
             response.raise_for_status()
             return response.json()
 
-    async def _emit_heartbeat_if_due(self, ws: websockets.WebSocketClientProtocol) -> None:
+    async def _emit_heartbeat_if_due(
+        self, ws: websockets.WebSocketClientProtocol
+    ) -> None:
         now = time.time()
         if now - self._last_heartbeat < self.heartbeat_interval:
             return
@@ -367,7 +384,9 @@ class NeuroRiftOpenClawAdapter:
         signal.signal(signal.SIGTERM, stop_handler)
         signal.signal(signal.SIGINT, stop_handler)
 
-        async with websockets.connect(self.gateway_ws_url, ping_interval=20, ping_timeout=20) as ws:
+        async with websockets.connect(
+            self.gateway_ws_url, ping_interval=20, ping_timeout=20
+        ) as ws:
             await ws.send(
                 json.dumps(
                     {
@@ -395,9 +414,17 @@ class NeuroRiftOpenClawAdapter:
                         frame = await self._build_rpc_frame(event)
                         await ws.send(json.dumps(frame))
                     elif event_type == "event.signal":
-                        self.logger.emit("webhook.processed", signal=event.get("name"), channel=event.get("channel"))
+                        self.logger.emit(
+                            "webhook.processed",
+                            signal=event.get("name"),
+                            channel=event.get("channel"),
+                        )
                     elif event_type == "lifecycle.update":
-                        self.logger.emit("lifecycle.update", state=event.get("state"), session=event.get("session"))
+                        self.logger.emit(
+                            "lifecycle.update",
+                            state=event.get("state"),
+                            session=event.get("session"),
+                        )
                     else:
                         self.logger.emit("gateway.unknown_frame", frame_type=event_type)
             finally:
