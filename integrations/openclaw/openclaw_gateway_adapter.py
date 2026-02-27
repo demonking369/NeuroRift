@@ -54,6 +54,17 @@ HIGH_RISK_PATTERNS = [
     re.compile(r"curl\s+.+\|\s*sh"),
 ]
 
+TOOL_METHOD_MAP = {
+    "run_terminal_cmd": "exec",
+    "terminal": "exec",
+    "read_file": "read",
+    "file_read": "read",
+    "write_file": "write",
+    "file_write": "write",
+    "process_state": "process",
+    "workflow_state": "process",
+}
+
 
 @dataclass
 class ApprovalResult:
@@ -116,14 +127,27 @@ class NeuroRiftOpenClawAdapter:
 
     @staticmethod
     def _map_method(neurorift_tool_call: Dict[str, Any]) -> str:
-        call_type = neurorift_tool_call.get("type")
-        if call_type == "run_terminal_cmd":
-            return "exec"
-        if call_type == "read_file":
-            return "read"
-        if call_type == "write_file":
-            return "write"
-        return "process"
+        call_type = neurorift_tool_call.get("type", "")
+        return TOOL_METHOD_MAP.get(call_type, "process")
+
+    @staticmethod
+    def _extract_command_preview(tool_call: Dict[str, Any], rpc_method: str) -> str:
+        if rpc_method != "exec":
+            return ""
+
+        for key in ("command", "cmd", "shell", "input"):
+            value = tool_call.get(key)
+            if isinstance(value, str) and value.strip():
+                return value
+
+        payload = tool_call.get("payload")
+        if isinstance(payload, dict):
+            for key in ("command", "cmd"):
+                value = payload.get(key)
+                if isinstance(value, str) and value.strip():
+                    return value
+
+        return json.dumps(tool_call, ensure_ascii=False)
 
     async def _call_neurorift(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         async with httpx.AsyncClient(timeout=self.request_timeout) as client:
@@ -133,21 +157,22 @@ class NeuroRiftOpenClawAdapter:
 
     async def _build_rpc_frame(self, tool_call: Dict[str, Any]) -> Dict[str, Any]:
         rpc_method = self._map_method(tool_call)
-        command_preview = json.dumps(tool_call, ensure_ascii=False)
+        command_preview = self._extract_command_preview(tool_call, rpc_method)
 
-        approval = await self.approval_forwarder.evaluate(
-            command_preview, self.session_id
-        )
-        if not approval.approved:
-            return {
-                "type": "rpc.reject",
-                "id": str(uuid.uuid4()),
-                "session": {"id": self.session_id, "mode": "isolated"},
-                "error": {
-                    "code": "approval_required",
-                    "message": approval.reason,
-                },
-            }
+        if rpc_method == "exec":
+            approval = await self.approval_forwarder.evaluate(
+                command_preview, self.session_id
+            )
+            if not approval.approved:
+                return {
+                    "type": "rpc.reject",
+                    "id": str(uuid.uuid4()),
+                    "session": {"id": self.session_id, "mode": "isolated"},
+                    "error": {
+                        "code": "approval_required",
+                        "message": approval.reason,
+                    },
+                }
 
         bridged = await self._call_neurorift(tool_call)
 
