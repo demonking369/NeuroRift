@@ -1,0 +1,197 @@
+{
+  // NeuroRift + OpenClaw Gateway unified runtime configuration
+  version: "1.0",
+  workspace: "/workspace/NeuroRift",
+
+  gateway: {
+    listener: {
+      protocol: "ws",
+      host: "0.0.0.0",
+      port: 18789,
+      path: "/gateway",
+    },
+    heartbeatMs: 10000,
+    yieldMs: 1500,
+    pushNotifications: true,
+  },
+
+  agents: [
+    {
+      id: "neurorift-primary",
+      name: "NeuroRift Security Architect",
+      enabled: true,
+      entrypoint: "python3 integrations/openclaw/openclaw_gateway_adapter.py",
+      sessionMode: "isolated",
+      soul: {
+        file: "SOUL.md",
+        memoryHooks: {
+          enabled: true,
+          namespace: "neurorift-session-memory",
+          hydrateOnStart: true,
+          persistOnClose: true,
+        },
+      },
+      skills: [
+        "reconnaissance",
+        "attack-surface-mapping",
+        "vulnerability-correlation",
+        "human-in-the-loop-approval",
+      ],
+      channels: {
+        inbound: ["discord", "telegram", "whatsapp", "signal"],
+        outbound: ["discord", "telegram"],
+      },
+    },
+  ],
+
+  // 1) Execution Bridge
+  executionBridge: {
+    source: {
+      service: "neurorift-fastapi",
+      baseUrl: "http://127.0.0.1:8766",
+      executePath: "/execute",
+      healthPath: "/health",
+    },
+    target: {
+      service: "openclaw-gateway",
+      websocketUrl: "ws://127.0.0.1:18789/gateway",
+      rpcMethods: {
+        run_terminal_cmd: "exec",
+        read_file: "read",
+        write_file: "write",
+        process_state: "process",
+      },
+    },
+  },
+
+  // 2) Task Pipeline (Planner -> Tool Selector/Manus -> Operator -> Analyst/Cursor)
+  taskPipeline: {
+    profile: "neurorift-recon-default",
+    openclawSessionType: "isolated",
+    stages: [
+      { id: "planner", role: "NRPlanner", mode: "strategic" },
+      { id: "tool-selector", role: "Manus", mode: "selection" },
+      { id: "operator", role: "NROperator", mode: "execution" },
+      { id: "analyst", role: "NRAnalyst/Cursor", mode: "analysis" },
+    ],
+  },
+
+  // 3) Security & Sandboxing
+  sandbox: {
+    runtime: "docker",
+    image: "openclaw-sandbox:bookworm-slim",
+    enforceForTools: ["nmap", "subfinder", "httpx"],
+    defaultNetworkPolicy: "egress-restricted",
+    mountPolicy: {
+      workspaceReadWrite: true,
+      denyHostRoot: true,
+    },
+  },
+
+  // 4) Execution Approval Forwarder
+  approvalForwarder: {
+    enabled: true,
+    defaultAction: "deny",
+    timeoutSeconds: 300,
+    highRiskPatterns: [
+      "nmap .* -p-",
+      "nmap .* --script",
+      "sqlmap",
+      "msfconsole",
+      "rm -rf",
+      "curl .*\\|\\s*sh",
+    ],
+    forwardTo: {
+      discord: {
+        enabled: true,
+        webhookEnv: "OPENCLAW_DISCORD_WEBHOOK_URL",
+      },
+      telegram: {
+        enabled: true,
+        botTokenEnv: "OPENCLAW_TELEGRAM_BOT_TOKEN",
+        chatIdEnv: "OPENCLAW_TELEGRAM_CHAT_ID",
+      },
+    },
+  },
+
+  // 5) Channel Routing
+  channelRouting: {
+    bindings: [
+      {
+        channel: "discord",
+        route: "neurorift-primary",
+        triggerRegex: "(?i)(recon|scan|attack surface|osint)",
+      },
+      {
+        channel: "telegram",
+        route: "neurorift-primary",
+        triggerRegex: "(?i)(recon|scan|asset inventory)",
+      },
+      {
+        channel: "whatsapp",
+        route: "neurorift-primary",
+        triggerRegex: "(?i)(security check|domain review)",
+      },
+      {
+        channel: "signal",
+        route: "neurorift-primary",
+        triggerRegex: "(?i)(recurring scan|monitoring)",
+      },
+    ],
+  },
+
+  // 6) Asynchronous orchestration via CronService
+  scheduling: {
+    cronService: {
+      enabled: true,
+      jobs: [
+        {
+          id: "weekly-attack-surface-recon",
+          cron: "0 3 * * 1",
+          timezone: "UTC",
+          computeNextRunAtMs: true,
+          payload: {
+            workflow: "neurorift.recon",
+            targetSource: "session.memory.targets",
+            notifyOnCompletion: true,
+          },
+        },
+      ],
+    },
+  },
+
+  // 7) Context & Memory
+  memory: {
+    session: {
+      provider: "openclaw-session-memory",
+      keyPrefix: "neurorift",
+      persistAttackSurface: true,
+      persistToolOutputs: true,
+    },
+    persona: {
+      soulFile: "SOUL.md",
+      heartbeatFile: "HEARTBEAT.md",
+    },
+  },
+
+  // 8) Environment normalization
+  environment: {
+    normalizeEnv: true,
+    providers: {
+      anthropic: ["ANTHROPIC_API_KEY", "CLAUDE_API_KEY"],
+      openai: ["OPENAI_API_KEY"],
+      zai: ["ZAI_API_KEY", "Z_AI_API_KEY"],
+    },
+  },
+
+  observability: {
+    logs: {
+      level: "info",
+      redactSecrets: true,
+    },
+    metrics: {
+      enabled: true,
+      namespace: "neurorift_openclaw",
+    },
+  },
+}
