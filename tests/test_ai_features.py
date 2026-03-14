@@ -147,14 +147,14 @@ class TestAIFeatures:
         html_path = Path(report_paths["html"])
         assert html_path.exists()
         html_content = html_path.read_text()
-        assert "NeuroRift Report" in html_content
+        assert "VulnForge Report" in html_content
         assert "example.com" in html_content
         
         # Verify Markdown report
         md_path = Path(report_paths["markdown"])
         assert md_path.exists()
         md_content = md_path.read_text()
-        assert "# NeuroRift Report" in md_content
+        assert "# VulnForge Report" in md_content
         assert "example.com" in md_content
         
         # Verify JSON report

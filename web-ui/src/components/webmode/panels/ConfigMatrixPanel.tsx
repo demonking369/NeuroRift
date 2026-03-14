@@ -11,7 +11,7 @@ function getValue(source: any, path: string) {
 }
 
 export function ConfigMatrixPanel() {
-    const { config, updateConfig } = useWebModeContext();
+    const { config, updateConfig, availableModels } = useWebModeContext();
     const sections = useMemo(() => configSchema, []);
     const [activeSectionId, setActiveSectionId] = useState(sections[0].id);
     const [showCompiler, setShowCompiler] = useState(false);
@@ -155,7 +155,7 @@ export function ConfigMatrixPanel() {
                                                 onChange={event => updateConfig(field.path as string, event.target.value)}
                                                 className="w-full rounded-lg border border-neuro-border/60 bg-neuro-surface/70 px-3 py-2 text-xs text-neuro-text-primary focus:border-cyan-400/50 focus:outline-none transition-colors appearance-none"
                                             >
-                                                {field.options?.map(option => (
+                                                {(field.path === 'aiModel' ? availableModels : field.options)?.map(option => (
                                                     <option key={option.value} value={option.value}>
                                                         {option.label}
                                                     </option>

@@ -51,6 +51,15 @@ export const configSchema: ConfigSection[] = [
                 max: 1,
                 step: 0.02,
             },
+            {
+                path: 'aiModel',
+                label: 'AI Model Selection',
+                description: 'The locally running Ollama model used for AI orchestration.',
+                type: 'select',
+                options: [
+                    { label: 'Loading...', value: '' } // Options will be populated dynamically in provider/panel
+                ],
+            },
         ],
     },
     {

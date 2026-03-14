@@ -79,4 +79,5 @@ export interface WebModeConfig {
         enabled: boolean;
         access: 'read' | 'control';
     };
+    aiModel: string;
 }

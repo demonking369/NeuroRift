@@ -17,7 +17,7 @@ interface CommandMessage {
 const COMMAND_PRESETS = ['continue', 'pause', 'resume', 'map intent flow', 'audit policies'];
 
 export function CommandPanel() {
-    const { controlMode, adapter } = useWebModeContext();
+    const { controlMode, adapter, config } = useWebModeContext();
     const [input, setInput] = useState('');
     const [isDrafting, setIsDrafting] = useState(false);
     const [isStreaming, setIsStreaming] = useState(false);
@@ -82,7 +82,7 @@ export function CommandPanel() {
 
         try {
             let fullText = '';
-            for await (const chunk of adapter.sendAIMessage(currentInput)) {
+            for await (const chunk of adapter.sendAIMessage(currentInput, config.aiModel)) {
                 fullText += chunk;
                 setMessages(prev => prev.map(m =>
                     m.id === assistantMsgId

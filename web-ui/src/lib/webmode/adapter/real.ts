@@ -61,7 +61,7 @@ export class RealAdapter implements WebModeAdapter {
             await this.getSystemMetrics();
             return {
                 status: 'healthy',
-                ollama: { status: 'connected', model: 'llama3' }
+                ollama: { status: 'connected', model: 'llama3.2' }
             };
         } catch (e) {
             return {
@@ -71,7 +71,7 @@ export class RealAdapter implements WebModeAdapter {
         }
     }
 
-    async *sendAIMessage(prompt: string): AsyncGenerator<string, void, unknown> {
+    async *sendAIMessage(prompt: string, model?: string): AsyncGenerator<string, void, unknown> {
         if (this.abortController) {
             this.abortController.abort();
         }
@@ -81,7 +81,7 @@ export class RealAdapter implements WebModeAdapter {
             const response = await fetch('/api/ai/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt }),
+                body: JSON.stringify({ prompt, model }),
                 signal: this.abortController.signal
             });
 

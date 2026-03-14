@@ -127,7 +127,7 @@ export class PrototypeAdapter implements WebModeAdapter {
 
     private isAICancelled = false;
 
-    async *sendAIMessage(prompt: string): AsyncGenerator<string, void, unknown> {
+    async *sendAIMessage(prompt: string, model?: string): AsyncGenerator<string, void, unknown> {
         this.isAICancelled = false;
 
         // Simulating "thinking" delay

@@ -73,6 +73,7 @@ const defaultConfig: WebModeConfig = {
         enabled: false,
         access: 'read',
     },
+    aiModel: 'qwen2.5-coder:3b'
 };
 
 export function useDeviceTier(): DeviceTier {

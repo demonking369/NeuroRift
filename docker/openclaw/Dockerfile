@@ -3,7 +3,7 @@
 # copies only the binary into a minimal Debian runtime in stage 2.
 
 # ─────────── Stage 1: Build ───────────
-FROM rust:1.75-slim AS builder
+FROM rust:1.83-slim AS builder
 
 # System deps for Rust compilation (OpenSSL, pkg-config)
 RUN apt-get update && apt-get install -y --no-install-recommends \
