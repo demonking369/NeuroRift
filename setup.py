@@ -3,7 +3,18 @@ from setuptools import setup, find_packages
 setup(
     name="neurorift",
     version="1.0.0",
-    packages=find_packages(include=['modules', 'modules.*', 'utils', 'utils.*', 'ai_wrapper', 'ai_wrapper.*', 'neurorift', 'neurorift.*']),
+    packages=find_packages(
+        include=[
+            "modules",
+            "modules.*",
+            "utils",
+            "utils.*",
+            "ai_wrapper",
+            "ai_wrapper.*",
+            "neurorift",
+            "neurorift.*",
+        ]
+    ),
     py_modules=[
         # Top-level modules used by the CLI
         "neurorift_main",
@@ -16,9 +27,9 @@ setup(
         "neurorift_cli",
     ],
     package_data={
-        'modules': ['**/*.json', '**/*.md'],
-        'prompts': ['**/*.md', '**/*.txt'],
-        'configs': ['*.json'],
+        "modules": ["**/*.json", "**/*.md"],
+        "prompts": ["**/*.md", "**/*.txt"],
+        "configs": ["*.json"],
     },
     include_package_data=True,
     install_requires=[

@@ -1,4 +1,5 @@
 """Ollama model capability verification for autonomous NeuroRift agent mode."""
+
 from __future__ import annotations
 
 import json
@@ -44,7 +45,11 @@ def verify_model_capabilities(model_name: str) -> dict[str, Any]:
     except FileNotFoundError:
         return {"ok": False, "error": "ollama_missing", "agent_ready": False}
     except Exception as exc:  # defensive for unstable environments
-        return {"ok": False, "error": f"ollama_exec_error:{type(exc).__name__}", "agent_ready": False}
+        return {
+            "ok": False,
+            "error": f"ollama_exec_error:{type(exc).__name__}",
+            "agent_ready": False,
+        }
 
     if proc.returncode != 0:
         return {
@@ -86,7 +91,9 @@ def verify_model_capabilities(model_name: str) -> dict[str, Any]:
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Check Ollama model capability for NeuroRift agent mode")
+    parser = argparse.ArgumentParser(
+        description="Check Ollama model capability for NeuroRift agent mode"
+    )
     parser.add_argument("--model", required=True)
     args = parser.parse_args()
     print(json.dumps(verify_model_capabilities(args.model), indent=2))

@@ -1,2 +1,3 @@
 class ChannelRouter:
-    def route(self, msg: dict): return msg
+    def route(self, msg: dict):
+        return msg

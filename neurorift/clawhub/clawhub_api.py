@@ -1,2 +1,2 @@
 class ClawHubAPI:
-    base_url = 'https://clawhub.example/api'
+    base_url = "https://clawhub.example/api"

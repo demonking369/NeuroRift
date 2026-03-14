@@ -38,13 +38,13 @@ from utils.security_utils import (
     RateLimiter,
     FilePermissionManager,
     validate_target,
-    sanitize_filename
+    sanitize_filename,
 )
 from utils.auth import get_auth_manager, Permission
 
 from modules.recon.recon_module import EnhancedReconModule
 from modules.ai.ai_integration import AIAnalyzer, OllamaClient
-from modules.ai.ai_orchestrator import AIOrchestrator # New Import
+from modules.ai.ai_orchestrator import AIOrchestrator  # New Import
 import modules.darkweb as darkweb_module
 from modules.ai.agent import NeuroRiftAgent
 from modules.web.web_module import WebModule
@@ -53,7 +53,11 @@ from modules.scan.scan_module import ScanModule
 from modules.session.session_manager import SessionManager
 from modules.session.autosave_service import AutoSaveService
 from modules.session.session_cli import SessionCLI, setup_session_parser
-from modules.orchestration.execution_manager import ExecutionManager, ScanRequest, SessionContext
+from modules.orchestration.execution_manager import (
+    ExecutionManager,
+    ScanRequest,
+    SessionContext,
+)
 from modules.ai.agents import NRPlanner, NROperator, NRAnalyst, NRScribe
 from modules.tools.base import ToolMode
 from modules.config.config_wizard import ConfigWizard
@@ -75,7 +79,7 @@ class NeuroRift:
         # Initialize Session Management
         self.session_manager = SessionManager()
         self.auto_save = AutoSaveService(self.session_manager)
-        
+
         # Initialize AI components
         self.ollama = OllamaClient()
         self.ai_analyzer = AIAnalyzer(self.ollama)
@@ -84,7 +88,7 @@ class NeuroRift:
         self.web_module = WebModule(self.base_dir, self.ai_analyzer)
         self.exploit_module = ExploitModule(self.base_dir, self.ai_analyzer)
         self.scan_module = ScanModule(self.base_dir, self.ai_analyzer)
-        
+
         # Orchestration Components
         self.execution_manager = ExecutionManager(self.session_manager)
         self.planner = NRPlanner(self.ollama)
@@ -153,7 +157,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             )
             return False
 
-        self.logger.info("tool_check_succeeded", extra={"checked_tools": required_tools})
+        self.logger.info(
+            "tool_check_succeeded", extra={"checked_tools": required_tools}
+        )
         return True
 
     # SAFETY CHECKS ADDED: hardened, centralized command runner with sandboxing,
@@ -197,9 +203,13 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         if resolved in critical_roots:
             return False
 
-        return str(resolved).startswith(str(self.base_dir.resolve())) or str(resolved).startswith("/tmp")
+        return str(resolved).startswith(str(self.base_dir.resolve())) or str(
+            resolved
+        ).startswith("/tmp")
 
-    def _build_preexec_limits(self, cpu_time_limit: int, memory_limit_mb: int, max_fds: int):
+    def _build_preexec_limits(
+        self, cpu_time_limit: int, memory_limit_mb: int, max_fds: int
+    ):
         """Build a POSIX pre-exec function for process resource limits."""
         if os.name != "posix":
             return None
@@ -213,7 +223,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         def _apply_limits():
             try:
                 if cpu_time_limit > 0:
-                    resource.setrlimit(resource.RLIMIT_CPU, (cpu_time_limit, cpu_time_limit + 1))
+                    resource.setrlimit(
+                        resource.RLIMIT_CPU, (cpu_time_limit, cpu_time_limit + 1)
+                    )
                 if memory_limit_mb > 0:
                     memory_bytes = memory_limit_mb * 1024 * 1024
                     resource.setrlimit(resource.RLIMIT_AS, (memory_bytes, memory_bytes))
@@ -233,7 +245,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             return text[:max_output_len]
         return text
 
-    def _validate_tool_output(self, stdout: str, stderr: str, expect_json: bool = False) -> dict:
+    def _validate_tool_output(
+        self, stdout: str, stderr: str, expect_json: bool = False
+    ) -> dict:
         """Validate and sanitize subprocess output before downstream usage."""
         validation_passed = True
         error_type = None
@@ -267,14 +281,26 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             "stderr": stderr,
         }
 
-    def _should_retry(self, error_type: Optional[str], stderr: str, exit_code: Optional[int]) -> bool:
+    def _should_retry(
+        self, error_type: Optional[str], stderr: str, exit_code: Optional[int]
+    ) -> bool:
         """Retry only for transient errors and never for permanent argument/permission failures."""
-        if error_type in {"permission_denied", "binary_not_found", "invalid_arguments", "invalid_workdir"}:
+        if error_type in {
+            "permission_denied",
+            "binary_not_found",
+            "invalid_arguments",
+            "invalid_workdir",
+        }:
             return False
 
         stderr_lc = (stderr or "").lower()
         transient_markers = (
-            "tempor", "timeout", "connection reset", "network", "try again", "i/o timeout"
+            "tempor",
+            "timeout",
+            "connection reset",
+            "network",
+            "try again",
+            "i/o timeout",
         )
 
         if error_type in {"timeout", "transient_failure", "resource_limit_exceeded"}:
@@ -357,12 +383,16 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                     text=True,
                     env=self._get_restricted_env(),
                     cwd=str(cwd) if cwd else str(self.base_dir),
-                    preexec_fn=self._build_preexec_limits(cpu_time_limit, memory_limit_mb, max_fds),
+                    preexec_fn=self._build_preexec_limits(
+                        cpu_time_limit, memory_limit_mb, max_fds
+                    ),
                 )
 
                 stdout = self._sanitize_output(proc.stdout, max_output_len)
                 stderr = self._sanitize_output(proc.stderr, max_output_len)
-                validation = self._validate_tool_output(stdout, stderr, expect_json=expect_json)
+                validation = self._validate_tool_output(
+                    stdout, stderr, expect_json=expect_json
+                )
                 success = proc.returncode == 0 and validation["validation_passed"]
 
                 last_result = {
@@ -389,12 +419,18 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                 if success:
                     return last_result
 
-                retryable = self._should_retry(last_result["error_type"], stderr, proc.returncode)
+                retryable = self._should_retry(
+                    last_result["error_type"], stderr, proc.returncode
+                )
                 if attempt < max_attempts and retryable:
-                    delay = 2 ** attempt
+                    delay = 2**attempt
                     self.logger.warning(
                         "tool_execution_retry",
-                        extra={"tool": base_cmd[0], "attempt": attempt, "next_delay_s": delay},
+                        extra={
+                            "tool": base_cmd[0],
+                            "attempt": attempt,
+                            "next_delay_s": delay,
+                        },
                     )
                     time.sleep(delay)
                     continue
@@ -450,12 +486,18 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             )
 
             if attempt < max_attempts and self._should_retry(
-                last_result.get("error_type"), last_result.get("stderr", ""), last_result.get("exit_code")
+                last_result.get("error_type"),
+                last_result.get("stderr", ""),
+                last_result.get("exit_code"),
             ):
-                delay = 2 ** attempt
+                delay = 2**attempt
                 self.logger.warning(
                     "tool_execution_retry",
-                    extra={"tool": base_cmd[0], "attempt": attempt, "next_delay_s": delay},
+                    extra={
+                        "tool": base_cmd[0],
+                        "attempt": attempt,
+                        "next_delay_s": delay,
+                    },
                 )
                 time.sleep(delay)
                 continue
@@ -477,7 +519,11 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         if not result["success"] and result["exit_code"] not in (1, 2):
             self.logger.warning(
                 "tool_capability_check_failed",
-                extra={"tool": tool, "error_type": result.get("error_type"), "stderr": result.get("stderr")},
+                extra={
+                    "tool": tool,
+                    "error_type": result.get("error_type"),
+                    "stderr": result.get("stderr"),
+                },
             )
             return False
         return True
@@ -495,7 +541,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             return False
 
         if not os.access(resolved_path, os.X_OK):
-            self.logger.warning("tool_not_executable", extra={"tool": tool, "path": resolved_path})
+            self.logger.warning(
+                "tool_not_executable", extra={"tool": tool, "path": resolved_path}
+            )
             return False
 
         if verify_execution and not self._verify_tool_capability(tool):
@@ -518,12 +566,18 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         """Install missing tools with fail-safe behavior and clear diagnostics."""
         self.logger.info("Installing missing tools...")
 
-        if not self._validate_dependency("sudo") or not self._validate_dependency("apt"):
+        if not self._validate_dependency("sudo") or not self._validate_dependency(
+            "apt"
+        ):
             return False
 
-        update_result = self._run_command_secure(["sudo", "apt", "update"], timeout=180, retries=1)
+        update_result = self._run_command_secure(
+            ["sudo", "apt", "update"], timeout=180, retries=1
+        )
         if not update_result["success"]:
-            self.logger.error("apt_update_failed", extra={"stderr": update_result.get("stderr")})
+            self.logger.error(
+                "apt_update_failed", extra={"stderr": update_result.get("stderr")}
+            )
             return False
 
         go_tools = {
@@ -550,7 +604,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                     cpu_time_limit=120,
                 )
                 if install_result["success"]:
-                    self.logger.info("go_tool_installed", extra={"tool": tool, "package": package})
+                    self.logger.info(
+                        "go_tool_installed", extra={"tool": tool, "package": package}
+                    )
                 else:
                     all_successful = False
                     self.console.print(
@@ -559,14 +615,20 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                     )
                     self.logger.error(
                         "go_tool_install_failed",
-                        extra={"tool": tool, "package": package, "stderr": install_result.get("stderr")},
+                        extra={
+                            "tool": tool,
+                            "package": package,
+                            "stderr": install_result.get("stderr"),
+                        },
                     )
 
         return all_successful
 
     async def run_recon(self, target: str, output_dir: Optional[Path] = None):
         """Run reconnaissance on target"""
-        recon = EnhancedReconModule(self.base_dir, self.ai_analyzer, config_path="configs/tools.json")
+        recon = EnhancedReconModule(
+            self.base_dir, self.ai_analyzer, config_path="configs/tools.json"
+        )
         return await recon.run_recon(target, output_dir)
 
     def ask_ai(self, question: str):
@@ -585,9 +647,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             )
 
     @RateLimiter(max_calls=5, time_window=60)
-    def generate_tool(self, description: str, identifier: str = 'default'):
+    def generate_tool(self, description: str, identifier: str = "default"):
         """Generate a custom tool using AI and save it to custom_tools directory.
-        
+
         Args:
             description: Tool description
             identifier: Rate limit identifier (username/session)
@@ -597,12 +659,12 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             if not description or not isinstance(description, str):
                 self.logger.error("Invalid tool description")
                 return
-            
+
             # SECURITY: Limit description length
             if len(description) > 500:
                 self.logger.error("Tool description too long (max 500 chars)")
                 return
-            
+
             # Use os.path.expanduser to properly handle home directory
             tool_dir = Path.home() / ".neurorift" / "custom_tools"
             self.console.print(
@@ -636,10 +698,14 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             base_name = re.sub(r"[^a-zA-Z0-9]+", "_", description.strip().lower())[
                 :32
             ].strip("_")
-            filename = sanitize_filename(f"{base_name or 'custom_tool'}_{int(time.time())}.py")
-            
+            filename = sanitize_filename(
+                f"{base_name or 'custom_tool'}_{int(time.time())}.py"
+            )
+
             # SECURITY: Validate path to prevent traversal
-            tool_path = SecurityValidator.sanitize_path(str(tool_dir / filename), base_dir=tool_dir)
+            tool_path = SecurityValidator.sanitize_path(
+                str(tool_dir / filename), base_dir=tool_dir
+            )
             if not tool_path:
                 self.logger.error("Invalid tool path")
                 return
@@ -647,7 +713,7 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
             # Write the generated tool to file
             with open(tool_path, "w", encoding="utf-8") as f:
                 f.write(response)
-            
+
             # SECURITY: Set secure file permissions (0o600) for generated tool files
             FilePermissionManager.set_secure_permissions(tool_path, mode=0o600)
             self.console.print(
@@ -693,13 +759,13 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         try:
             # SECURITY: Use Path and validate directory
             tool_dir = Path.home() / ".neurorift" / "custom_tools"
-            
+
             # SECURITY: Validate path
             tool_dir = SecurityValidator.sanitize_path(str(tool_dir))
             if not tool_dir:
                 self.logger.error("Invalid tool directory path")
                 return
-            
+
             metadata_path = tool_dir / "metadata.json"
 
             if not tool_dir.exists():
@@ -835,7 +901,7 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
 
 For detailed documentation, visit: https://github.com/demonking369/NeuroRift
 """,
-        formatter_class=argparse.RawDescriptionHelpFormatter
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument("--target", "-t", help="Target domain or IP")
     parser.add_argument(
@@ -871,97 +937,146 @@ For detailed documentation, visit: https://github.com/demonking369/NeuroRift
         "--stealth", "-s", action="store_true", help="Enable stealth mode"
     )
     parser.add_argument(
-        "--ai-pipeline", action="store_true", help="Enable the advanced multi-prompt AI pipeline."
+        "--ai-pipeline",
+        action="store_true",
+        help="Enable the advanced multi-prompt AI pipeline.",
     )
     parser.add_argument(
-        "--prompt-dir", help="Directory for the AI pipeline prompts.", default="prompts/system_prompts"
+        "--prompt-dir",
+        help="Directory for the AI pipeline prompts.",
+        default="prompts/system_prompts",
     )
     parser.add_argument(
-        "--uninstall", action="store_true", help="Uninstall NeuroRift and its components"
+        "--uninstall",
+        action="store_true",
+        help="Uninstall NeuroRift and its components",
     )
     parser.add_argument(
-        "--webmod", action="store_true", help="Launch NeuroRift web interface (Streamlit UI)"
+        "--webmod",
+        action="store_true",
+        help="Launch NeuroRift web interface (Streamlit UI)",
     )
     parser.add_argument(
-        "--web-host", default="localhost", help="Web interface host (default: localhost)"
+        "--web-host",
+        default="localhost",
+        help="Web interface host (default: localhost)",
     )
     parser.add_argument(
         "--web-port", type=int, default=8501, help="Web interface port (default: 8501)"
     )
     parser.add_argument(
-        "--agentic", "--ai-agent", action="store_true", help="Enable simple agentic AI mode (deprecated, use --orchestrated)"
+        "--agentic",
+        "--ai-agent",
+        action="store_true",
+        help="Enable simple agentic AI mode (deprecated, use --orchestrated)",
     )
     parser.add_argument(
-        "--orchestrated", action="store_true", help="🆕 Enable NeuroRift Orchestrated Intelligence Mode (multi-agent)"
+        "--orchestrated",
+        action="store_true",
+        help="🆕 Enable NeuroRift Orchestrated Intelligence Mode (multi-agent)",
     )
     parser.add_argument(
         "--mode",
         choices=["offensive", "defensive"],
-        help="🆕 NeuroRift operational mode: 'offensive' (discovery) or 'defensive' (analysis/mitigation)"
+        help="🆕 NeuroRift operational mode: 'offensive' (discovery) or 'defensive' (analysis/mitigation)",
     )
     parser.add_argument(
-        "--resume", metavar="TASK_ID", help="🆕 Resume a previously interrupted NeuroRift task"
+        "--resume",
+        metavar="TASK_ID",
+        help="🆕 Resume a previously interrupted NeuroRift task",
     )
     parser.add_argument(
-        "--analyze", metavar="FILE", help="🆕 Analyze existing scan results (DEFENSIVE mode)"
+        "--analyze",
+        metavar="FILE",
+        help="🆕 Analyze existing scan results (DEFENSIVE mode)",
     )
     parser.add_argument(
         "--no-ai", action="store_true", help="Disable AI analysis for the current mode"
     )
     parser.add_argument(
-        "--configure", action="store_true", help="🆕 Launch interactive configuration wizard"
+        "--configure",
+        action="store_true",
+        help="🆕 Launch interactive configuration wizard",
     )
     parser.add_argument("--clawhub", help="Install a skill from ClawHub by name")
-    parser.add_argument("--skill", nargs="+", help="Skill operations: list | run <name> | uninstall <name>")
+    parser.add_argument(
+        "--skill",
+        nargs="+",
+        help="Skill operations: list | run <name> | uninstall <name>",
+    )
 
     # Add subparsers for commands
-    subparsers = parser.add_subparsers(dest='command', help='Available commands')
-    
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
     # Ask AI command
-    ask_ai_parser = subparsers.add_parser('ask-ai', help='Ask the AI assistant a question')
-    ask_ai_parser.add_argument('question', help='The question to ask the AI')
-    ask_ai_parser.add_argument('--verbose', action='store_true', help='Show detailed model logs')
-    ask_ai_parser.add_argument('--dangerous', action='store_true', help='Enable dangerous mode')
-    ask_ai_parser.add_argument('--confirm-danger', action='store_true', help='Confirm dangerous mode')
-    
+    ask_ai_parser = subparsers.add_parser(
+        "ask-ai", help="Ask the AI assistant a question"
+    )
+    ask_ai_parser.add_argument("question", help="The question to ask the AI")
+    ask_ai_parser.add_argument(
+        "--verbose", action="store_true", help="Show detailed model logs"
+    )
+    ask_ai_parser.add_argument(
+        "--dangerous", action="store_true", help="Enable dangerous mode"
+    )
+    ask_ai_parser.add_argument(
+        "--confirm-danger", action="store_true", help="Confirm dangerous mode"
+    )
+
     # Generate tool command
-    generate_tool_parser = subparsers.add_parser('generate-tool', help='Generate a custom tool')
-    generate_tool_parser.add_argument('description', help='Description of the tool to generate')
-    generate_tool_parser.add_argument('--verbose', action='store_true', help='Show detailed generation logs')
-    
+    generate_tool_parser = subparsers.add_parser(
+        "generate-tool", help="Generate a custom tool"
+    )
+    generate_tool_parser.add_argument(
+        "description", help="Description of the tool to generate"
+    )
+    generate_tool_parser.add_argument(
+        "--verbose", action="store_true", help="Show detailed generation logs"
+    )
+
     # List tools command
-    list_tools_parser = subparsers.add_parser('list-tools', help='List all custom tools')
-    list_tools_parser.add_argument('--verbose', action='store_true', help='Show detailed tool information')
+    list_tools_parser = subparsers.add_parser(
+        "list-tools", help="List all custom tools"
+    )
+    list_tools_parser.add_argument(
+        "--verbose", action="store_true", help="Show detailed tool information"
+    )
 
     # Run autonomous agent command
-    run_agent_parser = subparsers.add_parser('run-agent', help='Start NeuroRift autonomous agent runtime')
-    run_agent_parser.add_argument('--target', help='Agent target/context')
-    run_agent_parser.add_argument('--mode', choices=['offensive', 'defensive'], default='defensive')
-    run_agent_parser.add_argument('--model', help='Ollama model for capability check')
+    run_agent_parser = subparsers.add_parser(
+        "run-agent", help="Start NeuroRift autonomous agent runtime"
+    )
+    run_agent_parser.add_argument("--target", help="Agent target/context")
+    run_agent_parser.add_argument(
+        "--mode", choices=["offensive", "defensive"], default="defensive"
+    )
+    run_agent_parser.add_argument("--model", help="Ollama model for capability check")
 
     # Dark web OSINT command (Robin integration)
     darkweb_parser = subparsers.add_parser(
-        'darkweb', help='Run the Robin dark web OSINT workflow'
+        "darkweb", help="Run the Robin dark web OSINT workflow"
     )
-    darkweb_parser.add_argument('--query', '-q', required=True, help='Dark web search query')
     darkweb_parser.add_argument(
-        '--model',
-        '-m',
+        "--query", "-q", required=True, help="Dark web search query"
+    )
+    darkweb_parser.add_argument(
+        "--model",
+        "-m",
         choices=darkweb_module.get_robin_model_choices(),
         default=darkweb_module.ROBIN_DEFAULT_MODEL,
-        help='LLM model to use for refinement/filtering',
+        help="LLM model to use for refinement/filtering",
     )
     darkweb_parser.add_argument(
-        '--threads',
-        '-t',
+        "--threads",
+        "-t",
         type=int,
         default=5,
-        help='Number of concurrent requests for search/scrape',
+        help="Number of concurrent requests for search/scrape",
     )
     darkweb_parser.add_argument(
-        '--output',
-        '-o',
-        help='Optional output file or directory for the markdown report',
+        "--output",
+        "-o",
+        help="Optional output file or directory for the markdown report",
     )
 
     # Session management commands
@@ -969,6 +1084,7 @@ For detailed documentation, visit: https://github.com/demonking369/NeuroRift
 
     args = parser.parse_args()
     return parser, args
+
 
 async def _async_main(args):
     # Initialize NeuroRift
@@ -993,14 +1109,18 @@ async def _async_main(args):
             return
         if action == "run" and len(args.skill) > 1:
             skill_name = args.skill[1]
-            run_result = skill_manager.run(skill_name, target=args.target or "127.0.0.1")
+            run_result = skill_manager.run(
+                skill_name, target=args.target or "127.0.0.1"
+            )
             print(json.dumps({"skill": skill_name, "result": run_result}, indent=2))
             return
         if action == "uninstall" and len(args.skill) > 1:
             skill_name = args.skill[1]
             print(json.dumps(skill_manager.uninstall(skill_name), indent=2))
             return
-        print("Invalid --skill usage. Examples: --skill list | --skill run recon_scanner | --skill uninstall recon_scanner")
+        print(
+            "Invalid --skill usage. Examples: --skill list | --skill run recon_scanner | --skill uninstall recon_scanner"
+        )
         return
 
     if args.command == "run-agent":
@@ -1009,18 +1129,24 @@ async def _async_main(args):
             print("❌ Runtime environment check failed.")
             for check in env_report.get("tools", []):
                 if not check.get("ok"):
-                    print(f"- {check.get('tool')}: {check.get('error')} | {check.get('install_hint')}")
+                    print(
+                        f"- {check.get('tool')}: {check.get('error')} | {check.get('install_hint')}"
+                    )
             return
 
         model_name = args.model or os.getenv("OLLAMA_MODEL")
         if model_name:
             capability = verify_model_capabilities(model_name)
             if not capability.get("agent_ready"):
-                print("❌ Selected model is not agent-ready for autonomous NeuroRift execution.")
+                print(
+                    "❌ Selected model is not agent-ready for autonomous NeuroRift execution."
+                )
                 print(json.dumps(capability, indent=2))
                 return
         else:
-            print("⚠️ No model specified (--model or OLLAMA_MODEL). Skipping model capability check.")
+            print(
+                "⚠️ No model specified (--model or OLLAMA_MODEL). Skipping model capability check."
+            )
 
         args.orchestrated = True
         if not args.target:
@@ -1041,23 +1167,23 @@ async def _async_main(args):
     # Handle Session commands
     if args.command == "session":
         session_cli = SessionCLI(vf.session_manager)
-        if args.session_command == 'new':
+        if args.session_command == "new":
             session_cli.cmd_new(args)
-        elif args.session_command == 'save':
+        elif args.session_command == "save":
             session_cli.cmd_save(args)
-        elif args.session_command == 'list':
+        elif args.session_command == "list":
             session_cli.cmd_list(args)
-        elif args.session_command == 'load':
+        elif args.session_command == "load":
             session_cli.cmd_load(args)
-        elif args.session_command == 'resume':
+        elif args.session_command == "resume":
             session_cli.cmd_resume(args)
-        elif args.session_command == 'delete':
+        elif args.session_command == "delete":
             session_cli.cmd_delete(args)
-        elif args.session_command == 'rename':
+        elif args.session_command == "rename":
             session_cli.cmd_rename(args)
-        elif args.session_command == 'status':
+        elif args.session_command == "status":
             session_cli.cmd_status(args)
-        elif args.session_command == 'export':
+        elif args.session_command == "export":
             session_cli.cmd_export(args)
         return
 
@@ -1069,78 +1195,86 @@ async def _async_main(args):
         if not vf.session_manager.current_session_id:
             session_name = f"Scan: {args.target}" if args.target else "New Operation"
             vf.session_manager.create_session(
-                name=session_name,
-                mode=args.mode or "offensive"
+                name=session_name, mode=args.mode or "offensive"
             )
 
     # Handle Orchestrated Mode
     if args.orchestrated:
-        vf.console.print(Panel("[bold green]NeuroRift Orchestrated Intelligence Mode[/bold green]", style="bold blue"))
-        
+        vf.console.print(
+            Panel(
+                "[bold green]NeuroRift Orchestrated Intelligence Mode[/bold green]",
+                style="bold blue",
+            )
+        )
+
         target = args.target
         if not target:
             # Try to get from session
             session = vf.session_manager.get_current_session()
             if session:
                 target = session.get("task_state", {}).get("target")
-        
+
         if not target:
             target = input("Enter target: ").strip()
-        
+
         if not target:
-             print("Target required.")
-             return
+            print("Target required.")
+            return
 
         # Setup context
-        tool_mode = ToolMode.OFFENSIVE if args.mode == "offensive" else ToolMode.DEFENSIVE
-        
+        tool_mode = (
+            ToolMode.OFFENSIVE if args.mode == "offensive" else ToolMode.DEFENSIVE
+        )
+
         # Ensure session exists
         if not vf.session_manager.current_session_id:
-             vf.session_manager.create_session(name=f"Assessment on {target}", mode=tool_mode.value)
-             
+            vf.session_manager.create_session(
+                name=f"Assessment on {target}", mode=tool_mode.value
+            )
+
         context = SessionContext(
             session_id=vf.session_manager.current_session_id,
             mode=tool_mode,
-            target=target
+            target=target,
         )
-        
+
         task_desc = f"Perform a {tool_mode.value} security assessment on {target}"
         vf.console.print(f"[bold]Task:[/bold] {task_desc}")
-        
+
         # 1. Plan
         available_tools = vf.execution_manager.list_tools()
         vf.console.print("[bold blue]Planning execution...[/bold blue]")
         requests = await vf.planner.create_plan(task_desc, available_tools)
-        
+
         if not requests:
             vf.console.print("[red]Failed to generate plan.[/red]")
             return
-            
+
         vf.console.print(f"[green]Plan generated with {len(requests)} steps.[/green]")
         for i, req in enumerate(requests):
-             print(f"{i+1}. {req.tool_name} {req.args}")
-             
-        if input("\nApprove plan? (Y/n): ").lower() == 'n':
+            print(f"{i+1}. {req.tool_name} {req.args}")
+
+        if input("\nApprove plan? (Y/n): ").lower() == "n":
             print("Aborted.")
             return
 
         # 2. Execute
         vf.console.print("\n[bold blue]Executing plan...[/bold blue]")
         results = await vf.operator.execute_plan(requests, context)
-        
+
         # 3. Analyze
         vf.console.print("\n[bold blue]Analyzing results...[/bold blue]")
         findings = await vf.analyst.analyze_results(results)
-        
+
         # 4. Report
         vf.console.print("\n[bold blue]Generating report...[/bold blue]")
         report = await vf.scribe.generate_report(task_desc, findings)
-        
+
         # Save report
         report_path = vf.results_dir / f"report_{context.session_id}.md"
         with open(report_path, "w") as f:
             f.write(report)
-            
+
         vf.console.print(Panel(report[:1000] + "\\n...", title="Report Preview"))
         vf.console.print(f"[green]Full report saved to {report_path}[/green]")
         return
@@ -1149,11 +1283,11 @@ async def _async_main(args):
     if args.uninstall:
         script_dir = Path(__file__).parent
         uninstall_script = script_dir / "uninstall_script.sh"
-        
+
         if not uninstall_script.exists():
             print(f"Error: Uninstall script not found at {uninstall_script}")
             return
-        
+
         try:
             subprocess.run([str(uninstall_script)], check=True)
         except subprocess.CalledProcessError as e:
@@ -1165,14 +1299,16 @@ async def _async_main(args):
     # Handle AI Pipeline Mode
     if args.ai_pipeline:
         if not args.target:
-            print("Error: A target is required for AI pipeline mode, e.g., --target 'scan example.com'")
+            print(
+                "Error: A target is required for AI pipeline mode, e.g., --target 'scan example.com'"
+            )
             return
-        
+
         prompt_path = Path(args.prompt_dir)
         if not prompt_path.exists():
             print(f"Error: Prompt directory not found at '{prompt_path}'")
             return
-            
+
         orchestrator = AIOrchestrator(prompt_path)
         orchestrator.execute_task(f"Perform a security scan on {args.target}")
         return
@@ -1189,8 +1325,10 @@ async def _async_main(args):
             vf.console.print("\n[bold cyan]--- Agentic Action Plan ---[/bold cyan]")
             vf.console.print(json.dumps(result, indent=2))
         else:
-            vf.console.print("\n[bold yellow]Agentic mode enabled. Ready for instructions...[/bold yellow]")
-        
+            vf.console.print(
+                "\n[bold yellow]Agentic mode enabled. Ready for instructions...[/bold yellow]"
+            )
+
         # If we are not in web mode, we might want an interactive CLI loop here
         # For now, we'll just continue to respect other flags.
 
@@ -1215,9 +1353,11 @@ async def _async_main(args):
         # Check if Robin is available
         if not darkweb_module.ROBIN_AVAILABLE:
             print("❌ Error: Robin module dependencies not installed.")
-            print("Install with: pip install langchain-core langchain-openai langchain-ollama")
+            print(
+                "Install with: pip install langchain-core langchain-openai langchain-ollama"
+            )
             return
-        
+
         darkweb_module.run_darkweb_osint(
             args.query,
             model=args.model,
@@ -1248,7 +1388,7 @@ async def _async_main(args):
             "Use --target to specify a domain or IP address you own or have authorization to test"
         )
         return
-    
+
     # SECURITY: Validate target input
     if not validate_target(args.target):
         print(f"Error: Invalid target format: {args.target}")
@@ -1271,11 +1411,11 @@ async def _async_main(args):
 
     # SECURITY: Create session directory with secure permissions
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    
+
     # SECURITY: Sanitize target for use in path
     safe_target = sanitize_filename(args.target)
     session_dir = vf.base_dir / "sessions" / safe_target / timestamp
-    
+
     # SECURITY: Create with restricted permissions
     if not FilePermissionManager.create_secure_directory(session_dir, mode=0o700):
         print("Error: Failed to create secure session directory")
@@ -1330,36 +1470,44 @@ async def _async_main(args):
 
     elif args.operation_mode == "scan":
         print(f"\n📡 Starting port scan on {args.target}")
-        
+
         results = await vf.scan_module.run_scan(args.target, session_dir, use_ai=False)
 
         console = Console()
         console.print("\n[bold green]Scan Complete![/bold green]")
         console.print(f"Found {len(results['ports'])} open ports")
 
-        if results['ports']:
+        if results["ports"]:
             from rich.table import Table
+
             table = Table(title=f"Open Ports on {args.target}")
             table.add_column("Port", style="cyan")
             table.add_column("State", style="green")
             table.add_column("Service", style="magenta")
             table.add_column("Version", style="yellow")
 
-            for p in results['ports']:
+            for p in results["ports"]:
                 version = f"{p['product']} {p['version']}".strip() or "N/A"
-                table.add_row(f"{p['number']}/{p['protocol']}", p['state'], p['service'], version)
-            
+                table.add_row(
+                    f"{p['number']}/{p['protocol']}", p["state"], p["service"], version
+                )
+
             console.print(table)
 
         # AI Analysis Interaction
         if not args.no_ai:
-            if input("\n🤖 Do you want an AI analysis of these results? (y/N): ").lower() == 'y':
+            if (
+                input(
+                    "\n🤖 Do you want an AI analysis of these results? (y/N): "
+                ).lower()
+                == "y"
+            ):
                 console.print("\n[bold cyan]Generating AI Analysis...[/bold cyan]")
                 # We reuse AIAnalyzer.analyze_nmap_output via ScanModule
-                nmap_str = vf.scan_module._format_nmap_results(results['ports'])
+                nmap_str = vf.scan_module._format_nmap_results(results["ports"])
                 analysis = await vf.ai_analyzer.analyze_nmap_output(nmap_str)
                 results["ai_analysis"] = analysis
-                
+
                 # Update saved results
                 vf.scan_module._save_results(results, session_dir)
 
@@ -1367,11 +1515,17 @@ async def _async_main(args):
                     console.print("\n[bold cyan]AI Security Insights:[/bold cyan]")
                     if isinstance(analysis, dict):
                         if "summary" in analysis:
-                            console.print(f"\n[bold]Summary:[/bold]\n{analysis['summary']}")
+                            console.print(
+                                f"\n[bold]Summary:[/bold]\n{analysis['summary']}"
+                            )
                         if "potential_vulnerabilities" in analysis:
-                            console.print("\n[bold yellow]Potential Vulnerabilities:[/bold yellow]")
+                            console.print(
+                                "\n[bold yellow]Potential Vulnerabilities:[/bold yellow]"
+                            )
                             for v in analysis["potential_vulnerabilities"]:
-                                console.print(f"- [bold]{v.get('type')}[/bold]: {v.get('description')} (Severity: {v.get('severity')})")
+                                console.print(
+                                    f"- [bold]{v.get('type')}[/bold]: {v.get('description')} (Severity: {v.get('severity')})"
+                                )
                     else:
                         console.print(analysis)
             else:
@@ -1383,9 +1537,11 @@ async def _async_main(args):
         print(f"\n🌐 Starting web discovery on {args.target}")
         if args.ai_only:
             print("Running in AI-only mode - AI will make all decisions")
-        
+
         # Run discovery without AI initially to allow for interactive prompt at the end
-        results = await vf.web_module.run_web_discovery(args.target, session_dir, use_ai=False)
+        results = await vf.web_module.run_web_discovery(
+            args.target, session_dir, use_ai=False
+        )
 
         # Display summary
         console = Console()
@@ -1395,11 +1551,16 @@ async def _async_main(args):
 
         # Interactive AI Analysis Prompt
         if not args.no_ai:
-            if input("\n🤖 Do you want an AI analysis of these results? (y/N): ").lower() == 'y':
+            if (
+                input(
+                    "\n🤖 Do you want an AI analysis of these results? (y/N): "
+                ).lower()
+                == "y"
+            ):
                 console.print("\n[bold cyan]Generating AI Analysis...[/bold cyan]")
                 analysis = await vf.web_module.analyze_with_ai(args.target, results)
                 results["ai_analysis"] = analysis
-                
+
                 # Update saved results with AI analysis
                 vf.web_module.save_results(results, session_dir)
 
@@ -1407,10 +1568,12 @@ async def _async_main(args):
                     console.print("\n[bold cyan]AI Analysis Summary:[/bold cyan]")
                     st = analysis.get("tech_stack_assessment", "N/A")
                     console.print(f"[bold]Tech Stack:[/bold] {st}")
-                    
+
                     interesting = analysis.get("interesting_findings", [])
                     if interesting:
-                        console.print("\n[bold yellow]Interesting Findings:[/bold yellow]")
+                        console.print(
+                            "\n[bold yellow]Interesting Findings:[/bold yellow]"
+                        )
                         for finding in interesting:
                             console.print(f"- {finding}")
             else:
@@ -1424,45 +1587,56 @@ async def _async_main(args):
 
     elif args.operation_mode == "exploit":
         print(f"\n💥 Starting exploitation on {args.target}")
-        
+
         # To run exploit mode, we need recon data
         # Let's check if there's a recent recon scan for this target
         recon_data = {}
         recon_results_path = session_dir / "recon_results.json"
         web_results_path = session_dir / "web_discovery_results.json"
-        
+
         if recon_results_path.exists():
-            with open(recon_results_path, 'r') as f:
+            with open(recon_results_path, "r") as f:
                 recon_data = json.load(f)
         elif web_results_path.exists():
-            with open(web_results_path, 'r') as f:
+            with open(web_results_path, "r") as f:
                 web_data = json.load(f)
                 # Map web data to a format exploit module understands
                 recon_data = {
                     "target": args.target,
-                    "services": [{"name": tech.get("raw"), "version": ""} for tech in web_data.get("technologies", [])]
+                    "services": [
+                        {"name": tech.get("raw"), "version": ""}
+                        for tech in web_data.get("technologies", [])
+                    ],
                 }
         else:
-            print("[yellow]No reconnaissance data found for this target in the current session.[/yellow]")
+            print(
+                "[yellow]No reconnaissance data found for this target in the current session.[/yellow]"
+            )
             print("Exploit mode works best when preceded by 'recon' or 'web' mode.")
             # We can still try with basic info if provided
             recon_data = {"target": args.target, "services": []}
 
-        results = await vf.exploit_module.run_exploit_pipeline(args.target, recon_data, session_dir, use_ai=not args.no_ai)
+        results = await vf.exploit_module.run_exploit_pipeline(
+            args.target, recon_data, session_dir, use_ai=not args.no_ai
+        )
 
         console = Console()
         console.print("\n[bold green]Exploit Pipeline Complete![/bold green]")
-        console.print(f"Mapped {len(results['vulnerabilities'])} potential vulnerabilities")
+        console.print(
+            f"Mapped {len(results['vulnerabilities'])} potential vulnerabilities"
+        )
         console.print(f"Generated {len(results['exploits'])} exploits")
 
-        if results['exploits']:
+        if results["exploits"]:
             console.print("\n[bold cyan]Generated Exploits:[/bold cyan]")
-            for exploit in results['exploits']:
+            for exploit in results["exploits"]:
                 if "error" not in exploit:
                     console.print(f"- [green]{exploit.get('file_path')}[/green]")
                     if exploit.get("validation", {}).get("issues"):
-                        console.print(f"  [yellow]Validation Issues:[/yellow] {', '.join(exploit['validation']['issues'])}")
-        
+                        console.print(
+                            f"  [yellow]Validation Issues:[/yellow] {', '.join(exploit['validation']['issues'])}"
+                        )
+
         # Start dev mode shell if requested
         if args.dev_mode:
             await dev_mode_shell(vf, session_dir)
@@ -1476,39 +1650,44 @@ def main():
     if args.webmod:
         # Check if Robin module is available (Optional now)
         if not darkweb_module.ROBIN_AVAILABLE:
-            print("⚠️  Warning: Robin module dependencies not installed. Dark Web OSINT features may be unavailable.")
+            print(
+                "⚠️  Warning: Robin module dependencies not installed. Dark Web OSINT features may be unavailable."
+            )
 
-        
         print("🌐 Launching NeuroRift Web Interface...")
         print(f"📍 Access the UI at: http://{args.web_host}:{args.web_port}")
         print("⚠️  Press Ctrl+C to stop the server\n")
-        
+
         try:
             # Import streamlit CLI
             from streamlit.web import cli as stcli
             import sys
-            
+
             # Get the UI file path
             ui_file = Path(__file__).parent / "modules" / "web" / "dashboard.py"
-            
+
             if not ui_file.exists():
                 print(f"❌ Error: Web UI file not found at {ui_file}")
                 return
-            
+
             # Prepare streamlit arguments
             sys.argv = [
                 "streamlit",
                 "run",
                 str(ui_file),
-                "--server.port", str(args.web_port),
-                "--server.address", args.web_host,
-                "--server.headless", "true",
-                "--browser.gatherUsageStats", "false"
+                "--server.port",
+                str(args.web_port),
+                "--server.address",
+                args.web_host,
+                "--server.headless",
+                "true",
+                "--browser.gatherUsageStats",
+                "false",
             ]
-            
+
             # Launch streamlit
             sys.exit(stcli.main())
-            
+
         except ImportError:
             print("❌ Error: Streamlit is not installed.")
             return
@@ -1518,6 +1697,7 @@ def main():
 
     # Run the main async pipeline
     asyncio.run(_async_main(args))
+
 
 if __name__ == "__main__":
     main()
