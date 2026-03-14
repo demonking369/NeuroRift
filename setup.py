@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="neurorift",
     version="1.0.0",
-    packages=find_packages(include=['modules', 'modules.*', 'utils', 'utils.*', 'ai_wrapper', 'ai_wrapper.*']),
+    packages=find_packages(include=['modules', 'modules.*', 'utils', 'utils.*', 'ai_wrapper', 'ai_wrapper.*', 'neurorift', 'neurorift.*']),
     py_modules=[
         # Top-level modules used by the CLI
         "neurorift_main",
@@ -11,6 +11,9 @@ setup(
         "ai_integration",
         "ai_orchestrator",
         "ai_controller",
+        "runtime_environment_check",
+        "model_capability_check",
+        "neurorift_cli",
     ],
     package_data={
         'modules': ['**/*.json', '**/*.md'],
@@ -46,7 +49,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "neurorift=neurorift_main:main",
+            "neurorift=neurorift_cli:main",
         ],
     },
     author="demonking369",
