@@ -1,4 +1,5 @@
 """Runtime environment verification for NeuroRift startup."""
+
 from __future__ import annotations
 
 import os
@@ -28,7 +29,9 @@ def check_tool(tool: str) -> dict:
         }
 
     try:
-        probe = subprocess.run([tool, "--help"], capture_output=True, text=True, timeout=8, check=False)
+        probe = subprocess.run(
+            [tool, "--help"], capture_output=True, text=True, timeout=8, check=False
+        )
         if probe.returncode not in (0, 1, 2):
             return {
                 "tool": tool,
