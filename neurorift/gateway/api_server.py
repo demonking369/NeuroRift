@@ -1,2 +1,3 @@
 class APIServer:
-    def start(self): return True
+    def start(self):
+        return True
