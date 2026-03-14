@@ -1,1 +1,1 @@
-CHANNELS = ['cli','websocket','discord','telegram','api']
+CHANNELS = ["cli", "websocket", "discord", "telegram", "api"]

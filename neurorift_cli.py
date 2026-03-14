@@ -1,4 +1,5 @@
 """Global NeuroRift CLI entrypoint with optional /usr/local/bin wrapper installer."""
+
 from __future__ import annotations
 
 import argparse
@@ -14,10 +15,12 @@ import neurorift_main
 def install_global_wrapper() -> int:
     wrapper_path = Path("/usr/local/bin/neurorift")
     main_path = (Path(__file__).resolve().parent / "neurorift_main.py").resolve()
-    script = f"#!/usr/bin/env bash\npython3 {main_path} \"$@\"\n"
+    script = f'#!/usr/bin/env bash\npython3 {main_path} "$@"\n'
     try:
         wrapper_path.write_text(script, encoding="utf-8")
-        wrapper_path.chmod(wrapper_path.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+        wrapper_path.chmod(
+            wrapper_path.stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+        )
     except PermissionError:
         print("Permission denied writing /usr/local/bin/neurorift. Re-run with sudo.")
         return 1
@@ -31,8 +34,16 @@ def install_global_wrapper() -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="NeuroRift global CLI launcher")
-    parser.add_argument("--install-global-wrapper", action="store_true", help="Install /usr/local/bin/neurorift wrapper")
-    parser.add_argument("args", nargs=argparse.REMAINDER, help="Arguments forwarded to neurorift_main.py")
+    parser.add_argument(
+        "--install-global-wrapper",
+        action="store_true",
+        help="Install /usr/local/bin/neurorift wrapper",
+    )
+    parser.add_argument(
+        "args",
+        nargs=argparse.REMAINDER,
+        help="Arguments forwarded to neurorift_main.py",
+    )
     return parser
 
 

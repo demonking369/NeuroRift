@@ -1,1 +1,1 @@
-MODEL_PROVIDERS = ['deepseek','mistral','llama','openai']
+MODEL_PROVIDERS = ["deepseek", "mistral", "llama", "openai"]
