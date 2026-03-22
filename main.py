@@ -24,6 +24,7 @@ logger = logging.getLogger("neurorift")
 
 def load_config(config_path: str = "config.yaml") -> dict:
     from pathlib import Path
+
     safe_path = Path(config_path).resolve()
     # Ensure it's inside the project root or at least a regular file
     if not safe_path.is_file():
