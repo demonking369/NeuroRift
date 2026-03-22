@@ -830,14 +830,16 @@ async def dev_mode_shell(vf, session_dir):
         history.append(cmd)
         parts = cmd.split()
         if parts[0] == "help":
-            console.print("""
+            console.print(
+                """
 [bold cyan]Available commands:[/bold cyan]
 - analyze <module>: Analyze a module for improvements
 - modify <module> <changes>: Apply changes to a module
 - list: Show modification history
 - help: Show this help message
 - exit: Exit dev mode
-""")
+"""
+            )
         elif parts[0] == "exit":
             print("Exiting dev mode.")
             break
@@ -1422,7 +1424,6 @@ async def _async_main(args):
     if not FilePermissionManager.create_secure_directory(session_dir, mode=0o700):
         print("Error: Failed to create secure session directory")
         return
-
 
     # Execute based on mode
     if args.operation_mode == "recon":

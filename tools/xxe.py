@@ -8,9 +8,16 @@ SCHEMA = {
     "type": "object",
     "required": ["target"],
     "properties": {
-        "target": {"type": "string", "description": "URL endpoint that accepts XML input"},
-        "oob_host": {"type": "string", "description": "OOB callback host for blind XXE", "default": ""},
-    }
+        "target": {
+            "type": "string",
+            "description": "URL endpoint that accepts XML input",
+        },
+        "oob_host": {
+            "type": "string",
+            "description": "OOB callback host for blind XXE",
+            "default": "",
+        },
+    },
 }
 
 XXE_FILE_READ = """<?xml version="1.0" encoding="UTF-8"?>
@@ -27,7 +34,8 @@ class XXETool:
     description = "Test for XML External Entity injection (file read, SSRF, OOB)"
 
     @staticmethod
-    def schema(): return SCHEMA
+    def schema():
+        return SCHEMA
 
     def run(self, target: str, oob_host: str = "") -> ToolResult:
         findings = []
@@ -45,22 +53,28 @@ class XXETool:
 
         for variant, body in payloads:
             try:
-                resp = requests.post(target, data=body, headers=headers, timeout=10, verify=False)
+                resp = requests.post(
+                    target, data=body, headers=headers, timeout=10, verify=False
+                )
                 indicators = ["root:x", "daemon:", "ami-id", "instance-id"]
                 for indicator in indicators:
                     if indicator in resp.text:
-                        findings.append({
-                            "type": "xxe",
-                            "severity": "CRITICAL",
-                            "variant": variant,
-                            "indicator": indicator,
-                        })
+                        findings.append(
+                            {
+                                "type": "xxe",
+                                "severity": "CRITICAL",
+                                "variant": variant,
+                                "indicator": indicator,
+                            }
+                        )
                         break
             except requests.RequestException:
                 continue
 
         return ToolResult(
-            tool_name=self.name, target=target,
-            success=True, findings=findings,
-            raw_output=f"Tested {len(payloads)} XXE payloads"
+            tool_name=self.name,
+            target=target,
+            success=True,
+            findings=findings,
+            raw_output=f"Tested {len(payloads)} XXE payloads",
         )

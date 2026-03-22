@@ -29,10 +29,15 @@ class Compressor:
         earlier = outputs[:-KEEP_LAST_N] if len(outputs) > KEEP_LAST_N else []
         recent = outputs[-KEEP_LAST_N:] if outputs else []
 
-        summary_lines = [f"[earlier] {o.tool_name}({o.target}): {self._brief(o.result)}" for o in earlier]
+        summary_lines = [
+            f"[earlier] {o.tool_name}({o.target}): {self._brief(o.result)}"
+            for o in earlier
+        ]
         recent_blocks = []
         for o in recent:
-            block = f"[{o.tool_name} → {o.target}]\n{json.dumps(o.result, indent=2)[:500]}"
+            block = (
+                f"[{o.tool_name} → {o.target}]\n{json.dumps(o.result, indent=2)[:500]}"
+            )
             recent_blocks.append(block)
 
         # Compose and truncate
@@ -41,11 +46,17 @@ class Compressor:
         findings_str = "\n".join(
             f"[{f.severity}] {f.title}: {f.affected_url}" for f in findings[-5:]
         )
-        findings_block = f"\nFINDINGS SO FAR:\n{findings_str}" if findings else "\nFINDINGS SO FAR:\nNone"
-        
+        findings_block = (
+            f"\nFINDINGS SO FAR:\n{findings_str}"
+            if findings
+            else "\nFINDINGS SO FAR:\nNone"
+        )
+
         # Calculate budget for recon data
-        budget = MAX_CHARS - len(header) - len(findings_block) - 50 # 50 chars safety margin
-        
+        budget = (
+            MAX_CHARS - len(header) - len(findings_block) - 50
+        )  # 50 chars safety margin
+
         recon_data = f"SUMMARY:\n{summary_str}\n\nRECENT RESULTS:\n{recent_str}"
         if len(recon_data) > budget:
             recon_data = recon_data[:budget] + "\n...[TRUNCATED RECON DATA]"

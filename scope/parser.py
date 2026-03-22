@@ -30,7 +30,9 @@ class ScopeMap:
 def _parse_entry(raw: str) -> ScopeEntry:
     raw = raw.strip()
     is_wildcard = raw.startswith("*.")
-    is_ip_range = "/" in raw and any(c.isdigit() for c in raw.split("/")[0].split(".")[-1])
+    is_ip_range = "/" in raw and any(
+        c.isdigit() for c in raw.split("/")[0].split(".")[-1]
+    )
     return ScopeEntry(raw=raw, is_wildcard=is_wildcard, is_ip_range=is_ip_range)
 
 

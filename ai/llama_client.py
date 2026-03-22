@@ -12,7 +12,9 @@ class LlamaServerError(Exception):
 
 
 class LlamaClient:
-    def __init__(self, base_url: str = "http://localhost:8080/v1", timeout: float = 300.0):
+    def __init__(
+        self, base_url: str = "http://localhost:8080/v1", timeout: float = 300.0
+    ):
         self.base_url = base_url.rstrip("/")
         self.chat_url = f"{self.base_url}/chat/completions"
         self.health_url = f"{self.base_url.replace('/v1', '')}/health"
@@ -58,9 +60,15 @@ class LlamaClient:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.post(self.chat_url, json=payload)
 
-                if response.status_code == 400 and "context window is full" in response.text.lower():
+                if (
+                    response.status_code == 400
+                    and "context window is full" in response.text.lower()
+                ):
                     self.logger.error("Context overflow from llama.cpp.")
-                    return {"error": "context_length_exceeded", "message": "Prompt exceeded 4096 token limit."}
+                    return {
+                        "error": "context_length_exceeded",
+                        "message": "Prompt exceeded 4096 token limit.",
+                    }
 
                 response.raise_for_status()
                 data = response.json()

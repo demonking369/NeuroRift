@@ -52,9 +52,13 @@ class SessionState:
         else:
             self._save()
 
-    def save_tool_result(self, tool_name: str, args: Dict, result: Dict, target: str = "") -> None:
+    def save_tool_result(
+        self, tool_name: str, args: Dict, result: Dict, target: str = ""
+    ) -> None:
         """Persist tool output to disk immediately after execution."""
-        output = ToolOutput(tool_name=tool_name, target=target, args=args, result=result)
+        output = ToolOutput(
+            tool_name=tool_name, target=target, args=args, result=result
+        )
         self.tool_outputs.append(output)
         self._save()
 
@@ -69,7 +73,9 @@ class SessionState:
             "findings": [asdict(f) for f in self.findings],
         }
         try:
-            self.state_file.write_text(json.dumps(state, indent=2, default=str), encoding="utf-8")
+            self.state_file.write_text(
+                json.dumps(state, indent=2, default=str), encoding="utf-8"
+            )
         except OSError as e:
             logger.error("Failed to save session state: %s", e)
 

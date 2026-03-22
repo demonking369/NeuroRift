@@ -87,38 +87,54 @@ class Reporter:
 
     def generate(self, target: str, state: "SessionState") -> str:
         findings = state.findings
-        severity_counts = {s: sum(1 for f in findings if f.severity == s)
-                           for s in ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"]}
+        severity_counts = {
+            s: sum(1 for f in findings if f.severity == s)
+            for s in ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"]
+        }
 
-        findings_md = "\n".join(
-            FINDING_TEMPLATE.format(
-                severity=f.severity,
-                title=f.title,
-                affected_url=f.affected_url,
-                description=f.description,
-                steps=getattr(f, "steps_to_reproduce", "See description."),
-                impact=getattr(f, "impact", "See description."),
-                evidence=f.evidence or "N/A",
-                remediation=f.remediation or "See remediation section.",
+        findings_md = (
+            "\n".join(
+                FINDING_TEMPLATE.format(
+                    severity=f.severity,
+                    title=f.title,
+                    affected_url=f.affected_url,
+                    description=f.description,
+                    steps=getattr(f, "steps_to_reproduce", "See description."),
+                    impact=getattr(f, "impact", "See description."),
+                    evidence=f.evidence or "N/A",
+                    remediation=f.remediation or "See remediation section.",
+                )
+                for f in sorted(
+                    findings,
+                    key=lambda x: ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"].index(
+                        x.severity
+                    ),
+                )
             )
-            for f in sorted(findings, key=lambda x: ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"].index(x.severity))
-        ) or "No findings."
+            or "No findings."
+        )
 
-        remediation_md = "\n".join(
-            f"- **{f.title}** ({f.severity}): {f.remediation or 'No specific remediation provided.'}"
-            for f in findings
-        ) or "No remediation items."
+        remediation_md = (
+            "\n".join(
+                f"- **{f.title}** ({f.severity}): {f.remediation or 'No specific remediation provided.'}"
+                for f in findings
+            )
+            or "No remediation items."
+        )
 
-        timeline = "\n".join(
-            f"- `{o.timestamp}` — {o.tool_name}({o.target})"
-            for o in state.tool_outputs
-        ) or "No tool executions recorded."
+        timeline = (
+            "\n".join(
+                f"- `{o.timestamp}` — {o.tool_name}({o.target})"
+                for o in state.tool_outputs
+            )
+            or "No tool executions recorded."
+        )
 
         report = REPORT_TEMPLATE.format(
             target=target,
             date=datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
             executive_summary=f"Automated security assessment of {target} completed. "
-                              f"{len(findings)} finding(s) identified.",
+            f"{len(findings)} finding(s) identified.",
             total_findings=len(findings),
             count_critical=severity_counts["CRITICAL"],
             count_high=severity_counts["HIGH"],

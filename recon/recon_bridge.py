@@ -34,15 +34,15 @@ class ReconBridge:
     def run(self, mode: str, target: str, **kwargs) -> Dict[str, Any]:
         """
         Run the recon binary in the given mode.
-        
+
         Args:
             mode: One of subdomain, port, fuzz, dns, probe
             target: Domain, IP, or URL
             **kwargs: Additional CLI flags (wordlist, concurrency, timeout, ports)
-        
+
         Returns:
             Parsed JSON dict from binary stdout
-        
+
         Raises:
             ReconBridgeError: if binary missing, non-zero exit code, or malformed JSON
         """
@@ -65,7 +65,9 @@ class ReconBridge:
                 timeout=self.default_timeout,
             )
         except subprocess.TimeoutExpired:
-            raise ReconBridgeError(f"Recon timeout exceeded after {self.default_timeout}s")
+            raise ReconBridgeError(
+                f"Recon timeout exceeded after {self.default_timeout}s"
+            )
 
         if result.returncode != 0:
             raise ReconBridgeError(
@@ -78,15 +80,23 @@ class ReconBridge:
         try:
             return json.loads(result.stdout)
         except json.JSONDecodeError as e:
-            raise ReconBridgeError(f"Recon binary output is not valid JSON: {e}\n{result.stdout[:300]}")
+            raise ReconBridgeError(
+                f"Recon binary output is not valid JSON: {e}\n{result.stdout[:300]}"
+            )
 
-    def subdomain_enum(self, target: str, wordlist: str = "", concurrency: int = 1000) -> Dict[str, Any]:
+    def subdomain_enum(
+        self, target: str, wordlist: str = "", concurrency: int = 1000
+    ) -> Dict[str, Any]:
         return self.run("subdomain", target, wordlist=wordlist, concurrency=concurrency)
 
-    def port_scan(self, target: str, ports: str = "1-1024", concurrency: int = 500) -> Dict[str, Any]:
+    def port_scan(
+        self, target: str, ports: str = "1-1024", concurrency: int = 500
+    ) -> Dict[str, Any]:
         return self.run("port", target, ports=ports, concurrency=concurrency)
 
-    def fuzz_endpoints(self, target: str, wordlist: str = "", concurrency: int = 200) -> Dict[str, Any]:
+    def fuzz_endpoints(
+        self, target: str, wordlist: str = "", concurrency: int = 200
+    ) -> Dict[str, Any]:
         return self.run("fuzz", target, wordlist=wordlist, concurrency=concurrency)
 
     def dns_resolve(self, target: str) -> Dict[str, Any]:

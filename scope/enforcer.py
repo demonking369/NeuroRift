@@ -46,7 +46,10 @@ def _matches_entry(host: str, entry: ScopeEntry) -> bool:
         # Simple CIDR check
         try:
             import ipaddress
-            return ipaddress.ip_address(host) in ipaddress.ip_network(pattern, strict=False)
+
+            return ipaddress.ip_address(host) in ipaddress.ip_network(
+                pattern, strict=False
+            )
         except ValueError:
             pass
 
@@ -79,6 +82,7 @@ def enforce_scope(scope_map: ScopeMap):
         def run_sqli(target: str, **kwargs):
             ...
     """
+
     def decorator(fn: Callable) -> Callable:
         @functools.wraps(fn)
         def wrapper(*args, **kwargs):
@@ -90,5 +94,7 @@ def enforce_scope(scope_map: ScopeMap):
                     f"Target '{target}' is OUT OF SCOPE. Tool '{fn.__name__}' call was blocked."
                 )
             return fn(*args, **kwargs)
+
         return wrapper
+
     return decorator

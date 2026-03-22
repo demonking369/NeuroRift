@@ -10,9 +10,16 @@ SCHEMA = {
     "type": "object",
     "required": ["target"],
     "properties": {
-        "target": {"type": "string", "description": "API endpoint requiring authentication"},
-        "jwt_token": {"type": "string", "description": "JWT token to manipulate", "default": ""},
-    }
+        "target": {
+            "type": "string",
+            "description": "API endpoint requiring authentication",
+        },
+        "jwt_token": {
+            "type": "string",
+            "description": "JWT token to manipulate",
+            "default": "",
+        },
+    },
 }
 
 
@@ -33,7 +40,8 @@ class AuthBypassTool:
     description = "Test for authentication bypass via JWT alg:none and session fixation"
 
     @staticmethod
-    def schema(): return SCHEMA
+    def schema():
+        return SCHEMA
 
     def run(self, target: str, jwt_token: str = "") -> ToolResult:
         findings = []
@@ -42,12 +50,14 @@ class AuthBypassTool:
         try:
             resp_unauth = requests.get(target, timeout=10, verify=False)
             if resp_unauth.status_code == 200:
-                findings.append({
-                    "type": "auth_bypass",
-                    "severity": "CRITICAL",
-                    "method": "unauthenticated_access",
-                    "detail": "Endpoint returned 200 without any credentials",
-                })
+                findings.append(
+                    {
+                        "type": "auth_bypass",
+                        "severity": "CRITICAL",
+                        "method": "unauthenticated_access",
+                        "detail": "Endpoint returned 200 without any credentials",
+                    }
+                )
         except requests.RequestException:
             pass
 
@@ -58,20 +68,25 @@ class AuthBypassTool:
                 resp = requests.get(
                     target,
                     headers={"Authorization": f"Bearer {forged}"},
-                    timeout=10, verify=False
+                    timeout=10,
+                    verify=False,
                 )
                 if resp.status_code == 200:
-                    findings.append({
-                        "type": "auth_bypass",
-                        "severity": "CRITICAL",
-                        "method": "jwt_alg_none",
-                        "detail": "Server accepted JWT with alg:none",
-                    })
+                    findings.append(
+                        {
+                            "type": "auth_bypass",
+                            "severity": "CRITICAL",
+                            "method": "jwt_alg_none",
+                            "detail": "Server accepted JWT with alg:none",
+                        }
+                    )
             except requests.RequestException:
                 pass
 
         return ToolResult(
-            tool_name=self.name, target=target,
-            success=True, findings=findings,
-            raw_output=f"Tested unauthenticated access + JWT alg:none"
+            tool_name=self.name,
+            target=target,
+            success=True,
+            findings=findings,
+            raw_output=f"Tested unauthenticated access + JWT alg:none",
         )
