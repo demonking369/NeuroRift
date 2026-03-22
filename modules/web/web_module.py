@@ -123,8 +123,10 @@ class WebModule:
 
         # Ensure target has protocol and trailing slash for FUZZ
         # Validate target to block shell metacharacters and whitespace
-        if re.search(r'[\s;&|`$<>\\()]', target):
-            self.logger.error("Invalid characters in target: potential command injection attempt.")
+        if re.search(r"[\s;&|`$<>\\()]", target):
+            self.logger.error(
+                "Invalid characters in target: potential command injection attempt."
+            )
             return []
 
         url = target
