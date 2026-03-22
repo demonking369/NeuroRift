@@ -32,8 +32,9 @@
 
 **NeuroRift** is a terminal-based multi-agent intelligence system designed for authorized security research and penetration testing. The framework employs specialized AI agents that work in concert to plan, execute, analyze, and report on security operations with unprecedented precision.
 
-Unlike traditional security tools, NeuroRift leverages **Local Large Language Models (LLMs)** through an orchestrated multi-agent architecture where each agent has a distinct role:
+Unlike traditional security tools, NeuroRift leverages **NeuroCore**, a high-performance, embedded inference engine that replaces external LLM servers with direct **llama.cpp** C bindings. It features a **Scope-File driven autonomous pipeline** that ensures all operations stay within authorized boundaries while maximizing cognitive throughput.
 
+Specialized AI Agent Roles:
 - **NR Planner**: Strategic planning and task decomposition
 - **NR Operator**: Terminal-based execution with human-in-the-loop controls
 - **NR Analyst**: Advanced vulnerability analysis with CVSS scoring
@@ -49,70 +50,58 @@ NeuroRift is built on a multi-agent orchestration architecture with strict opera
 
 ```mermaid
 graph TD
-    User["Security Researcher"] -->|Interacts| Dashboard["Web Dashboard"]
-    User -->|Commands| CLI["CLI Interface"]
+    Input["Scope File + Target URL"] --> Parser["Scope Parser"]
+    Parser --> Enforcer["Scope Enforcer Layer"]
     
-    Dashboard & CLI -->|Tasks| Orchestrator["NeuroRift Orchestrator"]
+    Enforcer -->|Authorized| Recon["Recon Engine (Rust)"]
+    Recon -->|Findings| Planner["Vuln Planner"]
     
-    Orchestrator -->|Plans| Planner["NR Planner"]
-    Planner -->|Execution Plan| Operator["NR Operator"]
-    Operator -->|Results| Analyst["NR Analyst"]
-    Analyst -->|Analysis| Scribe["NR Scribe"]
+    Planner -->|Strategy| Executor["Execution Loop"]
+    Executor -->|Tool Calls| Tools["Security Tools"]
     
-    Operator -->|Terminal Only| Tools["Security Tools"]
-    Operator -->|Approval Request| Human["Human Approval"]
+    Executor <-->|Inference| NeuroCore["NeuroCore (Model Routing)"]
+    NeuroCore -->|Direct C Bindings| LlamaCPP["llama.cpp static library"]
     
-    Tools -->|Data| Subfinder["subfinder"]
-    Tools -->|Data| Nmap["nmap"]
-    Tools -->|Data| Nuclei["nuclei"]
+    Executor -->|Real-time Alerts| OpenClaw["OpenClaw Notifications"]
+    OpenClaw -->|Push| Messaging["Discord/Telegram/Slack/etc."]
     
-    Scribe -->|Reports| Output["Final Reports"]
+    Executor -->|Data| Reporter["Report Generator"]
+    Reporter -->|Final Output| Reports["Markdown/JSON Reports"]
 ```
 
 ---
 
 ## 🚀 Key Features
 
-### 1. **Multi-Agent Orchestration**
-*   **NR Planner**: Creates strategic execution plans with task decomposition and risk assessment
-*   **NR Operator**: Executes commands with human-in-the-loop controls. Now features a dedicated **Operator Plane** for manual tool execution.
-*   **NR Analyst**: Performs advanced vulnerability analysis with CVSS 3.1 scoring and false positive reduction
-*   **NR Scribe**: Generates professional reports in multiple formats (Markdown, JSON, HTML, PDF)
+### 1. **NeuroCore Inference Engine**
+*   **Direct C Bindings**: Embedded runtime using `llama.cpp` static library for zero HTTP overhead.
+*   **VRAM-Aware Loading**: Real-time VRAM monitoring ensures models are only loaded when needed and unloaded immediately after task completion.
+*   **Multi-Model Task Routing**: Dynamically routes tasks to specialized models:
+    - **vuln_planning** → `hermes-2-pro`
+    - **exploit_generation** → `deepseek-coder`
+    - **recon_analysis** → `mistral-instruct`
+    - **context_compression** → `phi-3-mini`
+*   **CPU Fallback**: High-performance execution even on hardware without dedicated GPUs.
 
-### 2. **Advanced Web Control Plane (V2.2)**
-*   **Next.js Architecture**: A premium, high-performance React dashboard replacing legacy frameworks.
-*   **Manual Operator Plane**: Direct tool execution (nmap, nuclei, ffuf) with real-time output streaming.
-*   **Dynamic Model Selection**: Connects to the local Ollama instance and allows real-time swapping between available local LLMs (e.g. Llama 3.2, Qwen 2.5 Coder) entirely through the UI.
-*   **Uncensored AI Execution**: Features advanced prompt-injection techniques (ChatML framing) in the backend to ensure local standard models perform authorized technical security actions without artificial safety refusals.
-*   **Session & Artifact Management**: Comprehensive system to list, load, and browse session artifacts/reports via an interactive tree viewer.
-*   **Dynamic State Visualization**: Real-time rendering of agent dependencies, cognitive memory decay, and risk vectors.
+### 2. **Real-Time Notifications (OpenClaw)**
+*   **Multi-Platform Support**: Sends live updates to Discord, Telegram, Slack, WhatsApp, Signal, Matrix, and 20+ other platforms.
+*   **Configurable Alerts**: Complete control via `notifications.yaml` for event toggles (scan_started, vuln_found, etc.).
+*   **Severity Filtering**: Adjust notifications based on risk levels (low | medium | high | critical).
+*   **Instant Critical Alerts**: Critical findings always trigger immediate push notifications regardless of filters.
 
-### 3. **Human-in-the-Loop Controls**
-*   **Required Approval**: Browser navigation, external API calls, file modifications
-*   **Timeout Handling**: Configurable timeout with default deny on timeout
-*   **Audit Trail**: Complete logging of all approval requests and responses
+### 3. **Multi-Agent Orchestration**
+*   **NR Planner**: Creates strategic execution plans with task decomposition and risk assessment.
+*   **NR Operator**: Executes commands with human-in-the-loop controls.
+*   **NR Analyst**: Performs advanced vulnerability analysis with CVSS 3.1 scoring.
+*   **NR Scribe**: Generates professional reports in multiple formats.
 
-### 4. **Task State Memory**
-*   **Persistent Storage**: All task state saved to disk
-*   **Checkpoint/Resume**: Automatic checkpoints every 5 minutes
-*   **Execution History**: Complete history of all operations
-*   **Context Preservation**: Agent context maintained across sessions
+### 4. **Advanced Reconnaissance Engine**
+*   **Rust-Powered**: Dedicated high-performance networking core for subdomain enumeration, port scanning, and probing.
+*   **Vulnerability Assessment**: Integrated `nuclei` scanning for rapid identification of security flaws.
 
-### 5. **Advanced Reconnaissance Engine**
-*   **Full-Spectrum Discovery**: Automated workflow chaining subdomain enumeration (`subfinder`), port scanning (`nmap`), and technology profiling (`whatweb`)
-*   **Vulnerability Assessment**: Integrated `nuclei` scanning for rapid identification of known security flaws
-*   **Stealth Mode**: Configurable rate limiting and passive scan options to minimize detection risk
-
-### 6. **Dark Web Intelligence (Robin Integration)**
-*   **Tor-Native**: Built-in routing via Tor SOCKS proxy for safe interaction with `.onion` services
-*   **Semantic Search**: Uses AI to refine search queries and filter results
-*   **Automated Scraping**: Safely extracts and summarizes content from hidden services
-
-### 7. **Multi-Language High-Performance Architecture (v2)**
-*   **Python (AI Base)**: Orchestrates the AI Planner and Executor loop with sub-500 token memory compression.
-*   **Rust (Recon Engine)**: Dedicated `tokio`-based async network I/O crate for subdomain enum, DNS, HTTP fuzzing, and port scanning.
-*   **C (Network Layer)**: Bare-metal raw packet crafters and TCP state probers.
-*   **Assembly (Exploit Layer)**: NASM-compiled shellcode templates (x64, x86, ARM) dynamically injected via Python PoC generation.
+### 5. **Human-in-the-Loop Controls**
+*   **Required Approval**: High-risk commands and external API calls require researchers' explicit consent.
+*   **Audit Trail**: Complete logging of all planning decisions and execution outcomes.
 
 ---
 
@@ -121,13 +110,8 @@ graph TD
 ### **Prerequisites**
 *   **Operating System**: Linux (Kali Linux or Ubuntu 22.04+ recommended)
 *   **Python**: Version 3.10 or higher
-*   **Node.js & npm**: Required for the Web Mode dashboard
-*   **Tor**: Required for Dark Web functionality
-    ```bash
-    sudo apt update && sudo apt install tor -y
-    sudo systemctl enable --now tor
-    ```
-*   **llama.cpp**: Required for AI features. Model server runs locally via provided scripts.
+*   **Node.js & npm**: Required for Web Mode and OpenClaw
+*   **Rust**: Required for Recon Engine components
 
 ### **Step-by-Step Setup**
 
@@ -139,15 +123,20 @@ graph TD
 
 2.  **Run the Unified Installer**
     ```bash
-    # Handles all dependencies (Rust, Python, Node.js, Security Tools)
+    # Handles Rust, Python, and Node.js dependencies
     bash install_script.sh
     ```
 
-3.  **Configure AI Models (Optional)**
+3.  **NeuroCore Model Setup**
     ```bash
-    # Launch interactive configuration wizard
     source .venv/bin/activate
-    python3 neurorift_main.py --configure
+    python -m neurocore.cli setup
+    ```
+
+4.  **OpenClaw Onboarding (Notifications)**
+    ```bash
+    npm install -g openclaw@latest
+    openclaw onboard --install-daemon
     ```
 
 ---
@@ -158,87 +147,38 @@ graph TD
 ```bash
 # Standard Launch
 neurorift --webmod
-
-# Prototype/Demo Mode (Mock Backend)
-neurorift --webmod --prototype
 ```
 *   **Access**: Open your browser to `http://localhost:3000`
-*   **Operator Plane**: Switch to the **'Operator'** tab to execute tools manually and browse session artifacts.
-*   **Configuration Matrix**: Adjust AI parameters and select your desired Ollama model dynamically.
+*   **System State**: Real-time monitoring of NeuroCore model status and pipeline progress.
 
-#### 📸 Web Interface Gallery (V2.2)
-<img width="1920" height="1080" alt="NeuroRift Dashboard" src="https://github.com/user-attachments/assets/1d8f4c62-7a48-405d-a5a0-22a802fe56e1" />
-
-*(Dashboard Core: Intent Fabric & Agent Constellation)*
-
-<img width="1920" height="1080" alt="Operator Plane" src="https://github.com/user-attachments/assets/8e81abcd-1a59-46be-ba03-1993b4046618" />
-
-*(Operator Plane: Manual Tool Execution & Session Management)*
-
----
-
-### **Mode B: NeuroRift Intelligence Mode (Orchestrated)**
-
-**OFFENSIVE Mode (Discovery):**
+### **Mode B: CLI Intelligence Mode (Orchestrated)**
 ```bash
-neurorift --orchestrated --mode offensive -t example.com
-```
-
-**DEFENSIVE Mode (Analysis):**
-```bash
-neurorift --orchestrated --mode defensive --analyze results/scan.json
-```
-
----
-
-### **Mode C: Command Line Interface (CLI)**
-
-**Standard Recon Scan:**
-```bash
-neurorift -t example.com --mode recon
-```
-
-**Dark Web Search:**
-```bash
-neurorift ask-ai "Find leaked credentials for example.com on hidden services"
+# Start an autonomous assessment
+neurorift -t example.com --scope my_scope.txt --orchestrated
 ```
 
 ---
 
 ## 🔧 Configuration
 
-NeuroRift utilizes a centralized configuration file at `configs/neurorift_config.json`:
+NeuroRift configuration is managed via specialized YAML files:
 
-```json
-{
-  "agents": {
-    "planner": { "max_planning_iterations": 3 },
-    "operator": { "max_retries": 3 },
-    "analyst": { "confidence_threshold": 0.7 }
-  },
-  "mode_governor": {
-    "allow_mode_switching": false,
-    "log_violations": true
-  }
-}
-```
+- **`config/models.yaml`**: Controls NeuroCore model paths, roles, and VRAM limits.
+- **`config/notifications.yaml`**: Configuration for messaging channels and severity filters.
+- **`configs/neurorift_config.json`**: Core engine parameters.
 
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `AI_ENABLED` | Master switch for AI features | `true` |
-| `OLLAMA_MODEL` | Primary LLM for CLI Mode (Legacy) | `llama3.2` |
-| `NEUROCORE_MODEL` | Primary LLM for Orchestrated Pipeline (NeuroCore) | `hermes-2-pro` |
-
-| `ROBIN_TOR_PROXY` | SOCKS proxy for Dark Web traffic | `socks5h://127.0.0.1:9050` |
+| `NEUROCORE_MODEL` | Primary LLM for Orchestrated Pipeline | `hermes-2-pro` |
+| `NEUROCORE_MODELS_PATH` | Path to your local GGUF model storage | `~/neurocore/models/` |
+| `AI_ENABLED` | Master switch for AI components | `true` |
 
 ---
 
 ## ⚠️ Legal Disclaimer
 
 **NeuroRift is purpose-built for AUTHORIZED security testing, red teaming, and educational research.**
-
-*   **Authorization Required**: You must have explicit, written permission from the owner of any system you scan or test.
-*   **Compliance**: Users are responsible for complying with all applicable laws.
+*   **Authorization Required**: You must have explicit, written permission from the owner of any system you test.
 *   **Liability**: The developer is not liable for any misuse or damage.
 
 ---
@@ -248,39 +188,15 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 **NeuroRift is independently developed by demonking369.**
 
 ### Core Dependencies
-- **[llama.cpp (python)](https://github.com/abetlen/llama-cpp-python)** - Local LLM inference engine
-- **[ProjectDiscovery](https://projectdiscovery.io)** - Security tools (subfinder, nuclei, httpx)
-- **[Next.js](https://nextjs.org)** - Web Mode dashboard framework
-- **[Lucide](https://lucide.dev)** - Iconography system
-- **[Tailwind CSS](https://tailwindcss.com)** - Design system framework
-- **[Nmap](https://nmap.org)** - Network scanning
-- **[Rich](https://rich.readthedocs.io)** - Terminal UI library
-
-
-### Special Thanks
-- The open-source security community for continuous innovation
-- All contributors who have helped improve NeuroRift
-- The AI research community for advancing LLM capabilities
+- **NeuroCore** — Custom high-performance LLM runtime (demonking369)
+- **OpenClaw** — Unified notification and approval layer
+- **[llama.cpp](https://github.com/ggerganov/llama-cpp)** — Static library for C bindings
+- **[ProjectDiscovery](https://projectdiscovery.io)** — Security tools (subfinder, nuclei, httpx)
+- **[Next.js](https://nextjs.org)** — Web Mode dashboard framework
+- **[Nmap](https://nmap.org)** — Network scanning core
 
 > **Thanks to the open-source projects that inspired and supported NeuroRift.**
 
 ---
 
-## 📚 Documentation
-
-- **[NeuroRift Intelligence Mode](docs/NEURORIFT_README.md)** - Complete multi-agent orchestration guide
-- **[Agent Roles](docs/AGENT_ROLES.md)** - Detailed agent capabilities and responsibilities
-- **[Migration Guide](docs/MIGRATION_GUIDE.md)** - Upgrading from legacy modes
-
----
-
-## 🤝 Community & Support
-
-*   **GitHub Issues**: [Report Bugs & Request Features](https://github.com/demonking369/NeuroRift/issues)
-*   **Documentation**: [Full Documentation](https://github.com/demonking369/NeuroRift)
-
----
-
 **Designed and developed with ❤️ and ☕ by demonking369**
-
-**NeuroRift** - Intelligence amplified through orchestrated AI agents.

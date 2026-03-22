@@ -75,11 +75,16 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
     from ai.planner import Planner
     from ai.executor import Executor
     from recon.recon_bridge import ReconBridge
+    from notifications.dispatcher import NotificationDispatcher
 
     # 1. Initialize NeuroCore (No HTTP Server check needed)
     import neurocore
 
     logger.info("✅ NeuroCore FFI engine initialized")
+
+    # 1b. Initialize notification dispatcher
+    dispatcher = NotificationDispatcher()
+    await dispatcher.start()
 
     # 2. Parse scope
     scope_map = parse_scope_file(args.scope)
@@ -108,6 +113,13 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
         default_timeout=config.get("recon", {}).get("default_timeout", 120),
     )
 
+    # Notify: scan started
+    dispatcher.send("scan_started", {
+        "target_url": args.target,
+        "scope_name": args.scope,
+        "timestamp": "",
+    })
+
     logger.info("🔍 Running recon on %s", args.target)
     try:
         from urllib.parse import urlparse
@@ -121,6 +133,14 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
         )
     except Exception as e:
         logger.warning("Recon phase failed (binary may not be built): %s", e)
+
+    # 5b. Notify: recon complete
+    dispatcher.send("recon_complete", {
+        "target_url": args.target,
+        "subdomain_count": "—",
+        "endpoint_count": "—",
+        "tech_stack": "—",
+    })
 
     # 6. Compress recon context
     recon_summary = compressor.compress(state)
@@ -136,15 +156,34 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
     logger.info("📝 Plan: %d steps", len(plan))
 
     # 8. Execute phase
-    executor = Executor(tool_registry)
+    executor = Executor(tool_registry, dispatcher=dispatcher)
     logger.info("⚡ Executing plan...")
-    findings = await executor.run(plan, state)
+    try:
+        findings = await executor.run(plan, state)
+    except Exception as exc:
+        dispatcher.send("scan_failed", {
+            "target_url": args.target,
+            "error_message": str(exc),
+            "failed_stage": "execution",
+        })
+        raise
     logger.info("🎯 Execution complete. %d tool calls made.", len(findings))
 
     # 9. Report
     reporter = Reporter(config.get("reporting", {}).get("output_dir", "reports"))
     report_path = reporter.generate(args.target, state)
     logger.info("📊 Report saved: %s", report_path)
+
+    # 9b. Notify: scan complete
+    dispatcher.send("scan_complete", {
+        "target_url": args.target,
+        "scan_duration": "—",
+        "total_findings": str(len(state.findings)),
+        "critical_count": str(sum(1 for f in state.findings if getattr(f, 'severity', '') == 'critical')),
+        "high_count": str(sum(1 for f in state.findings if getattr(f, 'severity', '') == 'high')),
+        "medium_count": str(sum(1 for f in state.findings if getattr(f, 'severity', '') == 'medium')),
+        "report_path": str(report_path),
+    })
 
     print(f"\n{'='*60}")
     print(f" NeuroRift v2 Assessment Complete")
@@ -183,6 +222,9 @@ Examples:
     config = load_config(args.config)
     try:
         asyncio.run(run_assessment(args, config))
+    except Exception as exc:
+        logger.error("Assessment failed: %s", exc)
+        raise
     except KeyboardInterrupt:
         logger.info(
             "Interrupted — session state saved. Resume with: --resume <session_id>"

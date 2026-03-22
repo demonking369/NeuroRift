@@ -1,0 +1,45 @@
+notifications:
+  enabled: true
+  openclaw_gateway: ws://127.0.0.1:18789
+
+  # Enable only the channels you use
+  channels:
+    discord:
+      enabled: true
+      token: ""                    # user fills this
+      channel_id: ""
+
+    telegram:
+      enabled: false
+      bot_token: ""
+      chat_id: ""
+
+    whatsapp:
+      enabled: false               # requires WhatsApp linked
+
+    slack:
+      enabled: false
+      bot_token: ""
+      channel: ""
+
+    signal:
+      enabled: false
+
+    matrix:
+      enabled: false
+      homeserver: ""
+      token: ""
+      room_id: ""
+
+  # What events trigger notifications
+  events:
+    scan_started: true
+    recon_complete: true
+    vulnerability_found: true      # most important
+    critical_finding: true         # always notify regardless
+    scan_complete: true
+    scan_failed: true
+    model_loaded: false            # too noisy, off by default
+
+  # Severity filter — only notify for these and above
+  min_severity: medium             # low | medium | high | critical
