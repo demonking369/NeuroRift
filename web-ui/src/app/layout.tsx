@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import '@/styles/globals.css';
-import { CommandCenterFrame } from '@/components/webmode/CommandCenterFrame';
-
-const inter = Inter({ subsets: ['latin'] });
+import './globals.css';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { WebSocketProvider } from '@/contexts/WebSocketContext';
 
 export const metadata: Metadata = {
-    title: 'NeuroRift Web Mode - Command Interface',
-    description: 'AI-native command interface for OpenClaw + NeuroRift.',
+    title: 'NeuroRift — Intelligence Dashboard',
+    description: 'Terminal-Based Multi-Agent Intelligence System',
 };
 
 export default function RootLayout({
@@ -16,13 +14,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" suppressHydrationWarning>
-            <body className={inter.className}>
-                <CommandCenterFrame>
-                    <main className="h-full">
+        <html lang="en" data-theme="dark">
+            <body>
+                <ThemeProvider>
+                    <WebSocketProvider>
                         {children}
-                    </main>
-                </CommandCenterFrame>
+                    </WebSocketProvider>
+                </ThemeProvider>
             </body>
         </html>
     );

@@ -1,7 +1,7 @@
 'use client';
 
-import { CommandCenter } from '@/components/webmode/CommandCenter';
+import { AppLayout } from '@/components/layout/AppLayout';
 
 export default function DashboardPage() {
-    return <CommandCenter />;
+    return <AppLayout />;
 }
