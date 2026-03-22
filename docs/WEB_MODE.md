@@ -44,7 +44,7 @@ pip install streamlit
 The web interface uses the same configuration as the CLI:
 - AI models from `~/.neurorift/.env`
 - Tor proxy at `127.0.0.1:9050`
-- API keys for OpenAI/Anthropic/Google/Ollama
+- API keys for OpenAI/Anthropic/Google/llama.cpp
 
 ## Stopping the Server
 

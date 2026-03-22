@@ -108,6 +108,12 @@ graph TD
 *   **Semantic Search**: Uses AI to refine search queries and filter results
 *   **Automated Scraping**: Safely extracts and summarizes content from hidden services
 
+### 7. **Multi-Language High-Performance Architecture (v2)**
+*   **Python (AI Base)**: Orchestrates the AI Planner and Executor loop with sub-500 token memory compression.
+*   **Rust (Recon Engine)**: Dedicated `tokio`-based async network I/O crate for subdomain enum, DNS, HTTP fuzzing, and port scanning.
+*   **C (Network Layer)**: Bare-metal raw packet crafters and TCP state probers.
+*   **Assembly (Exploit Layer)**: NASM-compiled shellcode templates (x64, x86, ARM) dynamically injected via Python PoC generation.
+
 ---
 
 ## 📦 Installation Guide
@@ -121,7 +127,7 @@ graph TD
     sudo apt update && sudo apt install tor -y
     sudo systemctl enable --now tor
     ```
-*   **Ollama**: Required for AI features. [Download Ollama](https://ollama.com).
+*   **llama.cpp**: Required for AI features. Model server runs locally via provided scripts.
 
 ### **Step-by-Step Setup**
 
@@ -220,7 +226,9 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 | Variable | Description | Default |
 | :--- | :--- | :--- |
 | `AI_ENABLED` | Master switch for AI features | `true` |
-| `OLLAMA_MODEL` | Primary LLM for complex reasoning (CLI Mode only; Web UI uses dynamic selection) | `llama3.2` |
+| `OLLAMA_MODEL` | Primary LLM for CLI Mode (Legacy) | `llama3.2` |
+| `NEUROCORE_MODEL` | Primary LLM for Orchestrated Pipeline (NeuroCore) | `hermes-2-pro` |
+
 | `ROBIN_TOR_PROXY` | SOCKS proxy for Dark Web traffic | `socks5h://127.0.0.1:9050` |
 
 ---
@@ -240,7 +248,7 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 **NeuroRift is independently developed by demonking369.**
 
 ### Core Dependencies
-- **[Ollama](https://ollama.com)** - Local LLM inference engine
+- **[llama.cpp (python)](https://github.com/abetlen/llama-cpp-python)** - Local LLM inference engine
 - **[ProjectDiscovery](https://projectdiscovery.io)** - Security tools (subfinder, nuclei, httpx)
 - **[Next.js](https://nextjs.org)** - Web Mode dashboard framework
 - **[Lucide](https://lucide.dev)** - Iconography system

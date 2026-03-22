@@ -1,0 +1,8 @@
+{
+  "name": "recon_scanner",
+  "version": "1.0",
+  "description": "basic reconnaissance scanner",
+  "entrypoint": "skill.py",
+  "command": "scan",
+  "dependencies": ["nmap"]
+}

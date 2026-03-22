@@ -3,13 +3,14 @@ import re
 from typing import Dict, Any, List
 from modules.tools.base import BaseTool, ToolCategory, ToolMode, ToolInput
 
+
 class UnicornscanTool(BaseTool):
     def __init__(self):
         super().__init__(
             name="unicornscan",
             description="Asynchronous TCP/UDP port scanner",
             category=ToolCategory.RECON,
-            mode=ToolMode.OFFENSIVE
+            mode=ToolMode.OFFENSIVE,
         )
 
     def validate_input(self, input_data: ToolInput) -> bool:
@@ -27,15 +28,13 @@ class UnicornscanTool(BaseTool):
         findings = []
         # Regex for standard unicornscan output
         pattern = re.compile(r"TCP open\s+([\d\.]+):(\d+)\s+ttl")
-        
+
         for line in raw_output.splitlines():
             match = pattern.search(line)
             if match:
-                findings.append({
-                    "ip": match.group(1),
-                    "port": int(match.group(2)),
-                    "proto": "tcp"
-                })
+                findings.append(
+                    {"ip": match.group(1), "port": int(match.group(2)), "proto": "tcp"}
+                )
         return {"open_ports": findings}
 
     def check_installed(self) -> bool:

@@ -71,7 +71,6 @@ config.local.json
 
 # Temporary files
 *.tmp
-<<<<<<< HEAD
 *.temp
 
 # Web development
@@ -81,11 +80,25 @@ out/
 .env*.local
 .npm/
 
-# Build artifacts
+# Build artifacts & Compiled Binaries
 dist/
 build/
 *.egg-info/
- 
-=======
-*.temp 
->>>>>>> main
+recon/target/
+network/raw_socket
+network/packet_crafter
+network/tcp_probe
+exploits/shellcode/*.o
+exploits/shellcode/*.bin
+
+# Local Models & Data
+models/
+session/logs/
+reports/
+
+# Tests
+tests/
+
+# Temporary / Extraneous directories
+sim/
+system-prompts-and-models-of-ai-tools/

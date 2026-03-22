@@ -61,11 +61,14 @@ export class RealAdapter implements WebModeAdapter {
             await this.getSystemMetrics();
             return {
                 status: 'healthy',
+                llama: { status: 'connected', model: 'hermes-2-pro' },
                 ollama: { status: 'connected', model: 'llama3.2' }
+
             };
         } catch (e) {
             return {
                 status: 'degraded',
+                llama: { status: 'disconnected', model: 'unknown' },
                 ollama: { status: 'disconnected', model: 'unknown' }
             };
         }
@@ -96,24 +99,23 @@ export class RealAdapter implements WebModeAdapter {
                 if (done) break;
 
                 const chunk = decoder.decode(value, { stream: true });
-                // Parse potentially multiple JSON objects per chunk if Ollama sends raw json stream
-                // However, our proxy pipes raw bytes. Ollama sends JSON objects per line.
-                // Actually, our proxy just pipes. We need to parse here if it's JSON stream, OR if it's raw text.
-                // Ollama /api/generate returns a stream of JSON objects.
-                // We should parse each json object and extract the 'response' field.
-
+                // Parse OpenAI SSE Format from llama.cpp
                 const lines = chunk.split('\n').filter(line => line.trim() !== '');
                 for (const line of lines) {
-                    try {
-                        const json = JSON.parse(line);
-                        if (json.response) {
-                            yield json.response;
-                        }
-                        if (json.done) {
+                    if (line.startsWith('data: ')) {
+                        const dataStr = line.substring(6);
+                        if (dataStr === '[DONE]') {
                             return;
                         }
-                    } catch (e) {
-                        // ignore partial json
+                        try {
+                            const json = JSON.parse(dataStr);
+                            const content = json.choices?.[0]?.delta?.content;
+                            if (content) {
+                                yield content;
+                            }
+                        } catch (e) {
+                            // ignore partial json
+                        }
                     }
                 }
             }

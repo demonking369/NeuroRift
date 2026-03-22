@@ -3,7 +3,18 @@ from setuptools import setup, find_packages
 setup(
     name="neurorift",
     version="1.0.0",
-    packages=find_packages(include=['modules', 'modules.*', 'utils', 'utils.*', 'ai_wrapper', 'ai_wrapper.*']),
+    packages=find_packages(
+        include=[
+            "modules",
+            "modules.*",
+            "utils",
+            "utils.*",
+            "ai_wrapper",
+            "ai_wrapper.*",
+            "neurorift",
+            "neurorift.*",
+        ]
+    ),
     py_modules=[
         # Top-level modules used by the CLI
         "neurorift_main",
@@ -11,11 +22,14 @@ setup(
         "ai_integration",
         "ai_orchestrator",
         "ai_controller",
+        "runtime_environment_check",
+        "model_capability_check",
+        "neurorift_cli",
     ],
     package_data={
-        'modules': ['**/*.json', '**/*.md'],
-        'prompts': ['**/*.md', '**/*.txt'],
-        'configs': ['*.json'],
+        "modules": ["**/*.json", "**/*.md"],
+        "prompts": ["**/*.md", "**/*.txt"],
+        "configs": ["*.json"],
     },
     include_package_data=True,
     install_requires=[
@@ -36,7 +50,6 @@ setup(
         "python-dotenv>=1.0.0",
         "langchain-core>=0.1.0",
         "langchain-openai>=0.0.5",
-        "langchain-ollama>=0.0.1",
         "langchain-anthropic>=0.1.0",
         "langchain-google-genai>=0.0.6",
         "langchain-community>=0.0.20",
@@ -46,7 +59,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "neurorift=neurorift_main:main",
+            "neurorift=neurorift_cli:main",
         ],
     },
     author="demonking369",

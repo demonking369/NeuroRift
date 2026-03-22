@@ -12,19 +12,6 @@ networks:
     driver: bridge
 
 services:
-  ollama:
-    image: ollama/ollama:latest
-    restart: unless-stopped
-    networks: [neurorift_net]
-    volumes:
-      - ollama_models:/root/.ollama
-    expose: ["11434"]
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:11434/api/tags"]
-      interval: 15s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
 
   neurorift-core:
     build:
@@ -39,7 +26,7 @@ services:
       - neurorift_audit:/data/neurorift/audit
       - neurorift_evolution:/data/neurorift/evolution
     environment:
-      OLLAMA_HOST: "http://ollama:11434"
+      OLLAMA_HOST: "http://host.docker.internal:8080"
       BRIDGE_HOST: "0.0.0.0"
       BRIDGE_PORT: "8766"
       NEURORIFT_HOME: "/data/neurorift"
@@ -47,9 +34,7 @@ services:
       OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
       ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
       GOOGLE_API_KEY: "${GOOGLE_API_KEY:-}"
-    depends_on:
-      ollama:
-        condition: service_healthy
+
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost:8766/health"]
       interval: 10s
@@ -95,7 +80,7 @@ services:
       OPENCLAW_STATE_DIR: /data/openclaw
       OPENCLAW_GATEWAY_ADDR: "0.0.0.0:18789"
       NEURORIFT_BRIDGE_URL: "http://neurorift-core:8766"
-      OLLAMA_HOST: "http://ollama:11434"
+      LLAMA_HOST: "http://host.docker.internal:8080"
     depends_on:
       neurorift-core:
         condition: service_healthy

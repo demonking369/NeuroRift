@@ -121,6 +121,7 @@ export class PrototypeAdapter implements WebModeAdapter {
     async getSystemState(): Promise<SystemState> {
         return {
             status: 'healthy',
+            llama: { status: 'connected', model: 'neurocore-v1' },
             ollama: { status: 'connected', model: 'simulated-llama3' }
         };
     }

@@ -77,6 +77,10 @@ export interface WebModeAdapter {
 
 export interface SystemState {
     status: 'healthy' | 'degraded' | 'critical';
+    llama: {
+        status: 'connected' | 'disconnected';
+        model: string;
+    };
     ollama: {
         status: 'connected' | 'disconnected';
         model: string;

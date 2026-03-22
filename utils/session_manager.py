@@ -10,12 +10,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional
 
+
 class SessionManager:
     """Manages session data and metadata."""
 
     def __init__(self, base_dir: str):
         """Initialize session manager.
-        
+
         Args:
             base_dir: Base directory for session data
         """
@@ -25,27 +26,27 @@ class SessionManager:
 
     def create_session(self, target: str) -> str:
         """Create a new session directory.
-        
+
         Args:
             target: Target identifier
-            
+
         Returns:
             Path to session directory
         """
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.session_dir = self.base_dir / target / timestamp
         self.session_dir.mkdir(parents=True, exist_ok=True)
-        
+
         # Create metadata file
         self.metadata_file = self.session_dir / "meta.txt"
         self._write_metadata()
-        
+
         # Create subdirectories
         (self.session_dir / "logs").mkdir(exist_ok=True)
         (self.session_dir / "data").mkdir(exist_ok=True)
         (self.session_dir / "tools").mkdir(exist_ok=True)
         (self.session_dir / "exploits").mkdir(exist_ok=True)
-        
+
         return str(self.session_dir)
 
     def _write_metadata(self):
@@ -62,38 +63,38 @@ Session ID: {self.session_dir.name}
 
     def save_data(self, data: Dict[str, Any], filename: str):
         """Save data to session directory.
-        
+
         Args:
             data: Data to save
             filename: Output filename
         """
         if not self.session_dir:
             raise RuntimeError("No active session")
-            
+
         output_path = self.session_dir / "data" / filename
         with open(output_path, "w") as f:
             json.dump(data, f, indent=2, default=str)
 
     def load_data(self, filename: str) -> Dict[str, Any]:
         """Load data from session directory.
-        
+
         Args:
             filename: Input filename
-            
+
         Returns:
             Loaded data
         """
         if not self.session_dir:
             raise RuntimeError("No active session")
-            
+
         input_path = self.session_dir / "data" / filename
         with open(input_path, "r") as f:
             return json.load(f)
 
     def get_session_path(self) -> Optional[str]:
         """Get current session directory path.
-        
+
         Returns:
             Path to current session directory or None if no active session
         """
-        return str(self.session_dir) if self.session_dir else None 
+        return str(self.session_dir) if self.session_dir else None

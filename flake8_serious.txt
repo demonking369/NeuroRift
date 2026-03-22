@@ -1,0 +1,147 @@
+./ai_wrapper/llama_client.py:13:1: F401 'json' imported but unused
+./ai_wrapper/llm_engine.py:17:1: F401 'typing.Any' imported but unused
+./modules/ai/agent.py:5:1: F401 'typing.List' imported but unused
+./modules/ai/agents.py:1:1: F401 'typing.Any' imported but unused
+./modules/ai/agents.py:1:1: F401 'typing.Optional' imported but unused
+./modules/ai/ai_integration.py:10:1: F401 'subprocess' imported but unused
+./modules/ai/ai_integration.py:13:1: F401 'time' imported but unused
+./modules/ai/ai_integration.py:106:5: F811 redefinition of unused 'logging' from line 11
+./modules/ai/ai_integration.py:334:13: E722 do not use bare 'except'
+./modules/ai/ai_orchestrator.py:1:1: F401 'json' imported but unused
+./modules/ai/mode_governor.py:17:1: F401 'typing.Set' imported but unused
+./modules/ai/orchestrator.py:16:1: F401 'typing.List' imported but unused
+./modules/ai/orchestrator.py:20:1: F401 'modules.ai.mode_governor.OperationalMode' imported but unused
+./modules/ai/orchestrator.py:301:9: F841 local variable 'exec_results' is assigned to but never used
+./modules/ai/orchestrator.py:328:9: F841 local variable 'analysis' is assigned to but never used
+./modules/ai/orchestrator.py:410:11: F541 f-string is missing placeholders
+./modules/config/config_wizard.py:8:1: F401 'sys' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.Dict' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.List' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.Optional' imported but unused
+./modules/cve_collector/cve_collector.py:18:1: F401 'urllib.parse.urlparse' imported but unused
+./modules/cve_collector/cve_collector.py:21:1: F401 'utils.cli_utils.create_progress' imported but unused
+./modules/cve_collector/cve_collector.py:21:1: F401 'utils.cli_utils.print_results_table' imported but unused
+./modules/cve_collector/cve_collector.py:113:15: F541 f-string is missing placeholders
+./modules/cve_collector/cve_collector.py:180:29: E722 do not use bare 'except'
+./modules/darkweb/__init__.py:10:1: F841 local variable 'e' is assigned to but never used
+./modules/darkweb/robin/main.py:105:15: E401 multiple imports on one line
+./modules/darkweb/robin/runner.py:13:1: F401 'rich.panel.Panel' imported but unused
+./modules/darkweb/robin/scrape.py:51:5: E722 do not use bare 'except'
+./modules/darkweb/robin/search.py:2:14: E401 multiple imports on one line
+./modules/darkweb/robin/search.py:64:17: E722 do not use bare 'except'
+./modules/darkweb/robin/search.py:69:5: E722 do not use bare 'except'
+./modules/darkweb/robin/ui.py:18:5: F401 'os' imported but unused
+./modules/darkweb/robin/ui.py:97:1: E402 module level import not at top of file
+./modules/exploit/exploit_module.py:6:1: F401 'asyncio' imported but unused
+./modules/exploit_generator/exploit_generator.py:7:1: F401 'json' imported but unused
+./modules/exploit_generator/exploit_generator.py:10:1: F401 'typing.List' imported but unused
+./modules/exploit_testing/exploit_testing.py:9:1: F401 'subprocess' imported but unused
+./modules/exploit_testing/exploit_testing.py:12:1: F401 'typing.List' imported but unused
+./modules/exploit_testing/exploit_testing.py:12:1: F401 'typing.Optional' imported but unused
+./modules/exploit_testing/exploit_testing.py:203:9: F841 local variable 'temp_dir' is assigned to but never used
+./modules/exploit_testing/exploit_testing.py:384:9: F841 local variable 'temp_dir' is assigned to but never used
+./modules/orchestration/execution_manager.py:6:1: F401 'typing.Optional' imported but unused
+./modules/orchestration/execution_manager.py:7:1: F401 'pathlib.Path' imported but unused
+./modules/recon/recon_module.py:10:1: F401 'subprocess' imported but unused
+./modules/recon/recon_module.py:16:1: F401 'aiohttp' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.Progress' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.TextColumn' imported but unused
+./modules/recon/recon_module.py:323:17: E722 do not use bare 'except'
+./modules/scan/scan_module.py:143:17: F841 local variable 'version' is assigned to but never used
+./modules/session/session_cli.py:19:1: F401 'modules.session.SessionStatus' imported but unused
+./modules/session/session_cli.py:150:32: F541 f-string is missing placeholders
+./modules/session/session_cli.py:269:5: F841 local variable 'status_parser' is assigned to but never used
+./modules/session/session_manager.py:13:1: F401 'typing.Any' imported but unused
+./modules/session/session_serializer.py:13:1: F401 'typing.Any' imported but unused
+./modules/session/session_serializer.py:13:1: F401 'typing.Optional' imported but unused
+./modules/tool_manager/tool_manager.py:13:1: F401 'typing.List' imported but unused
+./modules/tool_manager/tool_manager.py:102:30: F541 f-string is missing placeholders
+./modules/tool_manager/tool_manager.py:288:30: F541 f-string is missing placeholders
+./modules/tools/base.py:5:1: F401 'pathlib.Path' imported but unused
+./modules/tools/wrappers/ike_scan.py:2:1: F401 're' imported but unused
+./modules/tools/wrappers/sqlmap.py:2:1: F401 're' imported but unused
+./modules/web/bridge_server.py:10:1: F401 'asyncio' imported but unused
+./modules/web/bridge_server.py:16:1: F401 'modules.darkweb.robin.runner as robin_runner' imported but unused
+./modules/web/bridge_server.py:145:5: F841 local variable 'params' is assigned to but never used
+./modules/web/dashboard.py:3:1: F401 'logging' imported but unused
+./modules/web/dashboard.py:5:1: F401 'dotenv.load_dotenv' imported but unused
+./modules/web/ui/orchestration_view.py:4:1: F401 'modules.orchestration.execution_manager.ExecutionManager' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRPlanner' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NROperator' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRAnalyst' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRScribe' imported but unused
+./modules/web/ui/orchestration_view.py:6:1: F401 'modules.orchestration.data_models.ToolExecutionResult' imported but unused
+./neurorift/skills/installer.py:1:12: E401 multiple imports on one line
+./neurorift/skills/loader.py:1:22: E401 multiple imports on one line
+./neurorift_cli.py:6:1: F401 'os' imported but unused
+./neurorift_cli.py:8:1: F401 'subprocess' imported but unused
+./neurorift_main.py:16:1: F401 'sys' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.Progress' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.TextColumn' imported but unused
+./neurorift_main.py:33:1: E402 module level import not at top of file
+./neurorift_main.py:36:1: E402 module level import not at top of file
+./neurorift_main.py:43:1: F401 'utils.auth.get_auth_manager' imported but unused
+./neurorift_main.py:43:1: F401 'utils.auth.Permission' imported but unused
+./neurorift_main.py:43:1: E402 module level import not at top of file
+./neurorift_main.py:45:1: E402 module level import not at top of file
+./neurorift_main.py:46:1: E402 module level import not at top of file
+./neurorift_main.py:47:1: E402 module level import not at top of file
+./neurorift_main.py:48:1: E402 module level import not at top of file
+./neurorift_main.py:49:1: E402 module level import not at top of file
+./neurorift_main.py:50:1: E402 module level import not at top of file
+./neurorift_main.py:51:1: E402 module level import not at top of file
+./neurorift_main.py:52:1: E402 module level import not at top of file
+./neurorift_main.py:53:1: E402 module level import not at top of file
+./neurorift_main.py:54:1: E402 module level import not at top of file
+./neurorift_main.py:55:1: E402 module level import not at top of file
+./neurorift_main.py:56:1: F401 'modules.orchestration.execution_manager.ScanRequest' imported but unused
+./neurorift_main.py:56:1: E402 module level import not at top of file
+./neurorift_main.py:61:1: E402 module level import not at top of file
+./neurorift_main.py:62:1: E402 module level import not at top of file
+./neurorift_main.py:63:1: E402 module level import not at top of file
+./neurorift_main.py:64:1: E402 module level import not at top of file
+./neurorift_main.py:65:1: E402 module level import not at top of file
+./neurorift_main.py:66:1: E402 module level import not at top of file
+./neurorift_main.py:1664:13: F811 redefinition of unused 'sys' from line 16
+./screen_control/launcher.py:1:1: F401 'os' imported but unused
+./screen_control/launcher.py:3:1: F401 'json' imported but unused
+./screen_control/python/screen_control.py:4:1: F401 'platform' imported but unused
+./screen_control/python/screen_control.py:5:1: F401 'json' imported but unused
+./scripts/analyze_results.py:10:1: F401 'typing.List' imported but unused
+./scripts/analyze_results.py:10:1: F401 'typing.Optional' imported but unused
+./scripts/performance_analysis.py:14:1: F401 'subprocess' imported but unused
+./scripts/performance_analysis.py:15:1: F401 'asyncio' imported but unused
+./scripts/performance_analysis.py:16:1: F401 'statistics' imported but unused
+./scripts/performance_analysis.py:18:1: F401 'typing.List' imported but unused
+./scripts/performance_analysis.py:19:1: F401 'logging' imported but unused
+./scripts/performance_analysis.py:21:1: F401 'rich.table.Table' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.Progress' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.TextColumn' imported but unused
+./scripts/recon_scan.py:13:1: F401 'aiohttp' imported but unused
+./scripts/recon_scan.py:14:1: F401 'subprocess' imported but unused
+./tests/test_ai_features.py:1:1: F401 'os' imported but unused
+./tests/test_notifier.py:9:1: F401 'unittest.mock.MagicMock' imported but unused
+./tests/test_security.py:20:1: F401 'utils.auth.User' imported but unused
+./tests/test_security.py:20:1: F401 'utils.auth.Session' imported but unused
+./utils/auth.py:7:1: F401 'os' imported but unused
+./utils/auth.py:12:1: F401 'typing.List' imported but unused
+./utils/cli_utils.py:9:1: F401 'rich.text.Text' imported but unused
+./utils/cli_utils.py:10:1: F401 'typing.List' imported but unused
+./utils/config_manager.py:11:1: F401 'typing.Optional' imported but unused
+./utils/context_builder.py:10:1: F401 'typing.Any' imported but unused
+./utils/crypto.py:12:1: F401 'base64.b64decode' imported but unused
+./utils/logger.py:12:1: F401 'sys' imported but unused
+./utils/logger.py:13:1: F401 'pathlib.Path' imported but unused
+./utils/logger.py:14:1: F401 'rich.logging.RichHandler' imported but unused
+./utils/logger.py:16:1: F401 'datetime.datetime' imported but unused
+./utils/notifier.py:14:1: F401 'typing.Any' imported but unused
+./utils/report_generator.py:7:1: F401 'os' imported but unused
+./utils/report_generator.py:12:1: F401 'typing.Optional' imported but unused
+./utils/report_generator.py:106:32: F541 f-string is missing placeholders
+./utils/report_generator.py:141:32: F541 f-string is missing placeholders
+./utils/security_utils.py:13:1: F401 'typing.Any' imported but unused
+./utils/session_manager.py:7:1: F401 'os' imported but unused
+./utils/stealth_utils.py:7:1: F401 'pathlib.Path' imported but unused

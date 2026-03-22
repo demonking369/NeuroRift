@@ -11,11 +11,11 @@ from typing import Iterable
 REQUIRED_ENV = [
     "OPENCLAW_CONFIG_PATH",
     "OPENCLAW_STATE_DIR",
-    "OLLAMA_HOST",
+    "LLAMA_HOST",
     "NEURORIFT_BRIDGE_URL",
 ]
 
-PORTS = [18789, 8766, 8765, 3000, 11434]
+PORTS = [18789, 8766, 8765, 3000, 8080]
 
 
 def _check_env(keys: Iterable[str]) -> list[str]:

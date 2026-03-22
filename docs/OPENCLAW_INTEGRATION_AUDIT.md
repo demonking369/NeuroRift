@@ -15,7 +15,7 @@ Hardening pass for gateway compliance, sandbox controls, environment normalizati
 | 6 | Heartbeat cycle discipline | Implemented | adapter emits `HEARTBEAT_OK` on interval with no message spam; openclaw config includes spin-loop prevention flags. |
 | 7 | Structured diagnostics | Implemented | JSON event logger emits structured payloads with redaction and latency fields. |
 | 8 | Strict env normalization / fail-fast | Implemented | adapter startup validation for required env and malformed key rejection. |
-| 9 | Deterministic docker services | Implemented | `docker-compose.yml` includes required services: gateway, neurorift-core, rust-engine, web-ui, ollama, sandbox-runner. |
+| 9 | Deterministic docker services | Implemented | `docker-compose.yml` includes required services: gateway, neurorift-core, rust-engine, web-ui, llama.cpp, sandbox-runner. |
 | 10 | Prototype leakage controls | Implemented (config-policy) | `openclaw.json5` runtime mode isolation policy states strict prototype/real behavior separation. |
 | 11 | Secure evolution controls | Implemented (config-policy) | `openclaw.json5` evolution approval and rollback governance block added. |
 | 12 | Cross-device stability checks | Implemented | Added `scripts/openclaw_doctor.py` for preflight env + port checks and documented usage in `BOOT.md`. |

@@ -229,7 +229,7 @@
     failFastRequired: [
       "OPENCLAW_CONFIG_PATH",
       "OPENCLAW_STATE_DIR",
-      "OLLAMA_HOST",
+      "LLAMA_HOST",
       "NEURORIFT_BRIDGE_URL",
     ],
     providers: {

@@ -12,8 +12,8 @@ cp .env.example .env
 # 3. Build and start all services
 docker compose up --build
 
-# 4. Pull an AI model (first time only — do this in a new terminal while containers start)
-docker compose exec ollama ollama pull llama3
+# 4. Pull an AI model (first time only — do this in a new terminal)
+./scripts/download_model.sh
 
 # 5. Open the web UI
 open http://localhost:3000
@@ -42,9 +42,9 @@ open http://localhost:3000
 │      └──────────────┘   └──────────┬──────────┘            │
 │                                    │                        │
 │                          ┌─────────▼──────────┐            │
-│                          │      ollama         │            │
+│                          │    llama.cpp        │            │
 │                          │  AI Model Server    │            │
-│                          │  :11434 (internal)  │            │
+│                          │  host:8080          │            │
 │                          └─────────────────────┘            │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -64,7 +64,7 @@ Development differences from production:
 | Python bridge | `uvicorn` (stable) | `uvicorn --reload` |
 | Next.js | `next start` (standalone) | `next dev` |
 | Source code | Baked into image | Volume-mounted |
-| Ollama port | Internal only | `127.0.0.1:11434` exposed |
+| Llama port | host.docker.internal | `host.docker.internal:8080` |
 | Debug ports | Not exposed | Bridge/Openclaw on `127.0.0.1` |
 
 ---
@@ -73,7 +73,6 @@ Development differences from production:
 
 | Volume | Container path | Purpose |
 |---|---|---|
-| `ollama_models` | `/root/.ollama` | Ollama model files |
 | `neurorift_sessions` | `/data/neurorift/sessions` | Session state JSON |
 | `neurorift_audit` | `/data/neurorift/audit` | Audit logs |
 | `neurorift_evolution` | `/data/neurorift/evolution` | Evolution/mutation data |
@@ -85,22 +84,7 @@ Sessions persist across `docker compose restart` and `down`/`up` cycles.
 
 ---
 
-## GPU Support (NVIDIA)
 
-1. Install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-2. Uncomment the `deploy` block in `docker-compose.yml` under the `ollama` service:
-   ```yaml
-   deploy:
-     resources:
-       reservations:
-         devices:
-           - driver: nvidia
-             count: all
-             capabilities: [gpu]
-   ```
-3. Restart: `docker compose up --build`
-
----
 
 ## Environment Variables
 
@@ -129,14 +113,8 @@ Key variables:
 ## Pre-Pulling Models
 
 ```bash
-# Pull default model (recommended)
-docker compose exec ollama ollama pull llama3
-
-# Pull a smaller/faster model
-docker compose exec ollama ollama pull llama3.2
-
-# List available models
-docker compose exec ollama ollama list
+# Pull default Hermes-2-Pro model
+./scripts/download_model.sh
 ```
 
 ---
@@ -183,13 +161,11 @@ docker compose logs openclaw   # check for bridge connection errors
 docker compose logs neurorift  # check for Ollama connectivity
 ```
 
-Startup dependency order: `ollama` → `neurorift` → `openclaw` → `web-ui`
-Each service waits for the previous to be healthy.
-
-### Ollama model not found
+### llama.cpp not responding
 
 ```bash
-docker compose exec ollama ollama pull llama3
+# ensure you have the server running
+./scripts/start_llama.sh
 ```
 
 ### Port 3000 already in use

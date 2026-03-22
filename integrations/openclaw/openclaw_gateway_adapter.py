@@ -59,21 +59,10 @@ TOOL_METHOD_MAP = {
     "workflow_state": "process",
 }
 
-TOOL_METHOD_MAP = {
-    "run_terminal_cmd": "exec",
-    "terminal": "exec",
-    "read_file": "read",
-    "file_read": "read",
-    "write_file": "write",
-    "file_write": "write",
-    "process_state": "process",
-    "workflow_state": "process",
-}
-
 REQUIRED_ENV = [
     "OPENCLAW_CONFIG_PATH",
     "OPENCLAW_STATE_DIR",
-    "OLLAMA_HOST",
+    "LLAMA_HOST",
     "NEURORIFT_BRIDGE_URL",
 ]
 
@@ -275,8 +264,9 @@ class NeuroRiftOpenClawAdapter:
         rpc_method = self._map_method(tool_call)
         command_preview = json.dumps(tool_call, ensure_ascii=False)
 
+        correlation_id = event.get("id", str(uuid.uuid4()))
         approval = await self.approval_forwarder.evaluate(
-            command_preview, self.session_id
+            command_preview, self.session_id, correlation_id
         )
         if not approval.approved:
             return {
@@ -288,7 +278,16 @@ class NeuroRiftOpenClawAdapter:
                     "message": approval.reason,
                 },
             }
+        session_ctx = event.get("session", {})
+        if "sessionKey" not in session_ctx:
+            session_ctx["sessionKey"] = self.session_id
+        if "channel" not in session_ctx:
+            session_ctx["channel"] = "admin"
+        if "mentionPolicy" not in session_ctx:
+            session_ctx["mentionPolicy"] = "none"
 
+        started = time.time()
+        try:
             bridged = await self._call_neurorift(tool_call)
         except PermissionError as exc:
             return {

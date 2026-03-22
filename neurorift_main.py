@@ -43,7 +43,7 @@ from utils.security_utils import (
 from utils.auth import get_auth_manager, Permission
 
 from modules.recon.recon_module import EnhancedReconModule
-from modules.ai.ai_integration import AIAnalyzer, OllamaClient
+from modules.ai.ai_integration import AIAnalyzer, LocalAIClient
 from modules.ai.ai_orchestrator import AIOrchestrator  # New Import
 import modules.darkweb as darkweb_module
 from modules.ai.agent import NeuroRiftAgent
@@ -61,6 +61,9 @@ from modules.orchestration.execution_manager import (
 from modules.ai.agents import NRPlanner, NROperator, NRAnalyst, NRScribe
 from modules.tools.base import ToolMode
 from modules.config.config_wizard import ConfigWizard
+from neurorift.skills.skill_manager import SkillManager
+from model_capability_check import verify_model_capabilities
+from runtime_environment_check import verify_runtime_environment
 
 
 class NeuroRift:
@@ -69,6 +72,7 @@ class NeuroRift:
         self.base_dir = Path.home() / ".neurorift"
         self.results_dir = self.base_dir / "results"
         self.tools_dir = self.base_dir / "tools"
+        self.setup_directories()
         self.setup_logging()
         self.console = Console()
 
@@ -77,20 +81,20 @@ class NeuroRift:
         self.auto_save = AutoSaveService(self.session_manager)
 
         # Initialize AI components
-        self.ollama = OllamaClient()
-        self.ai_analyzer = AIAnalyzer(self.ollama)
+        self.llm_client = LocalAIClient()
+        self.ai_analyzer = AIAnalyzer(self.llm_client)
         self.agentic_mode = False
-        self.agent = NeuroRiftAgent(self.ollama)
+        self.agent = NeuroRiftAgent(self.llm_client)
         self.web_module = WebModule(self.base_dir, self.ai_analyzer)
         self.exploit_module = ExploitModule(self.base_dir, self.ai_analyzer)
         self.scan_module = ScanModule(self.base_dir, self.ai_analyzer)
 
         # Orchestration Components
         self.execution_manager = ExecutionManager(self.session_manager)
-        self.planner = NRPlanner(self.ollama)
+        self.planner = NRPlanner(self.llm_client)
         self.operator = NROperator(self.execution_manager)
-        self.analyst = NRAnalyst(self.ollama)
-        self.scribe = NRScribe(self.ollama)
+        self.analyst = NRAnalyst(self.llm_client)
+        self.scribe = NRScribe(self.llm_client)
 
     def setup_directories(self):
         """Create necessary directories"""
@@ -100,6 +104,7 @@ class NeuroRift:
 
     def setup_logging(self):
         """Setup logging configuration"""
+        self.base_dir.mkdir(parents=True, exist_ok=True)
         log_file = self.base_dir / "neurorift.log"
         logging.basicConfig(
             level=logging.INFO,
@@ -632,7 +637,7 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         accurate, and educational responses about security concepts, tools, and best practices.
         Always emphasize ethical use and proper authorization."""
 
-        response = self.ollama.generate(question, system_prompt=system_prompt)
+        response = self.llm_client.generate(question, system_prompt=system_prompt)
         if response:
             self.console.print("\n[bold green]AI Response:[/bold green]")
             self.console.print(Panel(response, style="blue"))
@@ -680,7 +685,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                 "Emphasize ethical use and include a disclaimer in the comments."
             )
 
-            response = self.ollama.generate(description, system_prompt=system_prompt)
+            response = self.llm_client.generate(
+                description, system_prompt=system_prompt
+            )
             if not response:
                 self.console.print(
                     "[bold red]Error: Could not get response from AI[/bold red]"
@@ -993,6 +1000,12 @@ For detailed documentation, visit: https://github.com/demonking369/NeuroRift
         action="store_true",
         help="🆕 Launch interactive configuration wizard",
     )
+    parser.add_argument("--clawhub", help="Install a skill from ClawHub by name")
+    parser.add_argument(
+        "--skill",
+        nargs="+",
+        help="Skill operations: list | run <name> | uninstall <name>",
+    )
 
     # Add subparsers for commands
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
@@ -1029,6 +1042,18 @@ For detailed documentation, visit: https://github.com/demonking369/NeuroRift
     )
     list_tools_parser.add_argument(
         "--verbose", action="store_true", help="Show detailed tool information"
+    )
+
+    # Run autonomous agent command
+    run_agent_parser = subparsers.add_parser(
+        "run-agent", help="Start NeuroRift autonomous agent runtime"
+    )
+    run_agent_parser.add_argument("--target", help="Agent target/context")
+    run_agent_parser.add_argument(
+        "--mode", choices=["offensive", "defensive"], default="defensive"
+    )
+    run_agent_parser.add_argument(
+        "--model", help="llama.cpp model for capability check"
     )
 
     # Dark web OSINT command (Robin integration)
@@ -1069,6 +1094,69 @@ async def _async_main(args):
     # Initialize NeuroRift
     vf = NeuroRift()
     vf.banner()
+
+    # Modular skill system integration (ClawHub/local registry)
+    skill_manager = SkillManager(Path.home() / ".neurorift")
+
+    if args.clawhub:
+        result = skill_manager.install_clawhub(args.clawhub.strip())
+        if result.get("success"):
+            print(f"✓ Installed skill from ClawHub: {result.get('name')}")
+        else:
+            print(f"✗ Failed to install skill: {result.get('error')}")
+        return
+
+    if args.skill:
+        action = (args.skill[0] or "").lower()
+        if action == "list":
+            print(json.dumps({"installed_skills": skill_manager.list()}, indent=2))
+            return
+        if action == "run" and len(args.skill) > 1:
+            skill_name = args.skill[1]
+            run_result = skill_manager.run(
+                skill_name, target=args.target or "127.0.0.1"
+            )
+            print(json.dumps({"skill": skill_name, "result": run_result}, indent=2))
+            return
+        if action == "uninstall" and len(args.skill) > 1:
+            skill_name = args.skill[1]
+            print(json.dumps(skill_manager.uninstall(skill_name), indent=2))
+            return
+        print(
+            "Invalid --skill usage. Examples: --skill list | --skill run recon_scanner | --skill uninstall recon_scanner"
+        )
+        return
+
+    if args.command == "run-agent":
+        env_report = verify_runtime_environment(Path.home() / ".neurorift")
+        if not env_report.get("ok"):
+            print("❌ Runtime environment check failed.")
+            for check in env_report.get("tools", []):
+                if not check.get("ok"):
+                    print(
+                        f"- {check.get('tool')}: {check.get('error')} | {check.get('install_hint')}"
+                    )
+            return
+
+        model_name = args.model or os.getenv("LLAMA_MODEL")
+        if model_name:
+            capability = verify_model_capabilities(model_name)
+            if not capability.get("agent_ready"):
+                print(
+                    "❌ Selected model is not agent-ready for autonomous NeuroRift execution."
+                )
+                print(json.dumps(capability, indent=2))
+                return
+        else:
+            print(
+                "⚠️ No model specified (--model or LLAMA_MODEL). Skipping model capability check."
+            )
+
+        args.orchestrated = True
+        if not args.target:
+            args.target = "local-environment"
+        if not args.mode:
+            args.mode = "defensive"
 
     # Set logging level based on verbose flag
     if args.verbose:
@@ -1270,7 +1358,7 @@ async def _async_main(args):
         if not darkweb_module.ROBIN_AVAILABLE:
             print("❌ Error: Robin module dependencies not installed.")
             print(
-                "Install with: pip install langchain-core langchain-openai langchain-ollama"
+                "Install with: pip install langchain-core langchain-openai llama-cpp-python[server]"
             )
             return
 
@@ -1336,20 +1424,6 @@ async def _async_main(args):
     if not FilePermissionManager.create_secure_directory(session_dir, mode=0o700):
         print("Error: Failed to create secure session directory")
         return
-
-    # Initialize AI controller if needed
-    if args.ai_only or args.ai_debug:
-        from ai_controller import AIController
-
-        ai_controller = AIController(
-            str(session_dir), str(vf.base_dir / "configs" / "scan_config.json")
-        )
-        if not ai_controller.setup_ai():
-            print("Error: Failed to setup AI system")
-            return
-
-        # Set output format
-        ai_controller.output_format = args.output_format
 
     # Execute based on mode
     if args.operation_mode == "recon":

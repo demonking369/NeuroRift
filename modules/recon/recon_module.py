@@ -315,7 +315,7 @@ class EnhancedReconModule:
             3. Potential attack chains
             """
 
-            ai_response = self.ai_analyzer.ollama.generate(prompt)
+            ai_response = self.ai_analyzer.llm_client.generate(prompt)
             if ai_response:
                 try:
                     analysis = json.loads(ai_response)

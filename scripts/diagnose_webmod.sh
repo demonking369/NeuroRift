@@ -45,7 +45,7 @@ if python -c "import langchain_core" 2>/dev/null; then
     echo "   ✅ langchain-core installed"
 else
     echo "   ❌ langchain-core not installed"
-    echo "   Install with: pip install langchain-core langchain-openai langchain-ollama"
+    echo "   Install with: pip install langchain-core langchain-openai llama-cpp-python[server]"
 fi
 echo ""
 
@@ -101,5 +101,5 @@ echo "  # Or use custom port:"
 echo "  python neurorift_main.py --webmod --web-port 8502"
 echo ""
 echo "  # Install missing dependencies:"
-echo "  pip install streamlit langchain-core langchain-openai langchain-ollama"
+echo "  pip install streamlit langchain-core langchain-openai llama-cpp-python[server]"
 echo ""
