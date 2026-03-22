@@ -1,10 +1,11 @@
-"""Ollama model capability verification for autonomous NeuroRift agent mode."""
+"""llama.cpp model capability verification for autonomous NeuroRift agent mode."""
 
 from __future__ import annotations
 
 import json
-import subprocess
+import asyncio
 from typing import Any
+from ai_wrapper.llama_client import LlamaClient
 
 CAPABILITY_PROMPT = """Evaluate whether you can reliably perform the following tasks:
 
@@ -33,39 +34,23 @@ def _extract_json(raw_text: str) -> dict[str, Any]:
     return json.loads(raw_text[start : end + 1])
 
 
-def verify_model_capabilities(model_name: str) -> dict[str, Any]:
+async def _verify_async(model_name: str) -> dict[str, Any]:
+    client = LlamaClient()
     try:
-        proc = subprocess.run(
-            ["ollama", "run", model_name, CAPABILITY_PROMPT],
-            capture_output=True,
-            text=True,
-            timeout=120,
-            check=False,
-        )
-    except FileNotFoundError:
-        return {"ok": False, "error": "ollama_missing", "agent_ready": False}
+        messages = [{"role": "user", "content": CAPABILITY_PROMPT}]
+        res = await client.generate_chat(messages, model=model_name)
+        if not res or res.get("type") != "text":
+            return {
+                "ok": False,
+                "error": "llama_exec_error:invalid_response",
+                "agent_ready": False,
+            }
+
+        parsed = _extract_json(res.get("content", ""))
     except Exception as exc:  # defensive for unstable environments
         return {
             "ok": False,
-            "error": f"ollama_exec_error:{type(exc).__name__}",
-            "agent_ready": False,
-        }
-
-    if proc.returncode != 0:
-        return {
-            "ok": False,
-            "error": f"ollama_returned_{proc.returncode}",
-            "stderr": proc.stderr,
-            "agent_ready": False,
-        }
-
-    try:
-        parsed = _extract_json(proc.stdout)
-    except Exception as exc:
-        return {
-            "ok": False,
-            "error": f"invalid_capability_json:{type(exc).__name__}",
-            "raw": proc.stdout[:1000],
+            "error": f"llama_exec_error:{type(exc).__name__}",
             "agent_ready": False,
         }
 
@@ -76,7 +61,7 @@ def verify_model_capabilities(model_name: str) -> dict[str, Any]:
         "multi_step_reasoning",
         "agent_ready",
     }
-    if not required.issubset(parsed):
+    if not required.issubset(parsed.keys()):
         return {
             "ok": False,
             "error": "capability_fields_missing",
@@ -88,11 +73,15 @@ def verify_model_capabilities(model_name: str) -> dict[str, Any]:
     return parsed
 
 
+def verify_model_capabilities(model_name: str) -> dict[str, Any]:
+    return asyncio.run(_verify_async(model_name))
+
+
 if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Check Ollama model capability for NeuroRift agent mode"
+        description="Check llama.cpp model capability for NeuroRift agent mode"
     )
     parser.add_argument("--model", required=True)
     args = parser.parse_args()

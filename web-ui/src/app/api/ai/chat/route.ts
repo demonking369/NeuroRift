@@ -13,28 +13,28 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Prompt exceeds maximum length' }, { status: 400 });
         }
 
-        // 2. Proxy to Ollama
-        const ollamaRes = await fetch('http://127.0.0.1:11434/api/generate', {
+        // 2. Proxy to llama.cpp
+        const llamaRes = await fetch('http://127.0.0.1:8080/v1/chat/completions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model,
-                prompt,
+                messages: [{ role: 'user', content: prompt }],
                 stream: true,
             }),
         });
 
-        if (!ollamaRes.ok) {
+        if (!llamaRes.ok) {
             return NextResponse.json(
-                { error: `Ollama error: ${ollamaRes.statusText}` },
-                { status: ollamaRes.status }
+                { error: `llama.cpp error: ${llamaRes.statusText}` },
+                { status: llamaRes.status }
             );
         }
 
         // 3. Stream Response
         const stream = new ReadableStream({
             async start(controller) {
-                const reader = ollamaRes.body?.getReader();
+                const reader = llamaRes.body?.getReader();
                 if (!reader) {
                     controller.close();
                     return;

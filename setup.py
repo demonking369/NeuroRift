@@ -50,7 +50,6 @@ setup(
         "python-dotenv>=1.0.0",
         "langchain-core>=0.1.0",
         "langchain-openai>=0.0.5",
-        "langchain-ollama>=0.0.1",
         "langchain-anthropic>=0.1.0",
         "langchain-google-genai>=0.0.6",
         "langchain-community>=0.0.20",

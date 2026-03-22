@@ -1,0 +1,39 @@
+llama:
+  host: "localhost"
+  port: 8080
+  base_url: "http://localhost:8080/v1"
+  model: "hermes-2-pro-mistral-7b"
+  temperature: 0.1
+  max_tokens: 4096
+  timeout_seconds: 300
+  health_check_timeout: 5
+
+session:
+  output_dir: "session/logs"
+  autosave: true
+
+recon:
+  binary_path: "recon/target/release/recon"
+  default_timeout: 120
+  wordlist_path: "scripts/wordlist.txt"
+
+network:
+  c_binary_dir: "network"
+  require_cap_net_raw: true
+
+tools:
+  shell_exec_timeout: 60
+  shell_exec_whitelist:
+    - nmap
+    - subfinder
+    - ffuf
+    - nuclei
+    - whatweb
+    - sqlmap
+    - curl
+    - dig
+    - nslookup
+    - whois
+
+reporting:
+  output_dir: "reports"

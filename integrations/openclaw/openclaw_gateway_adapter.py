@@ -73,7 +73,7 @@ TOOL_METHOD_MAP = {
 REQUIRED_ENV = [
     "OPENCLAW_CONFIG_PATH",
     "OPENCLAW_STATE_DIR",
-    "OLLAMA_HOST",
+    "LLAMA_HOST",
     "NEURORIFT_BRIDGE_URL",
 ]
 
@@ -288,7 +288,17 @@ class NeuroRiftOpenClawAdapter:
                     "message": approval.reason,
                 },
             }
+        correlation_id = event.get("id", str(uuid.uuid4()))
+        session_ctx = event.get("session", {})
+        if "sessionKey" not in session_ctx:
+            session_ctx["sessionKey"] = self.session_id
+        if "channel" not in session_ctx:
+            session_ctx["channel"] = "admin"
+        if "mentionPolicy" not in session_ctx:
+            session_ctx["mentionPolicy"] = "none"
 
+        started = time.time()
+        try:
             bridged = await self._call_neurorift(tool_call)
         except PermissionError as exc:
             return {

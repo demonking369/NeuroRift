@@ -315,7 +315,7 @@ class EnhancedReconModule:
             3. Potential attack chains
             """
 
-            ai_response = self.ai_analyzer.ollama.generate(prompt)
+            ai_response = self.ai_analyzer.llm_client.generate(prompt)
             if ai_response:
                 try:
                     analysis = json.loads(ai_response)
@@ -340,8 +340,7 @@ class EnhancedReconModule:
         md_path = output_dir / "report.md"
         try:
             async with aiofiles.open(md_path, "w") as f:
-                await f.write(
-                    f"""# NeuroRift Reconnaissance Report
+                await f.write(f"""# NeuroRift Reconnaissance Report
 
 ## Target: {results['target']}
 ## Scan Time: {results['timestamp']}
@@ -362,8 +361,7 @@ class EnhancedReconModule:
 
 ### AI Analysis
 {json.dumps(results['ai_analysis'], indent=2)}
-"""
-                )
+""")
         except (aiofiles.OSError, aiofiles.IOError) as e:
             self.logger.error("Error writing results: %s", e)
 

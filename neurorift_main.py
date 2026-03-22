@@ -43,7 +43,7 @@ from utils.security_utils import (
 from utils.auth import get_auth_manager, Permission
 
 from modules.recon.recon_module import EnhancedReconModule
-from modules.ai.ai_integration import AIAnalyzer, OllamaClient
+from modules.ai.ai_integration import AIAnalyzer, LocalAIClient
 from modules.ai.ai_orchestrator import AIOrchestrator  # New Import
 import modules.darkweb as darkweb_module
 from modules.ai.agent import NeuroRiftAgent
@@ -81,20 +81,20 @@ class NeuroRift:
         self.auto_save = AutoSaveService(self.session_manager)
 
         # Initialize AI components
-        self.ollama = OllamaClient()
-        self.ai_analyzer = AIAnalyzer(self.ollama)
+        self.llm_client = LocalAIClient()
+        self.ai_analyzer = AIAnalyzer(self.llm_client)
         self.agentic_mode = False
-        self.agent = NeuroRiftAgent(self.ollama)
+        self.agent = NeuroRiftAgent(self.llm_client)
         self.web_module = WebModule(self.base_dir, self.ai_analyzer)
         self.exploit_module = ExploitModule(self.base_dir, self.ai_analyzer)
         self.scan_module = ScanModule(self.base_dir, self.ai_analyzer)
 
         # Orchestration Components
         self.execution_manager = ExecutionManager(self.session_manager)
-        self.planner = NRPlanner(self.ollama)
+        self.planner = NRPlanner(self.llm_client)
         self.operator = NROperator(self.execution_manager)
-        self.analyst = NRAnalyst(self.ollama)
-        self.scribe = NRScribe(self.ollama)
+        self.analyst = NRAnalyst(self.llm_client)
+        self.scribe = NRScribe(self.llm_client)
 
     def setup_directories(self):
         """Create necessary directories"""
@@ -637,7 +637,7 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
         accurate, and educational responses about security concepts, tools, and best practices.
         Always emphasize ethical use and proper authorization."""
 
-        response = self.ollama.generate(question, system_prompt=system_prompt)
+        response = self.llm_client.generate(question, system_prompt=system_prompt)
         if response:
             self.console.print("\n[bold green]AI Response:[/bold green]")
             self.console.print(Panel(response, style="blue"))
@@ -685,7 +685,9 @@ Thanks to the open-source projects that inspired and supported NeuroRift.
                 "Emphasize ethical use and include a disclaimer in the comments."
             )
 
-            response = self.ollama.generate(description, system_prompt=system_prompt)
+            response = self.llm_client.generate(
+                description, system_prompt=system_prompt
+            )
             if not response:
                 self.console.print(
                     "[bold red]Error: Could not get response from AI[/bold red]"
@@ -828,16 +830,14 @@ async def dev_mode_shell(vf, session_dir):
         history.append(cmd)
         parts = cmd.split()
         if parts[0] == "help":
-            console.print(
-                """
+            console.print("""
 [bold cyan]Available commands:[/bold cyan]
 - analyze <module>: Analyze a module for improvements
 - modify <module> <changes>: Apply changes to a module
 - list: Show modification history
 - help: Show this help message
 - exit: Exit dev mode
-"""
-            )
+""")
         elif parts[0] == "exit":
             print("Exiting dev mode.")
             break
@@ -1050,7 +1050,9 @@ For detailed documentation, visit: https://github.com/demonking369/NeuroRift
     run_agent_parser.add_argument(
         "--mode", choices=["offensive", "defensive"], default="defensive"
     )
-    run_agent_parser.add_argument("--model", help="Ollama model for capability check")
+    run_agent_parser.add_argument(
+        "--model", help="llama.cpp model for capability check"
+    )
 
     # Dark web OSINT command (Robin integration)
     darkweb_parser = subparsers.add_parser(
@@ -1134,7 +1136,7 @@ async def _async_main(args):
                     )
             return
 
-        model_name = args.model or os.getenv("OLLAMA_MODEL")
+        model_name = args.model or os.getenv("LLAMA_MODEL")
         if model_name:
             capability = verify_model_capabilities(model_name)
             if not capability.get("agent_ready"):
@@ -1145,7 +1147,7 @@ async def _async_main(args):
                 return
         else:
             print(
-                "⚠️ No model specified (--model or OLLAMA_MODEL). Skipping model capability check."
+                "⚠️ No model specified (--model or LLAMA_MODEL). Skipping model capability check."
             )
 
         args.orchestrated = True
@@ -1354,7 +1356,7 @@ async def _async_main(args):
         if not darkweb_module.ROBIN_AVAILABLE:
             print("❌ Error: Robin module dependencies not installed.")
             print(
-                "Install with: pip install langchain-core langchain-openai langchain-ollama"
+                "Install with: pip install langchain-core langchain-openai llama-cpp-python[server]"
             )
             return
 
@@ -1421,19 +1423,6 @@ async def _async_main(args):
         print("Error: Failed to create secure session directory")
         return
 
-    # Initialize AI controller if needed
-    if args.ai_only or args.ai_debug:
-        from ai_controller import AIController
-
-        ai_controller = AIController(
-            str(session_dir), str(vf.base_dir / "configs" / "scan_config.json")
-        )
-        if not ai_controller.setup_ai():
-            print("Error: Failed to setup AI system")
-            return
-
-        # Set output format
-        ai_controller.output_format = args.output_format
 
     # Execute based on mode
     if args.operation_mode == "recon":

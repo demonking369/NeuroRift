@@ -81,19 +81,19 @@ export function SystemHealthPanel() {
                     </div>
                 </div>
 
-                {/* AI / Ollama */}
+                {/* AI / llama.cpp */}
                 <div className="col-span-2 p-3 bg-neuro-surface/40 rounded-lg border border-neuro-border/30 backdrop-blur-sm flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className={cn("w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]",
-                            state.ollama.status === 'connected' ? "bg-emerald-500 text-emerald-500" : "bg-red-500 text-red-500"
+                            state.llama.status === 'connected' ? "bg-emerald-500 text-emerald-500" : "bg-red-500 text-red-500"
                         )} />
                         <div className="flex flex-col">
-                            <span className="text-xs text-neuro-text-primary font-medium tracking-wide">AI Core (Ollama)</span>
-                            <span className="text-[10px] text-neuro-text-muted font-mono">{state.ollama.model}</span>
+                            <span className="text-xs text-neuro-text-primary font-medium tracking-wide">AI Core (llama.cpp)</span>
+                            <span className="text-[10px] text-neuro-text-muted font-mono">{state.llama.model}</span>
                         </div>
                     </div>
                     <div className="text-[10px] bg-black/20 px-2 py-1 rounded border border-white/5 font-mono text-neuro-text-secondary uppercase">
-                        {state.ollama.status}
+                        {state.llama.status}
                     </div>
                 </div>
 

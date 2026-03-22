@@ -9,8 +9,4 @@ Designed and developed by demonking369
 from .session_manager import SessionManager, SessionStatus
 from .session_serializer import SessionSerializer
 
-__all__ = [
-    'SessionManager',
-    'SessionSerializer',
-    'SessionStatus'
-]
+__all__ = ["SessionManager", "SessionSerializer", "SessionStatus"]

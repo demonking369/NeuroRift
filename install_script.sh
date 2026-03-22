@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 #  NeuroRift × OpenClaw — Unified Installer
-#  Installs: Docker, Docker Compose, Ollama, and all deps.
+#  Installs: Docker, Docker Compose, llama.cpp, and all deps.
 #  Launches the full stack via Docker Compose.
 # ============================================================
 set -euo pipefail
@@ -171,24 +171,12 @@ else
 fi
 
 # ─────────────────────────────────────────────────────────────
-# 3. Ollama (standalone — also runs as the Docker service)
+# 3. llama.cpp (Local Server)
 # ─────────────────────────────────────────────────────────────
-step "3/7  Ollama AI Runtime"
+step "3/7  llama.cpp AI Runtime"
 
-if command -v ollama &>/dev/null; then
-    success "Ollama already installed: $(ollama --version 2>/dev/null || echo 'unknown')"
-else
-    info "Installing Ollama..."
-    curl -fsSL https://ollama.ai/install.sh | sh
-    success "Ollama installed"
-fi
-
-# Ensure Ollama systemd service exists (the install.sh creates it)
-if systemctl list-unit-files --type=service 2>/dev/null | grep -q ollama; then
-    info "Enabling Ollama system service..."
-    sudo systemctl enable ollama 2>/dev/null || true
-fi
-success "Ollama ready"
+info "llama.cpp server dependencies will be installed in the python virtual environment."
+success "llama.cpp prepared"
 
 # ─────────────────────────────────────────────────────────────
 # 4. Rust Toolchain (for openclaw build)
@@ -343,27 +331,12 @@ $COMPOSE_CMD build
 success "All Docker images built"
 
 # ─────────────────────────────────────────────────────────────
-# Pull AI Model inside Ollama container
+# Pull AI Model via Helper Script
 # ─────────────────────────────────────────────────────────────
-step "Pre-pulling Ollama Model"
+step "Pre-pulling llama.cpp Model"
 
-OLLAMA_MODEL="${OLLAMA_MAIN_MODEL:-llama3}"
-info "Starting Ollama container to pull model: ${OLLAMA_MODEL}"
-$COMPOSE_CMD up -d ollama
-
-info "Waiting for Ollama to be ready..."
-for i in $(seq 1 30); do
-    if $COMPOSE_CMD exec -T ollama curl -sf http://localhost:11434/api/tags &>/dev/null; then
-        success "Ollama is ready"
-        break
-    fi
-    [ "$i" -eq 30 ] && warn "Ollama slow to start — pull may run later" && break
-    sleep 3
-done
-
-info "Pulling ${OLLAMA_MODEL} (this may take several minutes on first run)..."
-$COMPOSE_CMD exec -T ollama ollama pull "${OLLAMA_MODEL}" || \
-    warn "Model pull failed. Run manually: docker compose exec ollama ollama pull ${OLLAMA_MODEL}"
+info "Running model download script for Hermes-2-Pro-Mistral..."
+bash "${SCRIPT_DIR}/scripts/download_model.sh"
 
 # ─────────────────────────────────────────────────────────────
 # Start All Services

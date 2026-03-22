@@ -14,13 +14,16 @@ st.set_page_config(
     page_title="NeuroRift v2.0",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
+
 
 def local_css(file_name):
     if Path(file_name).exists():
         with open(file_name) as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
 local_css(str(ASSETS_DIR / "neurorift.css"))
 
 # --- Imports ---
@@ -44,13 +47,14 @@ if "active_session_id" not in st.session_state:
 nr = st.session_state.neurorift
 session_manager = nr.session_manager
 
+
 # --- Main Controller ---
 def main():
     # Sidebar Global Controls
     with st.sidebar:
         st.title("🛡️ NeuroRift")
         st.caption("Intelligence Amplified")
-        
+
         if st.session_state.active_session_id:
             st.divider()
             sess = session_manager.get_current_session()
@@ -59,7 +63,7 @@ def main():
                 if st.button("Close Session"):
                     st.session_state.active_session_id = None
                     st.rerun()
-        
+
         st.divider()
         st.caption(f"v{nr.version}")
 
@@ -75,8 +79,9 @@ def main():
             nr.planner,
             nr.operator,
             nr.analyst,
-            nr.scribe
+            nr.scribe,
         )
+
 
 if __name__ == "__main__":
     main()

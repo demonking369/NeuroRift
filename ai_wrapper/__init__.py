@@ -8,6 +8,6 @@
 AI Wrapper module for NeuroRift
 """
 
-from .ollama_wrapper import OllamaWrapper
+from .llama_client import LlamaClient
 
-__all__ = ['OllamaWrapper'] 
+__all__ = ["LlamaClient"]

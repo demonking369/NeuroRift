@@ -4,9 +4,10 @@ import os
 import platform
 import json
 
+
 class ScreenControl:
     """A multi-language, modular screen control system."""
-    
+
     def __init__(self, base_path):
         self.base_path = base_path
         self._load_libraries()
@@ -15,7 +16,7 @@ class ScreenControl:
         """Loads the C++, Rust, and Assembly shared libraries."""
         try:
             # C++ Library
-            cpp_lib_path = os.path.join(self.base_path, 'cpp/screen.so')
+            cpp_lib_path = os.path.join(self.base_path, "cpp/screen.so")
             if os.path.exists(cpp_lib_path):
                 self.cpp_lib = ctypes.CDLL(cpp_lib_path)
                 self.cpp_lib.move_mouse_cpp.argtypes = [ctypes.c_int, ctypes.c_int]
@@ -26,7 +27,9 @@ class ScreenControl:
                 print("C++ library not found, using fallback")
 
             # Rust Library
-            rust_lib_path = os.path.join(self.base_path, 'rust/target/release/librust_control.so')
+            rust_lib_path = os.path.join(
+                self.base_path, "rust/target/release/librust_control.so"
+            )
             if os.path.exists(rust_lib_path):
                 self.rust_lib = ctypes.CDLL(rust_lib_path)
                 self.rust_lib.type_text.argtypes = [ctypes.c_char_p]
@@ -37,7 +40,7 @@ class ScreenControl:
                 print("Rust library not found, using fallback")
 
             # Assembly Library
-            asm_lib_path = os.path.join(self.base_path, 'assembly/hook.so')
+            asm_lib_path = os.path.join(self.base_path, "assembly/hook.so")
             if os.path.exists(asm_lib_path):
                 self.asm_lib = ctypes.CDLL(asm_lib_path)
                 self.asm_lib.calculate_offset.argtypes = [ctypes.c_int, ctypes.c_int]
@@ -59,7 +62,7 @@ class ScreenControl:
             self.cpp_lib.move_mouse_cpp(x, y)
         else:
             # Fallback using xdotool
-            subprocess.run(['xdotool', 'mousemove', str(x), str(y)])
+            subprocess.run(["xdotool", "mousemove", str(x), str(y)])
 
     def click(self, button: int = 1):
         """Click mouse button using C++ library or fallback."""
@@ -67,15 +70,15 @@ class ScreenControl:
             self.cpp_lib.click_cpp(button)
         else:
             # Fallback using xdotool
-            subprocess.run(['xdotool', 'click', str(button)])
+            subprocess.run(["xdotool", "click", str(button)])
 
     def type_text(self, text: str):
         """Type text using Rust library or fallback."""
         if self.rust_available:
-            self.rust_lib.type_text(text.encode('utf-8'))
+            self.rust_lib.type_text(text.encode("utf-8"))
         else:
             # Fallback using xdotool
-            subprocess.run(['xdotool', 'type', text])
+            subprocess.run(["xdotool", "type", text])
 
     def scroll(self, direction: int):
         """Scroll using Rust library or fallback."""
@@ -84,9 +87,9 @@ class ScreenControl:
         else:
             # Fallback using xdotool
             if direction > 0:
-                subprocess.run(['xdotool', 'key', 'Down'])
+                subprocess.run(["xdotool", "key", "Down"])
             else:
-                subprocess.run(['xdotool', 'key', 'Up'])
+                subprocess.run(["xdotool", "key", "Up"])
 
     def calculate_offset(self, base: int, offset: int) -> int:
         """Calculate offset using Assembly library or fallback."""
@@ -99,18 +102,19 @@ class ScreenControl:
     def execute_command(self, command: dict):
         """Execute a command from the JSON schema."""
         try:
-            cmd_type = command.get('type')
-            if cmd_type == 'move_mouse':
-                self.move_mouse(command['x'], command['y'])
-            elif cmd_type == 'click':
-                self.click(command.get('button', 1))
-            elif cmd_type == 'type':
-                self.type_text(command['text'])
-            elif cmd_type == 'scroll':
-                self.scroll(command['direction'])
-            elif cmd_type == 'wait':
+            cmd_type = command.get("type")
+            if cmd_type == "move_mouse":
+                self.move_mouse(command["x"], command["y"])
+            elif cmd_type == "click":
+                self.click(command.get("button", 1))
+            elif cmd_type == "type":
+                self.type_text(command["text"])
+            elif cmd_type == "scroll":
+                self.scroll(command["direction"])
+            elif cmd_type == "wait":
                 import time
-                time.sleep(command['seconds'])
+
+                time.sleep(command["seconds"])
             else:
                 print(f"Unknown command type: {cmd_type}")
         except Exception as e:
@@ -122,4 +126,5 @@ class ScreenControl:
             self.execute_command(command)
             # Small delay between commands
             import time
-            time.sleep(0.1) 
+
+            time.sleep(0.1)

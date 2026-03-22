@@ -52,7 +52,7 @@ if ask_yes_no "Remove NeuroRift application (Python package)?"; then
 fi
 
 if command -v ollama &> /dev/null; then
-    if ask_yes_no "Remove AI models (Ollama models)?"; then
+    if ask_yes_no "Remove AI models (llama.cpp models)?"; then
         UNINSTALL_MODELS=true
     fi
 fi
@@ -138,7 +138,7 @@ if [ "$UNINSTALL_MODELS" = true ]; then
             echo "$MODELS"
             echo ""
             
-            if ask_yes_no "Remove ALL Ollama models?"; then
+            if ask_yes_no "Remove ALL llama.cpp models?"; then
                 for model in $MODELS; do
                     echo "Removing $model..."
                     ollama rm "$model"

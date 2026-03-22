@@ -3,13 +3,14 @@ import json
 from typing import Dict, Any, List
 from modules.tools.base import BaseTool, ToolCategory, ToolMode, ToolInput
 
+
 class AmassTool(BaseTool):
     def __init__(self):
         super().__init__(
             name="amass",
             description="In-depth Attack Surface Mapping and Asset Discovery",
             category=ToolCategory.RECON,
-            mode=ToolMode.OFFENSIVE # Can be considered offensive due to active scanning options, usually recon
+            mode=ToolMode.OFFENSIVE,  # Can be considered offensive due to active scanning options, usually recon
         )
 
     def validate_input(self, input_data: ToolInput) -> bool:
@@ -20,12 +21,12 @@ class AmassTool(BaseTool):
     def build_command(self, input_data: ToolInput) -> List[str]:
         # Default to 'enum' mode for enumeration
         cmd = ["amass", "enum", "-d", input_data.target, "-json", "amass_out.json"]
-        
+
         if input_data.args.get("passive"):
             cmd.append("-passive")
         if input_data.args.get("active"):
             cmd.append("-active")
-            
+
         return cmd
 
     def parse_output(self, raw_output: str) -> Dict[str, Any]:
@@ -35,14 +36,14 @@ class AmassTool(BaseTool):
         results = []
         for line in raw_output.splitlines():
             try:
-                if line.strip().startswith('{'):
+                if line.strip().startswith("{"):
                     results.append(json.loads(line))
             except json.JSONDecodeError:
                 continue
-        
+
         return {
             "subdomains": [r.get("name") for r in results if "name" in r],
-            "raw_entries": results
+            "raw_entries": results,
         }
 
     def check_installed(self) -> bool:

@@ -101,10 +101,14 @@ def run_darkweb_osint(
     refined_query = refine_query(llm, query)
 
     logger.info("Querying dark web indices via Tor...")
-    search_results = get_search_results(refined_query.replace(" ", "+"), max_workers=threads)
+    search_results = get_search_results(
+        refined_query.replace(" ", "+"), max_workers=threads
+    )
 
     if not search_results:
-        logger.warning("No search results returned. Verify Tor connectivity and try again.")
+        logger.warning(
+            "No search results returned. Verify Tor connectivity and try again."
+        )
         return {
             "refined_query": refined_query,
             "search_results": [],
@@ -138,4 +142,3 @@ def run_darkweb_osint(
 def get_robin_model_choices():
     """Expose Robin model choices for CLI integration."""
     return get_model_choices()
-

@@ -12,20 +12,21 @@ try:
     from .search import get_search_results
     from .llm_utils import BufferedStreamingHandler, get_model_choices
     from .llm import get_llm, refine_query, filter_results, generate_summary
-    from .config import OLLAMA_MAIN_MODEL
+    from .config import LLAMA_MAIN_MODEL
 except ImportError:
     # Fall back to absolute imports (when run directly by Streamlit)
     import os
+
     # Add parent directory to path
     current_dir = Path(__file__).parent
     if str(current_dir) not in sys.path:
         sys.path.insert(0, str(current_dir))
-    
+
     from scrape import scrape_multiple
     from search import get_search_results
     from llm_utils import BufferedStreamingHandler, get_model_choices
     from llm import get_llm, refine_query, filter_results, generate_summary
-    from config import OLLAMA_MAIN_MODEL
+    from config import LLAMA_MAIN_MODEL
 
 
 # Cache expensive backend calls
@@ -77,11 +78,15 @@ st.sidebar.markdown(
 st.sidebar.subheader("Settings")
 model_options = get_model_choices()
 
-# Set default model based on .env OLLAMA_MAIN_MODEL
-default_model = OLLAMA_MAIN_MODEL or "gpt-5-mini"
+# Set default model based on .env LLAMA_MAIN_MODEL
+default_model = LLAMA_MAIN_MODEL or "gpt-5-mini"
 default_model_index = (
     next(
-        (idx for idx, name in enumerate(model_options) if name.lower() == default_model.lower()),
+        (
+            idx
+            for idx, name in enumerate(model_options)
+            if name.lower() == default_model.lower()
+        ),
         0,
     )
     if model_options
@@ -94,14 +99,29 @@ model = st.sidebar.selectbox(
     index=default_model_index,
     key="model_select",
 )
-from .llm_utils import fetch_ollama_models
-ollama_reachable = len(fetch_ollama_models()) > 0
+from .llm_utils import fetch_llama_models
 
-if any(name not in {"gpt4o", "gpt-4.1", "claude-3-5-sonnet-latest", "llama3.1", "gemini-2.5-flash"} for name in model_options):
-    if ollama_reachable:
-        st.sidebar.caption("✅ Locally detected Ollama models are added to this list.")
+llama_reachable = len(fetch_llama_models()) > 0
+
+if any(
+    name
+    not in {
+        "gpt4o",
+        "gpt-4.1",
+        "claude-3-5-sonnet-latest",
+        "llama3.1",
+        "gemini-2.5-flash",
+    }
+    for name in model_options
+):
+    if llama_reachable:
+        st.sidebar.caption(
+            "✅ Locally detected llama.cpp models are added to this list."
+        )
     else:
-        st.sidebar.warning("⚠️ Ollama server unreachable. Only configured models shown.")
+        st.sidebar.warning(
+            "⚠️ llama.cpp server unreachable. Only configured models shown."
+        )
         if st.sidebar.button("🔄 Refresh Models"):
             st.rerun()
 
@@ -111,7 +131,9 @@ threads = st.sidebar.slider("Scraping Threads", 1, 16, 4, key="thread_slider")
 # Main UI - logo and input
 _, logo_col, _ = st.columns(3)
 with logo_col:
-    logo_path = Path(__file__).resolve().parent / ".github" / "assets" / "robin_logo.png"
+    logo_path = (
+        Path(__file__).resolve().parent / ".github" / "assets" / "robin_logo.png"
+    )
     if logo_path.exists():
         st.image(str(logo_path), width=200)
 

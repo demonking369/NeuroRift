@@ -1,0 +1,2180 @@
+./ai_wrapper/__init__.py:13:26: W291 trailing whitespace
+./ai_wrapper/__init__.py:13:27: W292 no newline at end of file
+./ai_wrapper/llama_client.py:7:1: E265 block comment should start with '# '
+./ai_wrapper/llama_client.py:13:1: F401 'json' imported but unused
+./ai_wrapper/llama_client.py:18:1: E302 expected 2 blank lines, found 1
+./ai_wrapper/llama_client.py:24:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:26:14: W291 trailing whitespace
+./ai_wrapper/llama_client.py:27:40: W291 trailing whitespace
+./ai_wrapper/llama_client.py:44:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:52:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:57:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:60:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:64:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:68:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:70:1: W293 blank line contains whitespace
+./ai_wrapper/llama_client.py:72:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:7:1: E265 block comment should start with '# '
+./ai_wrapper/llm_engine.py:17:1: F401 'typing.Any' imported but unused
+./ai_wrapper/llm_engine.py:22:1: E302 expected 2 blank lines, found 1
+./ai_wrapper/llm_engine.py:30:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:35:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:46:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:55:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:63:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:65:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:71:76: W291 trailing whitespace
+./ai_wrapper/llm_engine.py:72:15: E128 continuation line under-indented for visual indent
+./ai_wrapper/llm_engine.py:75:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:80:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:85:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:94:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:102:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:105:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:114:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:116:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:118:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:126:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:130:1: W293 blank line contains whitespace
+./ai_wrapper/llm_engine.py:136:21: W291 trailing whitespace
+./ai_wrapper/llm_engine.py:136:22: W292 no newline at end of file
+./examples/notifications.py:19:1: E302 expected 2 blank lines, found 1
+./examples/notifications.py:23:1: W293 blank line contains whitespace
+./examples/notifications.py:27:1: W293 blank line contains whitespace
+./examples/notifications.py:34:1: W293 blank line contains whitespace
+./examples/notifications.py:46:1: W293 blank line contains whitespace
+./examples/notifications.py:59:1: W293 blank line contains whitespace
+./examples/notifications.py:75:1: W293 blank line contains whitespace
+./examples/notifications.py:78:1: W293 blank line contains whitespace
+./examples/notifications.py:85:24: W291 trailing whitespace
+./examples/notifications.py:85:25: W292 no newline at end of file
+./integrations/openclaw/openclaw_gateway_adapter.py:299:1: W293 blank line contains whitespace
+./model_capability_check.py:34:37: E203 whitespace before ':'
+./model_capability_check.py:44:1: W293 blank line contains whitespace
+./model_capability_check.py:71:1: E302 expected 2 blank lines, found 1
+./model_capability_check.py:74:1: E305 expected 2 blank lines after class or function definition, found 1
+./modules/ai/agent.py:5:1: F401 'typing.List' imported but unused
+./modules/ai/agent.py:8:1: E302 expected 2 blank lines, found 1
+./modules/ai/agent.py:10:1: W293 blank line contains whitespace
+./modules/ai/agent.py:14:1: W293 blank line contains whitespace
+./modules/ai/agent.py:20:1: W293 blank line contains whitespace
+./modules/ai/agent.py:35:1: W293 blank line contains whitespace
+./modules/ai/agent.py:39:1: W293 blank line contains whitespace
+./modules/ai/agent.py:47:1: W293 blank line contains whitespace
+./modules/ai/agent.py:49:1: W293 blank line contains whitespace
+./modules/ai/agent.py:51:1: W293 blank line contains whitespace
+./modules/ai/agent.py:81:1: W293 blank line contains whitespace
+./modules/ai/agent.py:84:1: W293 blank line contains whitespace
+./modules/ai/agent.py:91:1: W293 blank line contains whitespace
+./modules/ai/agent.py:109:69: E226 missing whitespace around arithmetic operator
+./modules/ai/agent.py:123:1: W293 blank line contains whitespace
+./modules/ai/agent.py:137:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:22:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:25:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:31:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:33:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:37:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:49:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:51:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:55:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:65:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:67:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:71:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:74:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:80:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:84:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:89:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:93:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:100:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:104:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:107:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:114:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:118:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:126:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:136:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:139:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:141:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:145:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:152:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:155:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:161:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:165:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:168:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:177:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:179:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:182:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:184:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:186:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:190:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:200:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:204:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:211:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:213:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:225:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:228:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:235:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:241:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:244:1: W293 blank line contains whitespace
+./modules/ai/agent_context.py:248:1: W293 blank line contains whitespace
+./modules/ai/agents.py:1:1: F401 'typing.Any' imported but unused
+./modules/ai/agents.py:1:1: F401 'typing.Optional' imported but unused
+./modules/ai/agents.py:8:1: E302 expected 2 blank lines, found 1
+./modules/ai/agents.py:11:1: W293 blank line contains whitespace
+./modules/ai/agents.py:17:1: W293 blank line contains whitespace
+./modules/ai/agents.py:21:1: W293 blank line contains whitespace
+./modules/ai/agents.py:23:1: W293 blank line contains whitespace
+./modules/ai/agents.py:26:1: W293 blank line contains whitespace
+./modules/ai/agents.py:31:1: W293 blank line contains whitespace
+./modules/ai/agents.py:44:1: W293 blank line contains whitespace
+./modules/ai/agents.py:53:1: W293 blank line contains whitespace
+./modules/ai/agents.py:55:1: W293 blank line contains whitespace
+./modules/ai/agents.py:73:1: E302 expected 2 blank lines, found 1
+./modules/ai/agents.py:76:1: W293 blank line contains whitespace
+./modules/ai/agents.py:81:1: W293 blank line contains whitespace
+./modules/ai/agents.py:93:1: E302 expected 2 blank lines, found 1
+./modules/ai/agents.py:96:1: W293 blank line contains whitespace
+./modules/ai/agents.py:100:1: W293 blank line contains whitespace
+./modules/ai/agents.py:104:1: W293 blank line contains whitespace
+./modules/ai/agents.py:107:1: W293 blank line contains whitespace
+./modules/ai/agents.py:110:1: W293 blank line contains whitespace
+./modules/ai/agents.py:115:1: W293 blank line contains whitespace
+./modules/ai/agents.py:128:1: W293 blank line contains whitespace
+./modules/ai/agents.py:137:1: W293 blank line contains whitespace
+./modules/ai/agents.py:150:1: W293 blank line contains whitespace
+./modules/ai/agents.py:153:1: E302 expected 2 blank lines, found 1
+./modules/ai/agents.py:159:1: W293 blank line contains whitespace
+./modules/ai/agents.py:163:1: W293 blank line contains whitespace
+./modules/ai/agents.py:165:1: W293 blank line contains whitespace
+./modules/ai/agents.py:168:1: W293 blank line contains whitespace
+./modules/ai/ai_assistant.py:3:1: E302 expected 2 blank lines, found 1
+./modules/ai/ai_assistant.py:30:84: W291 trailing whitespace
+./modules/ai/ai_assistant.py:30:85: W292 no newline at end of file
+./modules/ai/ai_controller.py:3:1: E302 expected 2 blank lines, found 1
+./modules/ai/ai_controller.py:19:78: W291 trailing whitespace
+./modules/ai/ai_controller.py:19:79: W292 no newline at end of file
+./modules/ai/ai_integration.py:10:1: F401 'subprocess' imported but unused
+./modules/ai/ai_integration.py:13:1: F401 'time' imported but unused
+./modules/ai/ai_integration.py:26:1: E302 expected 2 blank lines, found 1
+./modules/ai/ai_integration.py:33:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:47:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:50:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:54:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:59:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:85:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:106:5: F811 redefinition of unused 'logging' from line 11
+./modules/ai/ai_integration.py:114:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:117:87: W291 trailing whitespace
+./modules/ai/ai_integration.py:120:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:123:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:125:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:143:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:156:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:158:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:163:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:169:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:183:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:189:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:198:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:207:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:209:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:214:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:217:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:220:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:225:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:232:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:252:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:264:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:266:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:271:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:274:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:278:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:285:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:293:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:296:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:301:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:304:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:306:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:312:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:328:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:334:13: E722 do not use bare 'except'
+./modules/ai/ai_integration.py:336:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:341:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:356:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:401:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:407:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:414:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:422:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:459:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:478:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:490:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:492:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:494:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:500:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:506:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:512:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:523:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:527:1: W293 blank line contains whitespace
+./modules/ai/ai_integration.py:529:92: W292 no newline at end of file
+./modules/ai/ai_orchestrator.py:1:1: F401 'json' imported but unused
+./modules/ai/ai_orchestrator.py:7:1: E302 expected 2 blank lines, found 1
+./modules/ai/ai_orchestrator.py:23:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:28:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:35:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:42:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:49:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:68:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:72:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:76:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:84:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:99:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:102:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:126:1: W293 blank line contains whitespace
+./modules/ai/ai_orchestrator.py:147:29: W291 trailing whitespace
+./modules/ai/ai_orchestrator.py:147:30: W292 no newline at end of file
+./modules/ai/mode_governor.py:17:1: F401 'typing.Set' imported but unused
+./modules/ai/mode_governor.py:35:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:42:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:49:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:54:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:66:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:70:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:73:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:82:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:90:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:93:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:98:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:102:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:107:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:111:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:116:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:120:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:124:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:127:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:130:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:136:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:139:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:141:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:150:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:154:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:159:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:161:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:165:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:168:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:171:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:177:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:180:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:182:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:191:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:195:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:200:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:202:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:207:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:211:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:215:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:224:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:229:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:233:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:242:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:245:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:253:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:260:1: W293 blank line contains whitespace
+./modules/ai/mode_governor.py:267:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:16:1: F401 'typing.List' imported but unused
+./modules/ai/orchestrator.py:20:1: F401 'modules.ai.mode_governor.OperationalMode' imported but unused
+./modules/ai/orchestrator.py:48:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:52:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:57:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:62:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:69:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:77:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:79:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:91:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:95:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:100:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:106:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:110:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:121:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:123:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:130:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:133:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:137:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:140:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:146:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:149:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:151:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:157:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:164:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:168:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:174:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:181:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:188:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:192:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:201:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:203:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:209:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:211:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:215:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:218:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:224:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:231:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:234:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:246:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:250:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:269:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:272:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:274:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:278:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:281:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:290:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:293:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:295:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:299:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:301:9: F841 local variable 'exec_results' is assigned to but never used
+./modules/ai/orchestrator.py:302:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:317:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:320:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:322:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:326:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:328:9: F841 local variable 'analysis' is assigned to but never used
+./modules/ai/orchestrator.py:329:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:338:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:341:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:343:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:352:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:362:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:372:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:377:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:382:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:385:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:393:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:396:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:403:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:406:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:409:1: W293 blank line contains whitespace
+./modules/ai/orchestrator.py:410:11: F541 f-string is missing placeholders
+./modules/ai/task_memory.py:23:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:26:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:32:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:34:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:38:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:47:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:50:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:52:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:56:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:64:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:67:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:70:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:72:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:76:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:79:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:84:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:87:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:94:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:98:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:106:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:111:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:114:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:116:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:120:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:123:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:130:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:134:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:136:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:140:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:143:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:148:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:153:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:165:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:167:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:171:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:174:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:179:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:182:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:190:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:194:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:201:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:205:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:209:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:216:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:219:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:223:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:231:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:234:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:239:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:246:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:249:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:258:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:261:1: W293 blank line contains whitespace
+./modules/ai/task_memory.py:267:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:8:1: F401 'sys' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.Dict' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.List' imported but unused
+./modules/config/config_wizard.py:10:1: F401 'typing.Optional' imported but unused
+./modules/config/config_wizard.py:21:1: E302 expected 2 blank lines, found 1
+./modules/config/config_wizard.py:27:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:63:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:67:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:70:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:80:18: E111 indentation is not a multiple of 4
+./modules/config/config_wizard.py:80:18: E117 over-indented
+./modules/config/config_wizard.py:81:18: E111 indentation is not a multiple of 4
+./modules/config/config_wizard.py:84:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:89:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:92:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:94:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:97:46: W291 trailing whitespace
+./modules/config/config_wizard.py:98:31: E226 missing whitespace around arithmetic operator
+./modules/config/config_wizard.py:102:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:105:51: W291 trailing whitespace
+./modules/config/config_wizard.py:106:31: E226 missing whitespace around arithmetic operator
+./modules/config/config_wizard.py:111:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:117:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:121:25: W291 trailing whitespace
+./modules/config/config_wizard.py:122:59: W291 trailing whitespace
+./modules/config/config_wizard.py:126:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:134:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:142:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:145:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:154:1: W293 blank line contains whitespace
+./modules/config/config_wizard.py:159:1: E305 expected 2 blank lines after class or function definition, found 1
+./modules/cve_collector/__init__.py:7:27: W291 trailing whitespace
+./modules/cve_collector/__init__.py:7:28: W292 no newline at end of file
+./modules/cve_collector/cve_collector.py:18:1: F401 'urllib.parse.urlparse' imported but unused
+./modules/cve_collector/cve_collector.py:21:1: F401 'utils.cli_utils.create_progress' imported but unused
+./modules/cve_collector/cve_collector.py:21:1: F401 'utils.cli_utils.print_results_table' imported but unused
+./modules/cve_collector/cve_collector.py:24:1: E302 expected 2 blank lines, found 1
+./modules/cve_collector/cve_collector.py:34:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:41:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:44:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:56:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:60:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:66:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:74:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:79:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:91:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:99:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:104:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:106:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:112:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:113:15: F541 f-string is missing placeholders
+./modules/cve_collector/cve_collector.py:118:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:122:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:142:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:146:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:152:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:154:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:161:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:169:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:180:29: E722 do not use bare 'except'
+./modules/cve_collector/cve_collector.py:182:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:191:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:195:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:201:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:209:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:213:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:221:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:232:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:246:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:259:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:264:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:277:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:280:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:308:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:330:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:336:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:340:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:344:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:355:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:357:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:361:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:373:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:378:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:386:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:395:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:401:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:412:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:414:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:422:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:427:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:436:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:438:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:443:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:448:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:452:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:456:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:466:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:468:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:475:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:480:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:485:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:489:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:494:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:500:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:507:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:512:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:518:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:520:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:524:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:540:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:547:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:549:1: W293 blank line contains whitespace
+./modules/cve_collector/cve_collector.py:550:33: W291 trailing whitespace
+./modules/cve_collector/cve_collector.py:550:34: W292 no newline at end of file
+./modules/darkweb/__init__.py:10:1: F841 local variable 'e' is assigned to but never used
+./modules/darkweb/__init__.py:17:1: W293 blank line contains whitespace
+./modules/darkweb/__init__.py:24:1: W293 blank line contains whitespace
+./modules/darkweb/__init__.py:26:1: W293 blank line contains whitespace
+./modules/darkweb/robin/llm.py:26:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/llm.py:53:149: W291 trailing whitespace
+./modules/darkweb/robin/llm.py:54:1: W293 blank line contains whitespace
+./modules/darkweb/robin/llm.py:75:158: W291 trailing whitespace
+./modules/darkweb/robin/llm.py:162:30: E226 missing whitespace around arithmetic operator
+./modules/darkweb/robin/llm_utils.py:53:1: E303 too many blank lines (3)
+./modules/darkweb/robin/llm_utils.py:77:16: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:79:55: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:81:17: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:83:56: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:85:17: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:87:56: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:89:20: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:91:59: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:93:20: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:95:59: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:121:18: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:125:18: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:129:16: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:133:21: W291 trailing whitespace
+./modules/darkweb/robin/llm_utils.py:137:1: W293 blank line contains whitespace
+./modules/darkweb/robin/llm_utils.py:149:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/llm_utils.py:176:1: W293 blank line contains whitespace
+./modules/darkweb/robin/llm_utils.py:223:16: W292 no newline at end of file
+./modules/darkweb/robin/main.py:105:15: E401 multiple imports on one line
+./modules/darkweb/robin/runner.py:13:1: F401 'rich.panel.Panel' imported but unused
+./modules/darkweb/robin/runner.py:141:1: W391 blank line at end of file
+./modules/darkweb/robin/scrape.py:27:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/scrape.py:51:5: E722 do not use bare 'except'
+./modules/darkweb/robin/scrape.py:53:1: W293 blank line contains whitespace
+./modules/darkweb/robin/scrape.py:56:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/scrape.py:59:1: W293 blank line contains whitespace
+./modules/darkweb/robin/scrape.py:63:1: W293 blank line contains whitespace
+./modules/darkweb/robin/scrape.py:68:21: E261 at least two spaces before inline comment
+./modules/darkweb/robin/scrape.py:79:19: W292 no newline at end of file
+./modules/darkweb/robin/search.py:2:14: E401 multiple imports on one line
+./modules/darkweb/robin/search.py:22:95: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:23:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:24:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:25:99: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:26:98: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:27:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:28:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:29:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:30:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:31:106: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:32:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:33:98: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:33:110: W291 trailing whitespace
+./modules/darkweb/robin/search.py:34:98: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:35:94: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:36:106: E261 at least two spaces before inline comment
+./modules/darkweb/robin/search.py:39:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/search.py:45:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/search.py:64:17: E722 do not use bare 'except'
+./modules/darkweb/robin/search.py:69:5: E722 do not use bare 'except'
+./modules/darkweb/robin/search.py:72:1: E302 expected 2 blank lines, found 1
+./modules/darkweb/robin/search.py:89:26: W292 no newline at end of file
+./modules/darkweb/robin/ui.py:18:5: F401 'os' imported but unused
+./modules/darkweb/robin/ui.py:23:1: W293 blank line contains whitespace
+./modules/darkweb/robin/ui.py:97:1: E402 module level import not at top of file
+./modules/exploit/exploit_module.py:6:1: F401 'asyncio' imported but unused
+./modules/exploit/exploit_module.py:18:1: E302 expected 2 blank lines, found 1
+./modules/exploit/exploit_module.py:24:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:39:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:73:47: E261 at least two spaces before inline comment
+./modules/exploit/exploit_module.py:93:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:103:41: E261 at least two spaces before inline comment
+./modules/exploit/exploit_module.py:111:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:118:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:121:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:124:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:127:1: W293 blank line contains whitespace
+./modules/exploit/exploit_module.py:129:1: W293 blank line contains whitespace
+./modules/exploit_generator/__init__.py:7:31: W291 trailing whitespace
+./modules/exploit_generator/__init__.py:7:32: W292 no newline at end of file
+./modules/exploit_generator/exploit_generator.py:7:1: F401 'json' imported but unused
+./modules/exploit_generator/exploit_generator.py:10:1: F401 'typing.List' imported but unused
+./modules/exploit_generator/exploit_generator.py:17:1: E302 expected 2 blank lines, found 1
+./modules/exploit_generator/exploit_generator.py:27:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:30:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:41:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:53:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:76:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:79:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:85:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:91:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:97:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:99:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:104:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:107:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:112:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:118:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:128:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:131:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:134:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:144:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:147:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:156:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:161:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:166:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:171:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:176:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:181:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:183:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:190:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:197:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:205:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:219:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:222:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:224:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:233:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:236:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:239:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:241:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:244:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:254:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:266:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:269:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:275:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:278:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:280:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:293:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:298:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:304:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:310:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:316:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:322:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:328:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:334:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:340:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:343:1: W293 blank line contains whitespace
+./modules/exploit_generator/exploit_generator.py:344:26: W291 trailing whitespace
+./modules/exploit_generator/exploit_generator.py:344:27: W292 no newline at end of file
+./modules/exploit_testing/__init__.py:7:28: W291 trailing whitespace
+./modules/exploit_testing/__init__.py:7:29: W292 no newline at end of file
+./modules/exploit_testing/exploit_testing.py:9:1: F401 'subprocess' imported but unused
+./modules/exploit_testing/exploit_testing.py:12:1: F401 'typing.List' imported but unused
+./modules/exploit_testing/exploit_testing.py:12:1: F401 'typing.Optional' imported but unused
+./modules/exploit_testing/exploit_testing.py:20:1: E302 expected 2 blank lines, found 1
+./modules/exploit_testing/exploit_testing.py:27:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:38:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:56:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:68:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:80:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:85:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:91:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:105:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:110:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:114:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:120:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:126:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:132:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:138:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:144:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:150:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:156:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:159:44: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:160:50: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:161:51: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:162:43: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:163:52: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:164:43: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:165:49: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:168:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:173:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:175:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:180:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:183:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:194:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:199:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:203:9: F841 local variable 'temp_dir' is assigned to but never used
+./modules/exploit_testing/exploit_testing.py:204:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:208:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:217:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:223:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:228:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:234:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:239:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:241:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:259:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:271:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:283:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:288:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:294:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:306:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:311:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:317:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:323:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:329:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:335:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:341:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:344:44: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:345:43: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:346:41: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:347:43: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:348:43: W504 line break after binary operator
+./modules/exploit_testing/exploit_testing.py:351:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:354:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:356:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:361:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:364:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:375:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:380:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:384:9: F841 local variable 'temp_dir' is assigned to but never used
+./modules/exploit_testing/exploit_testing.py:385:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:389:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:396:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:402:1: W293 blank line contains whitespace
+./modules/exploit_testing/exploit_testing.py:406:31: W291 trailing whitespace
+./modules/exploit_testing/exploit_testing.py:406:32: W292 no newline at end of file
+./modules/orchestration/data_models.py:6:1: E302 expected 2 blank lines, found 1
+./modules/orchestration/data_models.py:14:1: E302 expected 2 blank lines, found 1
+./modules/orchestration/data_models.py:20:16: E261 at least two spaces before inline comment
+./modules/orchestration/data_models.py:26:1: E302 expected 2 blank lines, found 1
+./modules/orchestration/data_models.py:32:1: W293 blank line contains whitespace
+./modules/orchestration/data_models.py:33:1: E302 expected 2 blank lines, found 1
+./modules/orchestration/execution_manager.py:6:1: F401 'typing.Optional' imported but unused
+./modules/orchestration/execution_manager.py:7:1: F401 'pathlib.Path' imported but unused
+./modules/orchestration/execution_manager.py:22:1: E302 expected 2 blank lines, found 1
+./modules/orchestration/execution_manager.py:46:47: W291 trailing whitespace
+./modules/orchestration/execution_manager.py:47:18: E111 indentation is not a multiple of 4
+./modules/orchestration/execution_manager.py:47:18: E117 over-indented
+./modules/orchestration/execution_manager.py:47:55: E261 at least two spaces before inline comment
+./modules/orchestration/execution_manager.py:48:22: E111 indentation is not a multiple of 4
+./modules/orchestration/execution_manager.py:50:18: E111 indentation is not a multiple of 4
+./modules/orchestration/execution_manager.py:50:18: E117 over-indented
+./modules/orchestration/execution_manager.py:61:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:73:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:76:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:79:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:81:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:84:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:95:1: W293 blank line contains whitespace
+./modules/orchestration/execution_manager.py:117:32: W291 trailing whitespace
+./modules/orchestration/execution_manager.py:118:46: W291 trailing whitespace
+./modules/recon/__init__.py:7:26: W291 trailing whitespace
+./modules/recon/__init__.py:7:27: W292 no newline at end of file
+./modules/recon/recon.py:26:1: E302 expected 2 blank lines, found 1
+./modules/recon/recon.py:31:1: W293 blank line contains whitespace
+./modules/recon/recon.py:35:1: W293 blank line contains whitespace
+./modules/recon/recon.py:39:1: W293 blank line contains whitespace
+./modules/recon/recon.py:44:1: W293 blank line contains whitespace
+./modules/recon/recon.py:54:1: W293 blank line contains whitespace
+./modules/recon/recon.py:66:1: W293 blank line contains whitespace
+./modules/recon/recon.py:70:1: W293 blank line contains whitespace
+./modules/recon/recon.py:76:1: W293 blank line contains whitespace
+./modules/recon/recon.py:82:1: W293 blank line contains whitespace
+./modules/recon/recon.py:88:1: W293 blank line contains whitespace
+./modules/recon/recon.py:93:1: W293 blank line contains whitespace
+./modules/recon/recon.py:97:1: W293 blank line contains whitespace
+./modules/recon/recon.py:99:1: W293 blank line contains whitespace
+./modules/recon/recon.py:104:1: W293 blank line contains whitespace
+./modules/recon/recon.py:143:1: W293 blank line contains whitespace
+./modules/recon/recon.py:149:1: W293 blank line contains whitespace
+./modules/recon/recon.py:158:1: W293 blank line contains whitespace
+./modules/recon/recon.py:162:1: W293 blank line contains whitespace
+./modules/recon/recon.py:164:1: W293 blank line contains whitespace
+./modules/recon/recon.py:168:1: W293 blank line contains whitespace
+./modules/recon/recon.py:200:1: W293 blank line contains whitespace
+./modules/recon/recon.py:206:1: W293 blank line contains whitespace
+./modules/recon/recon.py:211:1: W293 blank line contains whitespace
+./modules/recon/recon.py:255:1: W293 blank line contains whitespace
+./modules/recon/recon.py:261:1: W293 blank line contains whitespace
+./modules/recon/recon.py:266:1: W293 blank line contains whitespace
+./modules/recon/recon.py:276:1: W293 blank line contains whitespace
+./modules/recon/recon.py:283:1: W293 blank line contains whitespace
+./modules/recon/recon.py:287:1: W293 blank line contains whitespace
+./modules/recon/recon.py:301:1: W293 blank line contains whitespace
+./modules/recon/recon.py:303:1: W293 blank line contains whitespace
+./modules/recon/recon.py:307:1: W293 blank line contains whitespace
+./modules/recon/recon.py:314:1: W293 blank line contains whitespace
+./modules/recon/recon.py:327:1: W293 blank line contains whitespace
+./modules/recon/recon.py:332:1: W293 blank line contains whitespace
+./modules/recon/recon.py:336:1: W293 blank line contains whitespace
+./modules/recon/recon.py:340:1: W293 blank line contains whitespace
+./modules/recon/recon.py:344:1: W293 blank line contains whitespace
+./modules/recon/recon.py:348:1: W293 blank line contains whitespace
+./modules/recon/recon.py:354:1: W293 blank line contains whitespace
+./modules/recon/recon.py:360:1: W293 blank line contains whitespace
+./modules/recon/recon.py:365:1: W293 blank line contains whitespace
+./modules/recon/recon.py:388:1: W293 blank line contains whitespace
+./modules/recon/recon.py:390:1: W293 blank line contains whitespace
+./modules/recon/recon.py:395:22: W291 trailing whitespace
+./modules/recon/recon.py:395:23: W292 no newline at end of file
+./modules/recon/recon_module.py:10:1: F401 'subprocess' imported but unused
+./modules/recon/recon_module.py:16:1: F401 'aiohttp' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.Progress' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./modules/recon/recon_module.py:19:1: F401 'rich.progress.TextColumn' imported but unused
+./modules/recon/recon_module.py:62:17: W503 line break before binary operator
+./modules/recon/recon_module.py:63:17: W503 line break before binary operator
+./modules/recon/recon_module.py:309:1: W293 blank line contains whitespace
+./modules/recon/recon_module.py:311:1: W293 blank line contains whitespace
+./modules/recon/recon_module.py:323:17: E722 do not use bare 'except'
+./modules/reporting/__init__.py:7:30: W291 trailing whitespace
+./modules/reporting/__init__.py:7:31: W292 no newline at end of file
+./modules/reporting/reporting.py:12:28: W291 trailing whitespace
+./modules/reporting/reporting.py:12:29: W292 no newline at end of file
+./modules/scan/scan_module.py:21:1: E302 expected 2 blank lines, found 1
+./modules/scan/scan_module.py:27:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:33:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:82:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:91:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:95:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:110:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:131:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:135:1: W293 blank line contains whitespace
+./modules/scan/scan_module.py:143:17: F841 local variable 'version' is assigned to but never used
+./modules/scan/scan_module.py:145:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:21:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:28:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:37:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:47:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:52:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:55:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:61:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:64:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:76:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:79:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:85:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:91:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:97:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:105:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:107:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:112:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:115:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:117:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:125:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:128:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:131:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:139:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:143:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:150:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:152:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:155:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:160:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:164:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:169:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:173:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:177:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:183:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:190:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:202:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:209:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:213:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:218:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:223:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:228:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:233:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:243:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:245:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:248:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:254:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:261:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:265:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:267:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:270:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:273:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:277:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:280:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:282:1: W293 blank line contains whitespace
+./modules/session/autosave_service.py:285:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:19:1: F401 'modules.session.SessionStatus' imported but unused
+./modules/session/session_cli.py:25:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:37:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:42:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:50:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:57:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:61:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:63:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:69:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:72:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:76:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:83:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:87:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:95:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:99:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:108:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:116:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:118:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:123:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:128:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:131:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:136:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:140:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:146:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:150:32: F541 f-string is missing placeholders
+./modules/session/session_cli.py:151:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:159:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:165:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:174:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:180:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:185:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:190:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:203:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:206:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:211:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:214:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:217:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:220:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:228:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:234:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:240:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:244:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:249:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:253:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:257:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:262:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:267:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:269:5: F841 local variable 'status_parser' is assigned to but never used
+./modules/session/session_cli.py:270:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:281:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:285:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:288:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:291:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:295:1: W293 blank line contains whitespace
+./modules/session/session_cli.py:298:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:13:1: F401 'typing.Any' imported but unused
+./modules/session/session_manager.py:29:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:36:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:38:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:44:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:50:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:54:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:58:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:70:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:72:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:76:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:86:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:90:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:96:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:102:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:111:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:116:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:121:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:124:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:183:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:190:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:193:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:204:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:208:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:211:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:223:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:225:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:229:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:242:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:246:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:253:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:256:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:259:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:263:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:270:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:275:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:280:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:282:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:286:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:289:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:300:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:307:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:310:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:313:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:317:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:319:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:323:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:326:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:332:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:335:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:338:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:341:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:346:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:351:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:354:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:362:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:366:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:371:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:378:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:383:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:386:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:388:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:392:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:400:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:406:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:412:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:416:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:419:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:421:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:423:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:427:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:434:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:438:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:442:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:447:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:449:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:453:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:457:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:463:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:466:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:469:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:482:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:485:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:492:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:494:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:502:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:505:1: W293 blank line contains whitespace
+./modules/session/session_manager.py:511:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:13:1: F401 'typing.Any' imported but unused
+./modules/session/session_serializer.py:13:1: F401 'typing.Optional' imported but unused
+./modules/session/session_serializer.py:20:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:27:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:30:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:33:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:41:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:45:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:52:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:56:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:61:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:63:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:67:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:75:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:79:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:88:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:92:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:95:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:102:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:104:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:108:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:117:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:126:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:131:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:134:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:136:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:142:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:150:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:154:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:161:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:163:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:166:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:170:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:174:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:177:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:191:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:195:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:201:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:203:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:207:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:211:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:216:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:220:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:222:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:231:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:239:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:243:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:248:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:250:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:254:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:262:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:266:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:275:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:277:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:281:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:285:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:288:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:292:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:300:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:307:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:310:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:312:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:318:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:320:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:323:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:331:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:335:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:343:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:346:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:349:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:358:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:360:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:380:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:384:1: W293 blank line contains whitespace
+./modules/session/session_serializer.py:388:1: W293 blank line contains whitespace
+./modules/tool_manager/__init__.py:7:26: W291 trailing whitespace
+./modules/tool_manager/__init__.py:7:27: W292 no newline at end of file
+./modules/tool_manager/tool_manager.py:13:1: F401 'typing.List' imported but unused
+./modules/tool_manager/tool_manager.py:18:1: E302 expected 2 blank lines, found 1
+./modules/tool_manager/tool_manager.py:25:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:28:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:38:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:54:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:56:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:65:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:71:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:83:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:95:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:102:30: F541 f-string is missing placeholders
+./modules/tool_manager/tool_manager.py:105:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:110:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:115:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:119:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:124:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:130:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:132:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:138:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:142:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:146:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:151:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:153:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:157:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:168:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:175:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:180:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:184:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:189:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:195:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:210:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:212:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:228:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:237:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:239:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:248:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:263:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:278:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:288:30: F541 f-string is missing placeholders
+./modules/tool_manager/tool_manager.py:291:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:294:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:299:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:313:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:322:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:331:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:345:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:348:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:353:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:357:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:366:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:371:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:375:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:388:1: W293 blank line contains whitespace
+./modules/tool_manager/tool_manager.py:389:20: W291 trailing whitespace
+./modules/tool_manager/tool_manager.py:389:21: W292 no newline at end of file
+./modules/tools/base.py:5:1: F401 'pathlib.Path' imported but unused
+./modules/tools/base.py:7:1: E302 expected 2 blank lines, found 1
+./modules/tools/base.py:11:1: E302 expected 2 blank lines, found 1
+./modules/tools/base.py:17:1: E302 expected 2 blank lines, found 1
+./modules/tools/base.py:21:1: E302 expected 2 blank lines, found 1
+./modules/tools/base.py:29:1: E302 expected 2 blank lines, found 1
+./modules/tools/base.py:50:1: W293 blank line contains whitespace
+./modules/tools/base.py:59:77: W291 trailing whitespace
+./modules/tools/wrappers/amass.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/amass.py:12:36: E261 at least two spaces before inline comment
+./modules/tools/wrappers/amass.py:23:1: W293 blank line contains whitespace
+./modules/tools/wrappers/amass.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/amass.py:42:1: W293 blank line contains whitespace
+./modules/tools/wrappers/ike_scan.py:2:1: F401 're' imported but unused
+./modules/tools/wrappers/ike_scan.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/ike_scan.py:19:33: E261 at least two spaces before inline comment
+./modules/tools/wrappers/ike_scan.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/masscan.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/masscan.py:12:36: E261 at least two spaces before inline comment
+./modules/tools/wrappers/masscan.py:21:17: W291 trailing whitespace
+./modules/tools/wrappers/masscan.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/masscan.py:30:1: W293 blank line contains whitespace
+./modules/tools/wrappers/masscan.py:37:1: W293 blank line contains whitespace
+./modules/tools/wrappers/masscan.py:46:1: W293 blank line contains whitespace
+./modules/tools/wrappers/metasploit.py:5:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/metasploit.py:19:35: E261 at least two spaces before inline comment
+./modules/tools/wrappers/metasploit.py:20:1: W293 blank line contains whitespace
+./modules/tools/wrappers/metasploit.py:24:1: W293 blank line contains whitespace
+./modules/tools/wrappers/metasploit.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/metasploit.py:37:37: E261 at least two spaces before inline comment
+./modules/tools/wrappers/mitmproxy.py:5:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/mitmproxy.py:10:48: E261 at least two spaces before inline comment
+./modules/tools/wrappers/mitmproxy.py:10:49: E262 inline comment should start with '# '
+./modules/tools/wrappers/mitmproxy.py:21:1: W293 blank line contains whitespace
+./modules/tools/wrappers/mitmproxy.py:24:1: W293 blank line contains whitespace
+./modules/tools/wrappers/mitmproxy.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/mitmproxy.py:32:1: W293 blank line contains whitespace
+./modules/tools/wrappers/netcat.py:5:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/netcat.py:10:48: E261 at least two spaces before inline comment
+./modules/tools/wrappers/netcat.py:19:1: W293 blank line contains whitespace
+./modules/tools/wrappers/netcat.py:24:43: E261 at least two spaces before inline comment
+./modules/tools/wrappers/netcat.py:26:1: W293 blank line contains whitespace
+./modules/tools/wrappers/nmap.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/nmap.py:12:36: E261 at least two spaces before inline comment
+./modules/tools/wrappers/nmap.py:21:1: W293 blank line contains whitespace
+./modules/tools/wrappers/nmap.py:27:38: E261 at least two spaces before inline comment
+./modules/tools/wrappers/nmap.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:2:1: F401 're' imported but unused
+./modules/tools/wrappers/sqlmap.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/sqlmap.py:12:36: E261 at least two spaces before inline comment
+./modules/tools/wrappers/sqlmap.py:19:61: E261 at least two spaces before inline comment
+./modules/tools/wrappers/sqlmap.py:20:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:24:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:30:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:38:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:40:1: W293 blank line contains whitespace
+./modules/tools/wrappers/sqlmap.py:50:1: W293 blank line contains whitespace
+./modules/tools/wrappers/unicornscan.py:6:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/unicornscan.py:30:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:5:1: E302 expected 2 blank lines, found 1
+./modules/tools/wrappers/wireshark.py:20:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:24:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:28:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:32:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:35:1: W293 blank line contains whitespace
+./modules/tools/wrappers/wireshark.py:39:1: W293 blank line contains whitespace
+./modules/web/bridge_server.py:10:1: F401 'asyncio' imported but unused
+./modules/web/bridge_server.py:16:1: F401 'modules.darkweb.robin.runner as robin_runner' imported but unused
+./modules/web/bridge_server.py:145:5: F841 local variable 'params' is assigned to but never used
+./modules/web/dashboard.py:3:1: F401 'logging' imported but unused
+./modules/web/dashboard.py:5:1: F401 'dotenv.load_dotenv' imported but unused
+./modules/web/dashboard.py:20:1: E302 expected 2 blank lines, found 1
+./modules/web/dashboard.py:24:1: E305 expected 2 blank lines after class or function definition, found 0
+./modules/web/dashboard.py:48:1: E302 expected 2 blank lines, found 1
+./modules/web/dashboard.py:53:1: W293 blank line contains whitespace
+./modules/web/dashboard.py:62:1: W293 blank line contains whitespace
+./modules/web/dashboard.py:81:1: E305 expected 2 blank lines after class or function definition, found 1
+./modules/web/tunnel_manager.py:18:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:23:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:28:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:33:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:43:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:47:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:51:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:58:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:63:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:71:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:74:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:86:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:88:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:100:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:104:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:108:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:115:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:120:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:128:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:131:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:141:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:143:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:155:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:159:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:163:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:170:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:175:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:180:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:187:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:190:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:200:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:202:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:214:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:222:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:226:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:230:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:240:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:244:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:247:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:251:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:254:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:260:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:271:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:277:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:279:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:281:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:289:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:295:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:306:1: W293 blank line contains whitespace
+./modules/web/tunnel_manager.py:310:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:4:1: F401 'modules.orchestration.execution_manager.ExecutionManager' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRPlanner' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NROperator' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRAnalyst' imported but unused
+./modules/web/ui/orchestration_view.py:5:1: F401 'modules.ai.agents.NRScribe' imported but unused
+./modules/web/ui/orchestration_view.py:6:1: F401 'modules.orchestration.data_models.ToolExecutionResult' imported but unused
+./modules/web/ui/orchestration_view.py:9:1: E302 expected 2 blank lines, found 1
+./modules/web/ui/orchestration_view.py:30:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:38:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:41:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:53:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:55:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:59:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:67:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:73:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:76:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:81:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:82:63: W291 trailing whitespace
+./modules/web/ui/orchestration_view.py:85:26: E114 indentation is not a multiple of 4 (comment)
+./modules/web/ui/orchestration_view.py:85:26: E117 over-indented (comment)
+./modules/web/ui/orchestration_view.py:86:26: E111 indentation is not a multiple of 4
+./modules/web/ui/orchestration_view.py:86:26: E117 over-indented
+./modules/web/ui/orchestration_view.py:89:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:99:33: W291 trailing whitespace
+./modules/web/ui/orchestration_view.py:102:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:107:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:119:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:123:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:127:30: E226 missing whitespace around arithmetic operator
+./modules/web/ui/orchestration_view.py:130:66: E261 at least two spaces before inline comment
+./modules/web/ui/orchestration_view.py:132:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:134:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:145:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:157:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:160:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:164:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:166:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:168:50: E226 missing whitespace around arithmetic operator
+./modules/web/ui/orchestration_view.py:169:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:173:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:179:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:191:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:194:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:200:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:210:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:223:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:231:1: W293 blank line contains whitespace
+./modules/web/ui/orchestration_view.py:235:44: W291 trailing whitespace
+./modules/web/ui/orchestration_view.py:236:53: W291 trailing whitespace
+./modules/web/ui/session_view.py:5:1: E302 expected 2 blank lines, found 1
+./modules/web/ui/session_view.py:22:1: W293 blank line contains whitespace
+./modules/web/ui/session_view.py:47:1: W293 blank line contains whitespace
+./modules/web/ui/session_view.py:55:1: W293 blank line contains whitespace
+./modules/web/ui/session_view.py:60:1: W293 blank line contains whitespace
+./modules/web/web_module.py:16:1: E302 expected 2 blank lines, found 1
+./modules/web/web_module.py:29:1: W293 blank line contains whitespace
+./modules/web/web_module.py:68:1: W293 blank line contains whitespace
+./modules/web/web_module.py:88:1: W293 blank line contains whitespace
+./modules/web/web_module.py:123:17: E261 at least two spaces before inline comment
+./modules/web/web_module.py:128:1: W293 blank line contains whitespace
+./modules/web/web_module.py:154:1: W293 blank line contains whitespace
+./modules/web/web_module.py:157:1: W293 blank line contains whitespace
+./modules/web/web_module.py:160:1: W293 blank line contains whitespace
+./modules/web/web_module.py:166:1: W293 blank line contains whitespace
+./modules/web/web_module.py:175:1: W293 blank line contains whitespace
+./modules/web/web_module.py:177:1: W293 blank line contains whitespace
+./modules/web/web_module.py:196:1: W293 blank line contains whitespace
+./modules/web/web_module.py:199:1: W293 blank line contains whitespace
+./modules/web/web_module.py:202:1: W293 blank line contains whitespace
+./modules/web/web_module.py:209:1: W293 blank line contains whitespace
+./modules/web/web_module.py:218:1: W293 blank line contains whitespace
+./neurorift/__init__.py:1:1: W391 blank line at end of file
+./neurorift/channels/__init__.py:1:1: W391 blank line at end of file
+./neurorift/clawhub/__init__.py:1:1: W391 blank line at end of file
+./neurorift/cli/__init__.py:1:1: W391 blank line at end of file
+./neurorift/config/__init__.py:1:1: W391 blank line at end of file
+./neurorift/core/__init__.py:1:1: W391 blank line at end of file
+./neurorift/execution/__init__.py:1:1: W391 blank line at end of file
+./neurorift/gateway/__init__.py:1:1: W391 blank line at end of file
+./neurorift/memory/__init__.py:1:1: W391 blank line at end of file
+./neurorift/models/__init__.py:1:1: W391 blank line at end of file
+./neurorift/sessions/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skill_store/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skill_store/cache/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skill_store/installed/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skill_store/installed/recon_scanner/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skills/__init__.py:1:1: W391 blank line at end of file
+./neurorift/skills/installer.py:1:12: E401 multiple imports on one line
+./neurorift/skills/loader.py:1:22: E401 multiple imports on one line
+./neurorift/storage/__init__.py:1:1: W391 blank line at end of file
+./neurorift/tools/__init__.py:1:1: W391 blank line at end of file
+./neurorift/utils/__init__.py:1:1: W391 blank line at end of file
+./neurorift_cli.py:6:1: F401 'os' imported but unused
+./neurorift_cli.py:8:1: F401 'subprocess' imported but unused
+./neurorift_main.py:16:1: F401 'sys' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.Progress' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./neurorift_main.py:29:1: F401 'rich.progress.TextColumn' imported but unused
+./neurorift_main.py:33:1: E402 module level import not at top of file
+./neurorift_main.py:36:1: E402 module level import not at top of file
+./neurorift_main.py:43:1: F401 'utils.auth.get_auth_manager' imported but unused
+./neurorift_main.py:43:1: F401 'utils.auth.Permission' imported but unused
+./neurorift_main.py:43:1: E402 module level import not at top of file
+./neurorift_main.py:45:1: E402 module level import not at top of file
+./neurorift_main.py:46:1: E402 module level import not at top of file
+./neurorift_main.py:47:1: E402 module level import not at top of file
+./neurorift_main.py:48:1: E402 module level import not at top of file
+./neurorift_main.py:49:1: E402 module level import not at top of file
+./neurorift_main.py:50:1: E402 module level import not at top of file
+./neurorift_main.py:51:1: E402 module level import not at top of file
+./neurorift_main.py:52:1: E402 module level import not at top of file
+./neurorift_main.py:53:1: E402 module level import not at top of file
+./neurorift_main.py:54:1: E402 module level import not at top of file
+./neurorift_main.py:55:1: E402 module level import not at top of file
+./neurorift_main.py:56:1: F401 'modules.orchestration.execution_manager.ScanRequest' imported but unused
+./neurorift_main.py:56:1: E402 module level import not at top of file
+./neurorift_main.py:61:1: E402 module level import not at top of file
+./neurorift_main.py:62:1: E402 module level import not at top of file
+./neurorift_main.py:63:1: E402 module level import not at top of file
+./neurorift_main.py:64:1: E402 module level import not at top of file
+./neurorift_main.py:65:1: E402 module level import not at top of file
+./neurorift_main.py:66:1: E402 module level import not at top of file
+./neurorift_main.py:156:17: W503 line break before binary operator
+./neurorift_main.py:636:87: W291 trailing whitespace
+./neurorift_main.py:1255:23: E226 missing whitespace around arithmetic operator
+./neurorift_main.py:1503:17: W503 line break before binary operator
+./neurorift_main.py:1558:17: W503 line break before binary operator
+./neurorift_main.py:1664:13: F811 redefinition of unused 'sys' from line 16
+./screen_control/launcher.py:1:1: F401 'os' imported but unused
+./screen_control/launcher.py:3:1: F401 'json' imported but unused
+./screen_control/launcher.py:11:1: E302 expected 2 blank lines, found 1
+./screen_control/launcher.py:14:1: W293 blank line contains whitespace
+./screen_control/launcher.py:19:62: W291 trailing whitespace
+./screen_control/launcher.py:25:1: W293 blank line contains whitespace
+./screen_control/launcher.py:40:65: W291 trailing whitespace
+./screen_control/launcher.py:49:1: W293 blank line contains whitespace
+./screen_control/launcher.py:52:1: E302 expected 2 blank lines, found 1
+./screen_control/launcher.py:55:1: W293 blank line contains whitespace
+./screen_control/launcher.py:60:1: W293 blank line contains whitespace
+./screen_control/launcher.py:64:1: W293 blank line contains whitespace
+./screen_control/launcher.py:67:1: W293 blank line contains whitespace
+./screen_control/launcher.py:70:1: W293 blank line contains whitespace
+./screen_control/launcher.py:74:1: W293 blank line contains whitespace
+./screen_control/launcher.py:83:1: W293 blank line contains whitespace
+./screen_control/launcher.py:86:1: W293 blank line contains whitespace
+./screen_control/launcher.py:88:1: W293 blank line contains whitespace
+./screen_control/launcher.py:93:1: E305 expected 2 blank lines after class or function definition, found 1
+./screen_control/launcher.py:99:1: W293 blank line contains whitespace
+./screen_control/launcher.py:101:15: W291 trailing whitespace
+./screen_control/launcher.py:101:16: W292 no newline at end of file
+./screen_control/python/screen_control.py:4:1: F401 'platform' imported but unused
+./screen_control/python/screen_control.py:5:1: F401 'json' imported but unused
+./screen_control/python/screen_control.py:7:1: E302 expected 2 blank lines, found 1
+./screen_control/python/screen_control.py:9:1: W293 blank line contains whitespace
+./screen_control/python/screen_control.py:125:28: W291 trailing whitespace
+./screen_control/python/screen_control.py:125:29: W292 no newline at end of file
+./scripts/analyze_results.py:10:1: F401 'typing.List' imported but unused
+./scripts/analyze_results.py:10:1: F401 'typing.Optional' imported but unused
+./scripts/analyze_results.py:23:1: E302 expected 2 blank lines, found 1
+./scripts/analyze_results.py:27:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:34:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:41:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:44:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:53:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:59:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:63:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:67:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:75:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:79:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:82:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:84:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:88:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:91:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:94:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:98:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:100:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:118:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:122:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:126:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:138:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:141:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:142:1: E302 expected 2 blank lines, found 1
+./scripts/analyze_results.py:145:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:151:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:153:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:156:1: W293 blank line contains whitespace
+./scripts/analyze_results.py:166:24: W291 trailing whitespace
+./scripts/analyze_results.py:166:25: W292 no newline at end of file
+./scripts/performance_analysis.py:14:1: F401 'subprocess' imported but unused
+./scripts/performance_analysis.py:15:1: F401 'asyncio' imported but unused
+./scripts/performance_analysis.py:16:1: F401 'statistics' imported but unused
+./scripts/performance_analysis.py:18:1: F401 'typing.List' imported but unused
+./scripts/performance_analysis.py:19:1: F401 'logging' imported but unused
+./scripts/performance_analysis.py:21:1: F401 'rich.table.Table' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.Progress' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.SpinnerColumn' imported but unused
+./scripts/performance_analysis.py:22:1: F401 'rich.progress.TextColumn' imported but unused
+./scripts/performance_analysis.py:26:1: E302 expected 2 blank lines, found 1
+./scripts/performance_analysis.py:30:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:34:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:41:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:49:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:52:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:57:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:63:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:65:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:69:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:77:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:81:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:85:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:89:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:93:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:95:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:99:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:107:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:116:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:119:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:122:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:125:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:130:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:133:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:135:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:139:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:147:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:149:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:152:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:155:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:158:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:164:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:166:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:168:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:173:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:178:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:188:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:206:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:210:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:213:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:215:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:224:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:228:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:230:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:238:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:242:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:244:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:248:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:255:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:262:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:264:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:274:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:278:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:283:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:285:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:289:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:294:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:296:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:300:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:306:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:315:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:320:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:323:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:338:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:341:1: E302 expected 2 blank lines, found 1
+./scripts/performance_analysis.py:344:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:347:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:350:1: W293 blank line contains whitespace
+./scripts/performance_analysis.py:359:1: E305 expected 2 blank lines after class or function definition, found 1
+./scripts/performance_analysis.py:364:1: W391 blank line at end of file
+./scripts/recon_scan.py:13:1: F401 'aiohttp' imported but unused
+./scripts/recon_scan.py:14:1: F401 'subprocess' imported but unused
+./scripts/recon_scan.py:24:1: E302 expected 2 blank lines, found 1
+./scripts/recon_scan.py:32:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:37:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:48:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:57:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:60:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:71:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:81:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:84:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:91:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:99:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:108:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:111:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:114:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:121:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:130:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:147:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:152:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:153:1: E302 expected 2 blank lines, found 1
+./scripts/recon_scan.py:156:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:159:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:163:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:167:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:173:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:177:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:181:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:186:1: W293 blank line contains whitespace
+./scripts/recon_scan.py:190:24: W291 trailing whitespace
+./scripts/recon_scan.py:190:25: W292 no newline at end of file
+./tests/test_ai_features.py:1:1: F401 'os' imported but unused
+./tests/test_ai_features.py:11:1: E302 expected 2 blank lines, found 1
+./tests/test_ai_features.py:19:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:33:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:36:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:46:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:51:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:59:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:137:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:140:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:145:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:152:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:159:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:179:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:182:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:186:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:197:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:201:1: W293 blank line contains whitespace
+./tests/test_ai_features.py:207:1: E305 expected 2 blank lines after class or function definition, found 1
+./tests/test_ai_features.py:208:34: W291 trailing whitespace
+./tests/test_ai_features.py:208:35: W292 no newline at end of file
+./tests/test_llama_client.py:5:1: E302 expected 2 blank lines, found 1
+./tests/test_llama_client.py:9:1: E302 expected 2 blank lines, found 1
+./tests/test_llama_client.py:26:1: W293 blank line contains whitespace
+./tests/test_llama_client.py:30:1: W293 blank line contains whitespace
+./tests/test_llama_client.py:40:1: E302 expected 2 blank lines, found 1
+./tests/test_llama_client.py:44:1: W293 blank line contains whitespace
+./tests/test_llama_client.py:47:1: W293 blank line contains whitespace
+./tests/test_notifier.py:9:1: F401 'unittest.mock.MagicMock' imported but unused
+./tests/test_notifier.py:13:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:18:1: W293 blank line contains whitespace
+./tests/test_notifier.py:39:1: W293 blank line contains whitespace
+./tests/test_notifier.py:43:1: W293 blank line contains whitespace
+./tests/test_notifier.py:46:1: W293 blank line contains whitespace
+./tests/test_notifier.py:53:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:60:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:68:1: W293 blank line contains whitespace
+./tests/test_notifier.py:73:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:89:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:94:1: W293 blank line contains whitespace
+./tests/test_notifier.py:100:1: W293 blank line contains whitespace
+./tests/test_notifier.py:106:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:116:1: W293 blank line contains whitespace
+./tests/test_notifier.py:124:1: W293 blank line contains whitespace
+./tests/test_notifier.py:130:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:140:1: W293 blank line contains whitespace
+./tests/test_notifier.py:147:1: W293 blank line contains whitespace
+./tests/test_notifier.py:154:1: W293 blank line contains whitespace
+./tests/test_notifier.py:162:1: E302 expected 2 blank lines, found 1
+./tests/test_notifier.py:172:1: W293 blank line contains whitespace
+./tests/test_notifier.py:175:70: W291 trailing whitespace
+./tests/test_notifier.py:175:71: W292 no newline at end of file
+./tests/test_security.py:20:1: F401 'utils.auth.User' imported but unused
+./tests/test_security.py:20:1: F401 'utils.auth.Session' imported but unused
+./tests/test_security.py:25:1: W293 blank line contains whitespace
+./tests/test_security.py:31:1: W293 blank line contains whitespace
+./tests/test_security.py:38:1: W293 blank line contains whitespace
+./tests/test_security.py:44:1: W293 blank line contains whitespace
+./tests/test_security.py:51:1: W293 blank line contains whitespace
+./tests/test_security.py:57:1: W293 blank line contains whitespace
+./tests/test_security.py:61:1: W293 blank line contains whitespace
+./tests/test_security.py:66:1: W293 blank line contains whitespace
+./tests/test_security.py:71:1: W293 blank line contains whitespace
+./tests/test_security.py:77:1: W293 blank line contains whitespace
+./tests/test_security.py:85:1: W293 blank line contains whitespace
+./tests/test_security.py:92:1: W293 blank line contains whitespace
+./tests/test_security.py:96:1: W293 blank line contains whitespace
+./tests/test_security.py:102:1: W293 blank line contains whitespace
+./tests/test_security.py:110:1: W293 blank line contains whitespace
+./tests/test_security.py:114:1: W293 blank line contains whitespace
+./tests/test_security.py:118:1: W293 blank line contains whitespace
+./tests/test_security.py:123:1: W293 blank line contains whitespace
+./tests/test_security.py:127:1: W293 blank line contains whitespace
+./tests/test_security.py:131:1: W293 blank line contains whitespace
+./tests/test_security.py:135:1: W293 blank line contains whitespace
+./tests/test_security.py:143:1: W293 blank line contains whitespace
+./tests/test_security.py:148:1: W293 blank line contains whitespace
+./tests/test_security.py:152:1: W293 blank line contains whitespace
+./tests/test_security.py:159:1: W293 blank line contains whitespace
+./tests/test_security.py:164:1: W293 blank line contains whitespace
+./tests/test_security.py:168:1: W293 blank line contains whitespace
+./tests/test_security.py:171:1: W293 blank line contains whitespace
+./tests/test_security.py:177:1: W293 blank line contains whitespace
+./tests/test_security.py:182:1: W293 blank line contains whitespace
+./tests/test_security.py:185:1: W293 blank line contains whitespace
+./tests/test_security.py:195:1: W293 blank line contains whitespace
+./tests/test_security.py:200:1: W293 blank line contains whitespace
+./tests/test_security.py:203:1: W293 blank line contains whitespace
+./tests/test_security.py:207:1: W293 blank line contains whitespace
+./tests/test_security.py:211:1: W293 blank line contains whitespace
+./tests/test_security.py:214:1: W293 blank line contains whitespace
+./tests/test_security.py:217:1: W293 blank line contains whitespace
+./tests/test_security.py:221:1: W293 blank line contains whitespace
+./tests/test_security.py:224:1: W293 blank line contains whitespace
+./tests/test_security.py:227:1: W293 blank line contains whitespace
+./tests/test_security.py:234:1: W293 blank line contains whitespace
+./tests/test_security.py:239:1: W293 blank line contains whitespace
+./tests/test_security.py:242:1: W293 blank line contains whitespace
+./tests/test_security.py:248:1: W293 blank line contains whitespace
+./tests/test_security.py:254:1: W293 blank line contains whitespace
+./tests/test_security.py:258:1: W293 blank line contains whitespace
+./tests/test_security.py:263:1: W293 blank line contains whitespace
+./tests/test_security.py:268:1: W293 blank line contains whitespace
+./tests/test_security.py:272:1: W293 blank line contains whitespace
+./tests/test_security.py:276:1: W293 blank line contains whitespace
+./tests/test_security.py:280:1: W293 blank line contains whitespace
+./tests/test_security.py:288:1: W293 blank line contains whitespace
+./tests/test_security.py:295:1: W293 blank line contains whitespace
+./utils/__init__.py:23:2: W291 trailing whitespace
+./utils/__init__.py:23:3: W292 no newline at end of file
+./utils/auth.py:7:1: F401 'os' imported but unused
+./utils/auth.py:12:1: F401 'typing.List' imported but unused
+./utils/auth.py:33:1: W293 blank line contains whitespace
+./utils/auth.py:37:1: W293 blank line contains whitespace
+./utils/auth.py:42:1: W293 blank line contains whitespace
+./utils/auth.py:47:1: W293 blank line contains whitespace
+./utils/auth.py:94:1: W293 blank line contains whitespace
+./utils/auth.py:100:1: W293 blank line contains whitespace
+./utils/auth.py:116:1: W293 blank line contains whitespace
+./utils/auth.py:120:1: W293 blank line contains whitespace
+./utils/auth.py:123:1: W293 blank line contains whitespace
+./utils/auth.py:128:1: W293 blank line contains whitespace
+./utils/auth.py:132:1: W293 blank line contains whitespace
+./utils/auth.py:136:1: W293 blank line contains whitespace
+./utils/auth.py:145:1: W293 blank line contains whitespace
+./utils/auth.py:148:1: W293 blank line contains whitespace
+./utils/auth.py:154:1: W293 blank line contains whitespace
+./utils/auth.py:157:1: W293 blank line contains whitespace
+./utils/auth.py:160:1: W293 blank line contains whitespace
+./utils/auth.py:163:1: W293 blank line contains whitespace
+./utils/auth.py:166:1: W293 blank line contains whitespace
+./utils/auth.py:170:1: W293 blank line contains whitespace
+./utils/auth.py:175:1: W293 blank line contains whitespace
+./utils/auth.py:185:1: W293 blank line contains whitespace
+./utils/auth.py:193:1: W293 blank line contains whitespace
+./utils/auth.py:196:1: W293 blank line contains whitespace
+./utils/auth.py:198:1: W293 blank line contains whitespace
+./utils/auth.py:201:1: W293 blank line contains whitespace
+./utils/auth.py:206:1: W293 blank line contains whitespace
+./utils/auth.py:214:1: W293 blank line contains whitespace
+./utils/auth.py:217:1: W293 blank line contains whitespace
+./utils/auth.py:220:1: W293 blank line contains whitespace
+./utils/auth.py:228:1: W293 blank line contains whitespace
+./utils/auth.py:231:1: W293 blank line contains whitespace
+./utils/auth.py:233:1: W293 blank line contains whitespace
+./utils/auth.py:236:1: W293 blank line contains whitespace
+./utils/auth.py:243:1: W293 blank line contains whitespace
+./utils/auth.py:246:1: W293 blank line contains whitespace
+./utils/auth.py:249:1: W293 blank line contains whitespace
+./utils/auth.py:257:1: W293 blank line contains whitespace
+./utils/auth.py:260:1: W293 blank line contains whitespace
+./utils/auth.py:262:1: W293 blank line contains whitespace
+./utils/auth.py:265:1: W293 blank line contains whitespace
+./utils/auth.py:269:1: W293 blank line contains whitespace
+./utils/auth.py:276:1: W293 blank line contains whitespace
+./utils/auth.py:282:1: W293 blank line contains whitespace
+./utils/auth.py:285:1: W293 blank line contains whitespace
+./utils/auth.py:288:1: W293 blank line contains whitespace
+./utils/auth.py:291:1: W293 blank line contains whitespace
+./utils/auth.py:295:1: W293 blank line contains whitespace
+./utils/auth.py:302:1: W293 blank line contains whitespace
+./utils/auth.py:306:1: W293 blank line contains whitespace
+./utils/auth.py:310:1: W293 blank line contains whitespace
+./utils/auth.py:318:1: W293 blank line contains whitespace
+./utils/auth.py:321:1: W293 blank line contains whitespace
+./utils/auth.py:324:1: W293 blank line contains whitespace
+./utils/auth.py:327:1: W293 blank line contains whitespace
+./utils/auth.py:330:1: W293 blank line contains whitespace
+./utils/auth.py:336:1: W293 blank line contains whitespace
+./utils/auth.py:338:1: W293 blank line contains whitespace
+./utils/auth.py:343:1: W293 blank line contains whitespace
+./utils/auth.py:347:1: W293 blank line contains whitespace
+./utils/auth.py:349:1: W293 blank line contains whitespace
+./utils/auth.py:352:1: W293 blank line contains whitespace
+./utils/auth.py:355:1: W293 blank line contains whitespace
+./utils/auth.py:360:1: W293 blank line contains whitespace
+./utils/auth.py:363:1: W293 blank line contains whitespace
+./utils/auth.py:367:1: W293 blank line contains whitespace
+./utils/auth.py:374:1: W293 blank line contains whitespace
+./utils/auth.py:377:1: W293 blank line contains whitespace
+./utils/auth.py:380:1: W293 blank line contains whitespace
+./utils/auth.py:384:1: W293 blank line contains whitespace
+./utils/auth.py:387:1: W293 blank line contains whitespace
+./utils/auth.py:394:1: W293 blank line contains whitespace
+./utils/auth.py:399:1: W293 blank line contains whitespace
+./utils/auth.py:401:1: W293 blank line contains whitespace
+./utils/auth.py:404:1: W293 blank line contains whitespace
+./utils/auth.py:407:1: W293 blank line contains whitespace
+./utils/auth.py:416:1: W293 blank line contains whitespace
+./utils/cli_utils.py:9:1: F401 'rich.text.Text' imported but unused
+./utils/cli_utils.py:10:1: F401 'typing.List' imported but unused
+./utils/cli_utils.py:16:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:25:1: W293 blank line contains whitespace
+./utils/cli_utils.py:26:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:31:1: W293 blank line contains whitespace
+./utils/cli_utils.py:35:1: W293 blank line contains whitespace
+./utils/cli_utils.py:42:1: W293 blank line contains whitespace
+./utils/cli_utils.py:44:1: W293 blank line contains whitespace
+./utils/cli_utils.py:45:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:48:1: W293 blank line contains whitespace
+./utils/cli_utils.py:49:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:52:1: W293 blank line contains whitespace
+./utils/cli_utils.py:53:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:56:1: W293 blank line contains whitespace
+./utils/cli_utils.py:57:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:60:1: W293 blank line contains whitespace
+./utils/cli_utils.py:61:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:64:1: W293 blank line contains whitespace
+./utils/cli_utils.py:65:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:68:1: W293 blank line contains whitespace
+./utils/cli_utils.py:69:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:72:1: W293 blank line contains whitespace
+./utils/cli_utils.py:73:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:78:1: W293 blank line contains whitespace
+./utils/cli_utils.py:81:1: W293 blank line contains whitespace
+./utils/cli_utils.py:84:1: E302 expected 2 blank lines, found 1
+./utils/cli_utils.py:90:6: W291 trailing whitespace
+./utils/cli_utils.py:90:7: W292 no newline at end of file
+./utils/config_manager.py:11:1: F401 'typing.Optional' imported but unused
+./utils/config_manager.py:13:1: E302 expected 2 blank lines, found 1
+./utils/config_manager.py:20:1: W293 blank line contains whitespace
+./utils/config_manager.py:27:41: E261 at least two spaces before inline comment
+./utils/config_manager.py:29:34: E261 at least two spaces before inline comment
+./utils/config_manager.py:38:1: W293 blank line contains whitespace
+./utils/config_manager.py:74:1: W293 blank line contains whitespace
+./utils/config_manager.py:78:1: W293 blank line contains whitespace
+./utils/config_manager.py:83:1: W293 blank line contains whitespace
+./utils/config_manager.py:94:1: W293 blank line contains whitespace
+./utils/config_manager.py:98:1: W293 blank line contains whitespace
+./utils/config_manager.py:102:1: W293 blank line contains whitespace
+./utils/config_manager.py:106:1: W293 blank line contains whitespace
+./utils/config_manager.py:116:1: W293 blank line contains whitespace
+./utils/config_manager.py:121:1: W293 blank line contains whitespace
+./utils/config_manager.py:126:1: W293 blank line contains whitespace
+./utils/config_manager.py:136:1: W293 blank line contains whitespace
+./utils/config_manager.py:146:1: W293 blank line contains whitespace
+./utils/config_manager.py:150:1: W293 blank line contains whitespace
+./utils/config_manager.py:159:1: W293 blank line contains whitespace
+./utils/config_manager.py:164:1: W293 blank line contains whitespace
+./utils/config_manager.py:165:20: W291 trailing whitespace
+./utils/config_manager.py:165:21: W292 no newline at end of file
+./utils/context_builder.py:10:1: F401 'typing.Any' imported but unused
+./utils/context_builder.py:14:1: E302 expected 2 blank lines, found 1
+./utils/context_builder.py:22:1: W293 blank line contains whitespace
+./utils/context_builder.py:33:1: W293 blank line contains whitespace
+./utils/context_builder.py:44:1: W293 blank line contains whitespace
+./utils/context_builder.py:54:1: W293 blank line contains whitespace
+./utils/context_builder.py:60:1: W293 blank line contains whitespace
+./utils/context_builder.py:66:1: W293 blank line contains whitespace
+./utils/context_builder.py:69:1: W293 blank line contains whitespace
+./utils/context_builder.py:74:1: W293 blank line contains whitespace
+./utils/context_builder.py:76:1: W293 blank line contains whitespace
+./utils/context_builder.py:88:1: W293 blank line contains whitespace
+./utils/context_builder.py:92:1: W293 blank line contains whitespace
+./utils/context_builder.py:100:1: W293 blank line contains whitespace
+./utils/context_builder.py:102:1: W293 blank line contains whitespace
+./utils/context_builder.py:111:1: W293 blank line contains whitespace
+./utils/context_builder.py:115:1: W293 blank line contains whitespace
+./utils/context_builder.py:119:1: W293 blank line contains whitespace
+./utils/context_builder.py:127:1: W293 blank line contains whitespace
+./utils/context_builder.py:135:1: W293 blank line contains whitespace
+./utils/context_builder.py:141:1: W293 blank line contains whitespace
+./utils/context_builder.py:145:1: W293 blank line contains whitespace
+./utils/context_builder.py:152:1: W293 blank line contains whitespace
+./utils/context_builder.py:155:1: W293 blank line contains whitespace
+./utils/context_builder.py:157:1: W293 blank line contains whitespace
+./utils/context_builder.py:160:62: W291 trailing whitespace
+./utils/context_builder.py:160:63: W292 no newline at end of file
+./utils/crypto.py:12:1: F401 'base64.b64decode' imported but unused
+./utils/crypto.py:31:1: W293 blank line contains whitespace
+./utils/crypto.py:34:1: W293 blank line contains whitespace
+./utils/crypto.py:40:1: W293 blank line contains whitespace
+./utils/crypto.py:43:1: W293 blank line contains whitespace
+./utils/crypto.py:46:1: W293 blank line contains whitespace
+./utils/crypto.py:49:1: W293 blank line contains whitespace
+./utils/crypto.py:52:1: W293 blank line contains whitespace
+./utils/crypto.py:54:1: W293 blank line contains whitespace
+./utils/crypto.py:64:1: W293 blank line contains whitespace
+./utils/crypto.py:67:1: W293 blank line contains whitespace
+./utils/crypto.py:70:1: W293 blank line contains whitespace
+./utils/crypto.py:72:1: W293 blank line contains whitespace
+./utils/crypto.py:77:1: W293 blank line contains whitespace
+./utils/crypto.py:81:1: W293 blank line contains whitespace
+./utils/crypto.py:84:1: W293 blank line contains whitespace
+./utils/crypto.py:86:1: W293 blank line contains whitespace
+./utils/crypto.py:90:1: W293 blank line contains whitespace
+./utils/crypto.py:96:1: W293 blank line contains whitespace
+./utils/crypto.py:99:1: W293 blank line contains whitespace
+./utils/crypto.py:103:1: W293 blank line contains whitespace
+./utils/crypto.py:105:1: W293 blank line contains whitespace
+./utils/crypto.py:107:1: W293 blank line contains whitespace
+./utils/crypto.py:110:1: W293 blank line contains whitespace
+./utils/crypto.py:113:1: W293 blank line contains whitespace
+./utils/crypto.py:117:1: W293 blank line contains whitespace
+./utils/crypto.py:129:1: W293 blank line contains whitespace
+./utils/crypto.py:132:1: W293 blank line contains whitespace
+./utils/crypto.py:135:1: W293 blank line contains whitespace
+./utils/crypto.py:140:1: W293 blank line contains whitespace
+./utils/crypto.py:143:1: W293 blank line contains whitespace
+./utils/crypto.py:146:1: W293 blank line contains whitespace
+./utils/crypto.py:155:1: W293 blank line contains whitespace
+./utils/crypto.py:157:1: W293 blank line contains whitespace
+./utils/crypto.py:160:1: W293 blank line contains whitespace
+./utils/crypto.py:165:1: W293 blank line contains whitespace
+./utils/crypto.py:168:1: W293 blank line contains whitespace
+./utils/crypto.py:171:1: W293 blank line contains whitespace
+./utils/crypto.py:176:1: W293 blank line contains whitespace
+./utils/crypto.py:182:1: W293 blank line contains whitespace
+./utils/crypto.py:185:1: W293 blank line contains whitespace
+./utils/crypto.py:188:1: W293 blank line contains whitespace
+./utils/crypto.py:191:1: W293 blank line contains whitespace
+./utils/crypto.py:201:1: W293 blank line contains whitespace
+./utils/crypto.py:205:1: W293 blank line contains whitespace
+./utils/crypto.py:213:1: W293 blank line contains whitespace
+./utils/crypto.py:217:1: W293 blank line contains whitespace
+./utils/crypto.py:221:1: W293 blank line contains whitespace
+./utils/crypto.py:227:1: W293 blank line contains whitespace
+./utils/crypto.py:235:1: W293 blank line contains whitespace
+./utils/crypto.py:237:1: W293 blank line contains whitespace
+./utils/crypto.py:241:1: W293 blank line contains whitespace
+./utils/crypto.py:245:1: W293 blank line contains whitespace
+./utils/crypto.py:251:1: W293 blank line contains whitespace
+./utils/crypto.py:254:1: W293 blank line contains whitespace
+./utils/crypto.py:258:1: W293 blank line contains whitespace
+./utils/crypto.py:261:1: W293 blank line contains whitespace
+./utils/crypto.py:264:1: W293 blank line contains whitespace
+./utils/crypto.py:267:1: W293 blank line contains whitespace
+./utils/crypto.py:271:1: W293 blank line contains whitespace
+./utils/crypto.py:275:1: W293 blank line contains whitespace
+./utils/crypto.py:281:1: W293 blank line contains whitespace
+./utils/crypto.py:285:1: W293 blank line contains whitespace
+./utils/crypto.py:289:1: W293 blank line contains whitespace
+./utils/crypto.py:292:1: W293 blank line contains whitespace
+./utils/crypto.py:311:1: W293 blank line contains whitespace
+./utils/crypto.py:325:1: W293 blank line contains whitespace
+./utils/logger.py:12:1: F401 'sys' imported but unused
+./utils/logger.py:13:1: F401 'pathlib.Path' imported but unused
+./utils/logger.py:14:1: F401 'rich.logging.RichHandler' imported but unused
+./utils/logger.py:16:1: F401 'datetime.datetime' imported but unused
+./utils/logger.py:18:1: E302 expected 2 blank lines, found 1
+./utils/logger.py:22:1: W293 blank line contains whitespace
+./utils/logger.py:24:1: W293 blank line contains whitespace
+./utils/logger.py:27:1: W293 blank line contains whitespace
+./utils/logger.py:32:1: W293 blank line contains whitespace
+./utils/logger.py:37:1: W293 blank line contains whitespace
+./utils/logger.py:41:1: W293 blank line contains whitespace
+./utils/logger.py:42:18: W291 trailing whitespace
+./utils/logger.py:42:19: W292 no newline at end of file
+./utils/notifier.py:14:1: F401 'typing.Any' imported but unused
+./utils/notifier.py:17:1: E302 expected 2 blank lines, found 1
+./utils/notifier.py:19:1: W293 blank line contains whitespace
+./utils/notifier.py:26:1: W293 blank line contains whitespace
+./utils/notifier.py:35:1: W293 blank line contains whitespace
+./utils/notifier.py:46:1: W293 blank line contains whitespace
+./utils/notifier.py:49:1: W293 blank line contains whitespace
+./utils/notifier.py:51:1: W293 blank line contains whitespace
+./utils/notifier.py:61:1: W293 blank line contains whitespace
+./utils/notifier.py:64:1: W293 blank line contains whitespace
+./utils/notifier.py:67:1: W293 blank line contains whitespace
+./utils/notifier.py:70:1: W293 blank line contains whitespace
+./utils/notifier.py:73:1: W293 blank line contains whitespace
+./utils/notifier.py:82:1: W293 blank line contains whitespace
+./utils/notifier.py:86:1: W293 blank line contains whitespace
+./utils/notifier.py:88:1: W293 blank line contains whitespace
+./utils/notifier.py:93:1: W293 blank line contains whitespace
+./utils/notifier.py:96:1: W293 blank line contains whitespace
+./utils/notifier.py:102:1: W293 blank line contains whitespace
+./utils/notifier.py:107:68: E261 at least two spaces before inline comment
+./utils/notifier.py:109:1: W293 blank line contains whitespace
+./utils/notifier.py:115:1: W293 blank line contains whitespace
+./utils/notifier.py:122:1: W293 blank line contains whitespace
+./utils/notifier.py:125:1: W293 blank line contains whitespace
+./utils/notifier.py:133:68: E261 at least two spaces before inline comment
+./utils/notifier.py:135:1: W293 blank line contains whitespace
+./utils/notifier.py:138:1: W293 blank line contains whitespace
+./utils/notifier.py:142:1: W293 blank line contains whitespace
+./utils/notifier.py:145:1: W293 blank line contains whitespace
+./utils/notifier.py:155:73: W291 trailing whitespace
+./utils/notifier.py:155:74: W292 no newline at end of file
+./utils/report_generator.py:7:1: F401 'os' imported but unused
+./utils/report_generator.py:12:1: F401 'typing.Optional' imported but unused
+./utils/report_generator.py:15:1: E302 expected 2 blank lines, found 1
+./utils/report_generator.py:20:1: W293 blank line contains whitespace
+./utils/report_generator.py:27:1: W293 blank line contains whitespace
+./utils/report_generator.py:31:1: W293 blank line contains whitespace
+./utils/report_generator.py:35:1: W293 blank line contains whitespace
+./utils/report_generator.py:47:1: W293 blank line contains whitespace
+./utils/report_generator.py:51:1: W293 blank line contains whitespace
+./utils/report_generator.py:56:1: W293 blank line contains whitespace
+./utils/report_generator.py:60:1: W293 blank line contains whitespace
+./utils/report_generator.py:67:1: W293 blank line contains whitespace
+./utils/report_generator.py:69:1: W293 blank line contains whitespace
+./utils/report_generator.py:74:1: W293 blank line contains whitespace
+./utils/report_generator.py:78:1: W293 blank line contains whitespace
+./utils/report_generator.py:82:1: W293 blank line contains whitespace
+./utils/report_generator.py:85:1: W293 blank line contains whitespace
+./utils/report_generator.py:92:1: W293 blank line contains whitespace
+./utils/report_generator.py:95:1: W293 blank line contains whitespace
+./utils/report_generator.py:100:1: W293 blank line contains whitespace
+./utils/report_generator.py:104:1: W293 blank line contains whitespace
+./utils/report_generator.py:106:32: F541 f-string is missing placeholders
+./utils/report_generator.py:113:1: W293 blank line contains whitespace
+./utils/report_generator.py:117:1: W293 blank line contains whitespace
+./utils/report_generator.py:120:1: W293 blank line contains whitespace
+./utils/report_generator.py:127:1: W293 blank line contains whitespace
+./utils/report_generator.py:130:1: W293 blank line contains whitespace
+./utils/report_generator.py:135:1: W293 blank line contains whitespace
+./utils/report_generator.py:139:1: W293 blank line contains whitespace
+./utils/report_generator.py:141:32: F541 f-string is missing placeholders
+./utils/report_generator.py:147:1: W293 blank line contains whitespace
+./utils/report_generator.py:151:1: W293 blank line contains whitespace
+./utils/report_generator.py:154:1: W293 blank line contains whitespace
+./utils/report_generator.py:161:1: W293 blank line contains whitespace
+./utils/report_generator.py:164:1: W293 blank line contains whitespace
+./utils/report_generator.py:169:1: W293 blank line contains whitespace
+./utils/report_generator.py:178:1: W293 blank line contains whitespace
+./utils/report_generator.py:182:1: W293 blank line contains whitespace
+./utils/report_generator.py:185:1: W293 blank line contains whitespace
+./utils/report_generator.py:192:1: W293 blank line contains whitespace
+./utils/report_generator.py:197:1: W293 blank line contains whitespace
+./utils/report_generator.py:201:1: W293 blank line contains whitespace
+./utils/report_generator.py:205:1: W293 blank line contains whitespace
+./utils/report_generator.py:209:1: W293 blank line contains whitespace
+./utils/report_generator.py:210:28: W291 trailing whitespace
+./utils/report_generator.py:210:29: W292 no newline at end of file
+./utils/security_headers.py:14:1: W293 blank line contains whitespace
+./utils/security_headers.py:17:1: W293 blank line contains whitespace
+./utils/security_headers.py:23:1: W293 blank line contains whitespace
+./utils/security_headers.py:26:1: W293 blank line contains whitespace
+./utils/security_headers.py:29:1: W293 blank line contains whitespace
+./utils/security_headers.py:32:1: W293 blank line contains whitespace
+./utils/security_headers.py:35:1: W293 blank line contains whitespace
+./utils/security_headers.py:38:1: W293 blank line contains whitespace
+./utils/security_headers.py:41:1: W293 blank line contains whitespace
+./utils/security_headers.py:46:1: W293 blank line contains whitespace
+./utils/security_headers.py:63:1: W293 blank line contains whitespace
+./utils/security_headers.py:72:1: W293 blank line contains whitespace
+./utils/security_headers.py:75:1: W293 blank line contains whitespace
+./utils/security_headers.py:79:1: W293 blank line contains whitespace
+./utils/security_headers.py:83:1: W293 blank line contains whitespace
+./utils/security_headers.py:86:1: W293 blank line contains whitespace
+./utils/security_headers.py:102:1: W293 blank line contains whitespace
+./utils/security_headers.py:108:1: W293 blank line contains whitespace
+./utils/security_headers.py:133:1: W293 blank line contains whitespace
+./utils/security_headers.py:137:1: W293 blank line contains whitespace
+./utils/security_headers.py:140:1: W293 blank line contains whitespace
+./utils/security_headers.py:146:1: W293 blank line contains whitespace
+./utils/security_headers.py:148:1: W293 blank line contains whitespace
+./utils/security_headers.py:152:1: W293 blank line contains whitespace
+./utils/security_headers.py:157:1: W293 blank line contains whitespace
+./utils/security_headers.py:162:1: W293 blank line contains whitespace
+./utils/security_headers.py:164:1: W293 blank line contains whitespace
+./utils/security_headers.py:168:1: W293 blank line contains whitespace
+./utils/security_headers.py:174:1: W293 blank line contains whitespace
+./utils/security_headers.py:184:1: W293 blank line contains whitespace
+./utils/security_headers.py:186:1: W293 blank line contains whitespace
+./utils/security_headers.py:188:68: W291 trailing whitespace
+./utils/security_headers.py:189:36: E127 continuation line over-indented for visual indent
+./utils/security_headers.py:191:1: W293 blank line contains whitespace
+./utils/security_headers.py:195:1: W293 blank line contains whitespace
+./utils/security_headers.py:200:1: W293 blank line contains whitespace
+./utils/security_headers.py:203:1: W293 blank line contains whitespace
+./utils/security_headers.py:207:56: W291 trailing whitespace
+./utils/security_headers.py:212:1: W293 blank line contains whitespace
+./utils/security_headers.py:218:1: W293 blank line contains whitespace
+./utils/security_headers.py:223:1: W293 blank line contains whitespace
+./utils/security_headers.py:229:1: W293 blank line contains whitespace
+./utils/security_headers.py:235:1: W293 blank line contains whitespace
+./utils/security_headers.py:241:1: W293 blank line contains whitespace
+./utils/security_headers.py:244:1: W293 blank line contains whitespace
+./utils/security_headers.py:247:1: W293 blank line contains whitespace
+./utils/security_headers.py:253:1: W293 blank line contains whitespace
+./utils/security_headers.py:256:1: W293 blank line contains whitespace
+./utils/security_headers.py:268:1: W293 blank line contains whitespace
+./utils/security_headers.py:273:1: W293 blank line contains whitespace
+./utils/security_utils.py:13:1: F401 'typing.Any' imported but unused
+./utils/security_utils.py:24:1: W293 blank line contains whitespace
+./utils/security_utils.py:32:1: W293 blank line contains whitespace
+./utils/security_utils.py:42:1: W293 blank line contains whitespace
+./utils/security_utils.py:46:1: W293 blank line contains whitespace
+./utils/security_utils.py:49:1: W293 blank line contains whitespace
+./utils/security_utils.py:55:1: W293 blank line contains whitespace
+./utils/security_utils.py:58:1: W293 blank line contains whitespace
+./utils/security_utils.py:62:1: W293 blank line contains whitespace
+./utils/security_utils.py:66:1: W293 blank line contains whitespace
+./utils/security_utils.py:69:1: W293 blank line contains whitespace
+./utils/security_utils.py:75:1: W293 blank line contains whitespace
+./utils/security_utils.py:79:1: W293 blank line contains whitespace
+./utils/security_utils.py:83:1: W293 blank line contains whitespace
+./utils/security_utils.py:87:1: W293 blank line contains whitespace
+./utils/security_utils.py:94:1: W293 blank line contains whitespace
+./utils/security_utils.py:98:1: W293 blank line contains whitespace
+./utils/security_utils.py:105:1: W293 blank line contains whitespace
+./utils/security_utils.py:114:1: W293 blank line contains whitespace
+./utils/security_utils.py:116:1: W293 blank line contains whitespace
+./utils/security_utils.py:120:1: W293 blank line contains whitespace
+./utils/security_utils.py:124:1: W293 blank line contains whitespace
+./utils/security_utils.py:127:1: W293 blank line contains whitespace
+./utils/security_utils.py:133:1: W293 blank line contains whitespace
+./utils/security_utils.py:139:1: W293 blank line contains whitespace
+./utils/security_utils.py:144:1: W293 blank line contains whitespace
+./utils/security_utils.py:146:1: W293 blank line contains whitespace
+./utils/security_utils.py:150:1: W293 blank line contains whitespace
+./utils/security_utils.py:153:1: W293 blank line contains whitespace
+./utils/security_utils.py:159:1: W293 blank line contains whitespace
+./utils/security_utils.py:162:1: W293 blank line contains whitespace
+./utils/security_utils.py:165:1: W293 blank line contains whitespace
+./utils/security_utils.py:167:1: W293 blank line contains whitespace
+./utils/security_utils.py:171:1: W293 blank line contains whitespace
+./utils/security_utils.py:174:1: W293 blank line contains whitespace
+./utils/security_utils.py:180:1: W293 blank line contains whitespace
+./utils/security_utils.py:187:1: W293 blank line contains whitespace
+./utils/security_utils.py:189:1: W293 blank line contains whitespace
+./utils/security_utils.py:193:1: W293 blank line contains whitespace
+./utils/security_utils.py:197:1: W293 blank line contains whitespace
+./utils/security_utils.py:203:1: W293 blank line contains whitespace
+./utils/security_utils.py:208:1: W293 blank line contains whitespace
+./utils/security_utils.py:214:1: W293 blank line contains whitespace
+./utils/security_utils.py:217:1: W293 blank line contains whitespace
+./utils/security_utils.py:226:1: W293 blank line contains whitespace
+./utils/security_utils.py:233:1: W293 blank line contains whitespace
+./utils/security_utils.py:236:1: W293 blank line contains whitespace
+./utils/security_utils.py:242:1: W293 blank line contains whitespace
+./utils/security_utils.py:250:1: W293 blank line contains whitespace
+./utils/security_utils.py:253:1: W293 blank line contains whitespace
+./utils/security_utils.py:255:1: W293 blank line contains whitespace
+./utils/security_utils.py:261:1: W293 blank line contains whitespace
+./utils/security_utils.py:265:1: W293 blank line contains whitespace
+./utils/security_utils.py:269:1: W293 blank line contains whitespace
+./utils/security_utils.py:280:1: W293 blank line contains whitespace
+./utils/security_utils.py:284:1: W293 blank line contains whitespace
+./utils/security_utils.py:288:1: W293 blank line contains whitespace
+./utils/security_utils.py:295:1: W293 blank line contains whitespace
+./utils/security_utils.py:302:1: W293 blank line contains whitespace
+./utils/security_utils.py:304:1: W293 blank line contains whitespace
+./utils/security_utils.py:308:1: W293 blank line contains whitespace
+./utils/security_utils.py:312:1: W293 blank line contains whitespace
+./utils/security_utils.py:316:1: W293 blank line contains whitespace
+./utils/security_utils.py:333:1: W293 blank line contains whitespace
+./utils/security_utils.py:337:1: W293 blank line contains whitespace
+./utils/security_utils.py:340:1: W293 blank line contains whitespace
+./utils/security_utils.py:345:1: W293 blank line contains whitespace
+./utils/security_utils.py:349:1: W293 blank line contains whitespace
+./utils/security_utils.py:356:1: W293 blank line contains whitespace
+./utils/security_utils.py:360:1: W293 blank line contains whitespace
+./utils/security_utils.py:364:1: W293 blank line contains whitespace
+./utils/security_utils.py:370:1: W293 blank line contains whitespace
+./utils/security_utils.py:374:1: W293 blank line contains whitespace
+./utils/security_utils.py:376:1: W293 blank line contains whitespace
+./utils/security_utils.py:380:1: W293 blank line contains whitespace
+./utils/security_utils.py:384:1: W293 blank line contains whitespace
+./utils/security_utils.py:390:1: W293 blank line contains whitespace
+./utils/security_utils.py:394:1: W293 blank line contains whitespace
+./utils/security_utils.py:397:1: W293 blank line contains whitespace
+./utils/security_utils.py:405:1: W293 blank line contains whitespace
+./utils/security_utils.py:408:1: W293 blank line contains whitespace
+./utils/security_utils.py:417:1: W293 blank line contains whitespace
+./utils/security_utils.py:420:1: W293 blank line contains whitespace
+./utils/security_utils.py:426:1: W293 blank line contains whitespace
+./utils/security_utils.py:429:1: W293 blank line contains whitespace
+./utils/session_manager.py:7:1: F401 'os' imported but unused
+./utils/session_manager.py:13:1: E302 expected 2 blank lines, found 1
+./utils/session_manager.py:18:1: W293 blank line contains whitespace
+./utils/session_manager.py:28:1: W293 blank line contains whitespace
+./utils/session_manager.py:31:1: W293 blank line contains whitespace
+./utils/session_manager.py:38:1: W293 blank line contains whitespace
+./utils/session_manager.py:42:1: W293 blank line contains whitespace
+./utils/session_manager.py:48:1: W293 blank line contains whitespace
+./utils/session_manager.py:65:1: W293 blank line contains whitespace
+./utils/session_manager.py:72:1: W293 blank line contains whitespace
+./utils/session_manager.py:79:1: W293 blank line contains whitespace
+./utils/session_manager.py:82:1: W293 blank line contains whitespace
+./utils/session_manager.py:88:1: W293 blank line contains whitespace
+./utils/session_manager.py:95:1: W293 blank line contains whitespace
+./utils/session_manager.py:99:67: W291 trailing whitespace
+./utils/session_manager.py:99:68: W292 no newline at end of file
+./utils/stealth_utils.py:7:1: F401 'pathlib.Path' imported but unused
+./utils/stealth_utils.py:11:1: E302 expected 2 blank lines, found 1
+./utils/stealth_utils.py:20:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:25:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:34:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:40:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:45:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:51:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:54:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:58:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:65:1: W293 blank line contains whitespace
+./utils/stealth_utils.py:80:1: E305 expected 2 blank lines after class or function definition, found 1
+./utils/stealth_utils.py:80:35: W291 trailing whitespace
+./utils/stealth_utils.py:80:36: W292 no newline at end of file

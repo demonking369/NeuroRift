@@ -1,5 +1,6 @@
 import os
 
+
 class AIAssistant:
     def ask_ai(self, query, context=None, debug=False):
         try:
@@ -27,4 +28,4 @@ class AIAssistant:
         log_path = os.path.expanduser("~/.neurorift/sessions/logs/ai_controller.log")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         with open(log_path, "a") as f:
-            f.write(f"[QUERY] {query}\n[RESPONSE] {response}\n[DEBUG] {debug}\n\n") 
+            f.write(f"[QUERY] {query}\n[RESPONSE] {response}\n[DEBUG] {debug}\n\n")
