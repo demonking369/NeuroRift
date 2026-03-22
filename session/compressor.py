@@ -4,6 +4,8 @@
 import json
 from typing import List, TYPE_CHECKING
 
+import neurocore
+
 if TYPE_CHECKING:
     from session.state import SessionState, ToolOutput
 
@@ -62,7 +64,17 @@ class Compressor:
             recon_data = recon_data[:budget] + "\n...[TRUNCATED RECON DATA]"
 
         full = f"{header}\n{recon_data}\n{findings_block}"
-        return full
+        
+        messages = [
+            {"role": "system", "content": "You are a context compressor. Condense the following session state retaining all critical findings."},
+            {"role": "user", "content": full}
+        ]
+        
+        neurocore.load_model("context_compression")
+        resp = neurocore.infer(messages)
+        neurocore.unload_model()
+        
+        return resp.get("content", full) if isinstance(resp, dict) else full
 
     @staticmethod
     def _brief(result: dict) -> str:

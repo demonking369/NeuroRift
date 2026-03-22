@@ -63,7 +63,6 @@ def build_tool_registry(scope_map, config: dict):
 
 
 async def run_assessment(args: argparse.Namespace, config: dict) -> None:
-    from ai.llama_client import LlamaClient, LlamaServerError
     from scope.parser import parse_scope_file
     from session.state import SessionState
     from session.compressor import Compressor
@@ -72,18 +71,9 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
     from ai.executor import Executor
     from recon.recon_bridge import ReconBridge
 
-    # 1. Check llama.cpp health — fail fast, never hang
-    llama_cfg = config.get("llama", {})
-    client = LlamaClient(
-        base_url=llama_cfg.get("base_url", "http://localhost:8080/v1"),
-        timeout=llama_cfg.get("timeout_seconds", 300),
-    )
-    try:
-        client.check_health()
-        logger.info("✅ llama.cpp server healthy")
-    except LlamaServerError as e:
-        logger.error("❌ llama.cpp unavailable: %s", e)
-        sys.exit(1)
+    # 1. Initialize NeuroCore (No HTTP Server check needed)
+    import neurocore
+    logger.info("✅ NeuroCore FFI engine initialized")
 
     # 2. Parse scope
     scope_map = parse_scope_file(args.scope)
@@ -130,17 +120,17 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
     recon_summary = compressor.compress(state)
 
     # 7. Plan phase
-    planner = Planner(client)
+    planner = Planner()
     available_tools = [
         {"name": name, "description": fn.__doc__ or name, "mode": "offensive"}
         for name, fn in tool_registry.items()
     ]
     logger.info("🧠 Generating attack plan...")
-    plan = await planner.create_plan(recon_summary, available_tools, scope_map)
+    plan = planner.create_plan(recon_summary, available_tools, scope_map)
     logger.info("📝 Plan: %d steps", len(plan))
 
     # 8. Execute phase
-    executor = Executor(client, tool_registry)
+    executor = Executor(tool_registry)
     logger.info("⚡ Executing plan...")
     findings = await executor.run(plan, state)
     logger.info("🎯 Execution complete. %d tool calls made.", len(findings))

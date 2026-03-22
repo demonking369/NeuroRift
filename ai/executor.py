@@ -6,7 +6,7 @@ import logging
 import re
 from typing import Any, Callable, Dict, List, Optional
 
-from ai.llama_client import LlamaClient
+import neurocore
 
 logger = logging.getLogger(__name__)
 
@@ -16,13 +16,12 @@ MAX_ITERATIONS = 20  # Safety cap: never loop forever
 
 
 class Executor:
-    def __init__(self, client: LlamaClient, tool_registry: Dict[str, Callable]):
+    def __init__(self, tool_registry: Dict[str, Callable]):
         """
         Args:
-            client: LlamaClient instance
             tool_registry: dict mapping tool_name -> callable(target, **args) -> dict
         """
-        self.client = client
+        self.tools = tool_registry
         self.tools = tool_registry
         self._tool_schemas = [
             {
@@ -65,9 +64,12 @@ class Executor:
         )
 
         for iteration in range(MAX_ITERATIONS):
-            response = await self.client.generate_chat(
+            neurocore.load_model("tool_calling")
+            response = neurocore.infer(
                 history, tools=self._tool_schemas, temperature=0.1
             )
+            neurocore.unload_model()
+            
             if not response or response.get("error"):
                 logger.error(
                     "Executor LLM call failed on iteration %d: %s", iteration, response

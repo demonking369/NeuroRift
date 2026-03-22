@@ -7,7 +7,7 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List
 
-from ai.llama_client import LlamaClient
+import neurocore
 
 logger = logging.getLogger(__name__)
 
@@ -24,10 +24,10 @@ PLANNER_SYSTEM = open("ai/prompts/planner_system.txt").read()
 
 
 class Planner:
-    def __init__(self, client: LlamaClient):
-        self.client = client
+    def __init__(self):
+        pass
 
-    async def create_plan(
+    def create_plan(
         self, recon_summary: str, available_tools: List[Dict], scope_map: Any
     ) -> List[AttackStep]:
         """
@@ -59,30 +59,41 @@ class Planner:
             },
         ]
 
-        response = await self.client.generate_chat(messages, temperature=0.1)
-        if not response or response.get("error"):
+        neurocore.load_model("vuln_planning")
+        response = neurocore.infer(messages, tools=available_tools, temperature=0.1)
+        neurocore.unload_model()
+
+        if not response:
+            logger.error("Planner LLM call returned empty")
+            return []
+            
+        if isinstance(response, dict) and response.get("error"):
             logger.error("Planner LLM call failed: %s", response)
             return []
 
-        raw = response.get("content", "")
-        try:
-            match = re.search(r"\[\s*\{[\s\S]*\}\s*\]", raw)
-            cleaned = (
-                match.group(0)
-                if match
-                else raw.replace("```json", "").replace("```", "").strip()
-            )
-            steps_data = json.loads(cleaned)
-            return [
-                AttackStep(
-                    tool_name=s.get("tool_name", ""),
-                    target=s.get("target", ""),
-                    args=s.get("args", {}),
-                    reasoning=s.get("reasoning", ""),
+        if isinstance(response, list):
+            steps_data = response
+        else:
+            raw = response.get("content", str(response)) if isinstance(response, dict) else str(response)
+            try:
+                match = re.search(r"\[\s*\{[\s\S]*\}\s*\]", raw)
+                cleaned = (
+                    match.group(0)
+                    if match
+                    else raw.replace("```json", "").replace("```", "").strip()
                 )
-                for s in steps_data
-                if s.get("tool_name")
-            ]
-        except Exception as e:
-            logger.error("Failed to parse planner output: %s\nRaw: %s", e, raw[:500])
-            return []
+                steps_data = json.loads(cleaned)
+            except Exception as e:
+                logger.error("Failed to parse planner output: %s\nRaw: %s", e, raw[:500])
+                return []
+
+        return [
+            AttackStep(
+                tool_name=s.get("tool_name", ""),
+                target=s.get("target", ""),
+                args=s.get("args", {}),
+                reasoning=s.get("reasoning", ""),
+            )
+            for s in steps_data
+            if isinstance(s, dict) and s.get("tool_name")
+        ]

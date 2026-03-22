@@ -5,6 +5,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, TYPE_CHECKING
 
+import neurocore
+
 if TYPE_CHECKING:
     from session.state import SessionState, Finding
 
@@ -146,6 +148,17 @@ class Reporter:
             remediation_section=remediation_md,
         )
 
+        messages = [
+            {"role": "system", "content": "You are an expert security reporter. Polish the following report formatting."},
+            {"role": "user", "content": report}
+        ]
+        
+        neurocore.load_model("report_writing")
+        resp = neurocore.infer(messages)
+        neurocore.unload_model()
+        
+        final_report = resp.get("content", report) if isinstance(resp, dict) else report
+
         out_path = self.output_dir / f"report_{state.session_id}.md"
-        out_path.write_text(report, encoding="utf-8")
+        out_path.write_text(final_report, encoding="utf-8")
         return str(out_path)
