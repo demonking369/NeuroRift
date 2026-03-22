@@ -4,6 +4,7 @@ Thin bridge between Rust core and Python tools/AI
 """
 
 import os
+import hmac
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import Dict, Any, Optional
@@ -65,6 +66,19 @@ async def execute_command(command: Dict[str, Any]) -> Response:
     - browser_action: Browser automation action
     """
     try:
+        # Authentication: validate API token from request payload against server secret
+        expected_token = os.environ.get("BRIDGE_API_KEY") or os.environ.get("EXECUTE_API_KEY")
+        auth_token = command.get("api_key") or command.get("auth_token") or command.get("token")
+        if not expected_token:
+            logger.error("Authentication token not configured for /execute; refusing request")
+            raise HTTPException(status_code=503, detail="Service temporarily unavailable")
+        if not auth_token or not hmac.compare_digest(str(auth_token), str(expected_token)):
+            raise HTTPException(status_code=401, detail="Unauthorized")
+        # Remove auth material before further processing
+        command.pop("api_key", None)
+        command.pop("auth_token", None)
+        command.pop("token", None)
+
         cmd_type = command.get("type")
 
         if cmd_type == "ai_generate":

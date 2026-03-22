@@ -7,6 +7,7 @@ import asyncio
 import logging
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
 from typing import Optional, Dict, Any, List
@@ -121,6 +122,11 @@ class WebModule:
             return []
 
         # Ensure target has protocol and trailing slash for FUZZ
+        # Validate target to block shell metacharacters and whitespace
+        if re.search(r'[\s;&|`$<>\\()]', target):
+            self.logger.error("Invalid characters in target: potential command injection attempt.")
+            return []
+
         url = target
         if "://" not in url:
             url = f"http://{url}"
@@ -149,7 +155,19 @@ class WebModule:
         ]
 
         try:
-            await self._run_command(" ".join(cmd))
+            # Execute ffuf safely without invoking a shell
+            process = await asyncio.create_subprocess_exec(
+                *cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            stdout, stderr = await process.communicate()
+            if process.returncode != 0:
+                self.logger.error(
+                    "ffuf exited with code %s: %s",
+                    process.returncode,
+                    stderr.decode(errors="ignore"),
+                )
 
             if os.path.exists(temp_output):
                 with open(temp_output, "r") as f:

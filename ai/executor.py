@@ -10,7 +10,8 @@ import neurocore
 
 logger = logging.getLogger(__name__)
 
-EXECUTOR_SYSTEM = open("ai/prompts/executor_system.txt").read()
+with open("ai/prompts/executor_system.txt") as _f:
+    EXECUTOR_SYSTEM = _f.read()
 
 MAX_ITERATIONS = 20  # Safety cap: never loop forever
 

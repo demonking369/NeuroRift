@@ -54,8 +54,7 @@ class LLMEngine:
 
     def _initialize_models(self) -> List[str]:
         """Initialize available models"""
-        available_models = []
-        available_models.append(self.config["preferred_model"])
+        available_models = [self.config["preferred_model"]]
         for model in self.config["fallback_models"]:
             if model not in available_models:
                 available_models.append(model)

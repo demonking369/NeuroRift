@@ -11,7 +11,7 @@ echo "🧠 NeuroRift Python Bridge — Entrypoint"
 echo "📡 Waiting for llama.cpp at ${LLAMA_HOST} ..."
 
 for i in $(seq 1 $MAX_RETRIES); do
-    if curl -sf "${LLAMA_HOST}/api/tags" > /dev/null 2>&1; then
+    if curl -sf "${LLAMA_HOST}/v1/models" > /dev/null 2>&1; then
         echo "✅ llama.cpp is ready (attempt ${i}/${MAX_RETRIES})"
         break
     fi

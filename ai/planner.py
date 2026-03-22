@@ -20,15 +20,17 @@ class AttackStep:
     reasoning: str = ""
 
 
-PLANNER_SYSTEM = open("ai/prompts/planner_system.txt").read()
+with open("ai/prompts/planner_system.txt") as _f:
+    PLANNER_SYSTEM = _f.read()
 
 
 class Planner:
     def __init__(self):
         pass
 
+    @staticmethod
     def create_plan(
-        self, recon_summary: str, available_tools: List[Dict], scope_map: Any
+        recon_summary: str, available_tools: List[Dict], scope_map: Any
     ) -> List[AttackStep]:
         """
         Generate an ordered attack plan from compressed recon data.

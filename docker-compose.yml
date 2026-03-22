@@ -80,7 +80,7 @@ services:
       OPENCLAW_STATE_DIR: /data/openclaw
       OPENCLAW_GATEWAY_ADDR: "0.0.0.0:18789"
       NEURORIFT_BRIDGE_URL: "http://neurorift-core:8766"
-      OLLAMA_HOST: "http://host.docker.internal:8080"
+      LLAMA_HOST: "http://host.docker.internal:8080"
     depends_on:
       neurorift-core:
         condition: service_healthy

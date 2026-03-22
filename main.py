@@ -12,7 +12,6 @@ import logging
 import sys
 import uuid
 import yaml
-from pathlib import Path
 
 # Configure logging before any imports that use it
 logging.basicConfig(

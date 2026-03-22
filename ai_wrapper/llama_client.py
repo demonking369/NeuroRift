@@ -10,7 +10,6 @@ NeuroRift llama.cpp HTTP Client
 OpenAI-compatible wrapper around local llama.cpp server.
 """
 
-import json
 import logging
 import httpx
 from typing import Dict, List, Optional, Any

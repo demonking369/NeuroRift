@@ -59,17 +59,6 @@ TOOL_METHOD_MAP = {
     "workflow_state": "process",
 }
 
-TOOL_METHOD_MAP = {
-    "run_terminal_cmd": "exec",
-    "terminal": "exec",
-    "read_file": "read",
-    "file_read": "read",
-    "write_file": "write",
-    "file_write": "write",
-    "process_state": "process",
-    "workflow_state": "process",
-}
-
 REQUIRED_ENV = [
     "OPENCLAW_CONFIG_PATH",
     "OPENCLAW_STATE_DIR",

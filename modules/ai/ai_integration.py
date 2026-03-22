@@ -398,6 +398,7 @@ class AIOrchestrator:
     def __init__(self, prompt_dir: Path):
         self.prompt_dir = prompt_dir
         self.llm_client = LocalAIClient()
+        self.analyzer = AIAnalyzer(self.llm_client)
         self.prompts = self._load_prompts()
         self.state = {}
 
