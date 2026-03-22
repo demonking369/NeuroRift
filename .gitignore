@@ -98,3 +98,7 @@ reports/
 
 # Tests
 tests/
+
+# Temporary / Extraneous directories
+sim/
+system-prompts-and-models-of-ai-tools/
