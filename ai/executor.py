@@ -17,13 +17,14 @@ MAX_ITERATIONS = 20  # Safety cap: never loop forever
 
 
 class Executor:
-    def __init__(self, tool_registry: Dict[str, Callable]):
+    def __init__(self, tool_registry: Dict[str, Callable], dispatcher: Any = None):
         """
         Args:
             tool_registry: dict mapping tool_name -> callable(target, **args) -> dict
+            dispatcher: Optional NotificationDispatcher for scan event notifications
         """
         self.tools = tool_registry
-        self.tools = tool_registry
+        self.dispatcher = dispatcher
         self._tool_schemas = [
             {
                 "type": "function",
@@ -109,6 +110,9 @@ class Executor:
                         {"tool": fn_name, "args": fn_args, "result": result}
                     )
 
+                    # Notify on vulnerability findings
+                    self._notify_finding(fn_name, fn_args, result)
+
                     # Feed result back to model
                     history.append(
                         {
@@ -119,6 +123,35 @@ class Executor:
                     )
 
         return findings
+
+    def _notify_finding(
+        self, tool_name: str, args: Dict, result: Dict[str, Any]
+    ) -> None:
+        """Send notification if a vulnerability was found."""
+        if not self.dispatcher:
+            return
+
+        # Skip if result is an error or has no findings
+        if result.get("error") or not result.get("vulnerable", False):
+            return
+
+        severity = result.get("severity", "medium")
+        vuln_data = {
+            "vuln_type": tool_name,
+            "affected_url": args.get("target", args.get("url", "N/A")),
+            "parameter": args.get("parameter", "N/A"),
+            "severity": severity,
+            "confidence": result.get("confidence", "N/A"),
+            "cvss_score": result.get("cvss", "N/A"),
+        }
+
+        # Always send critical findings separately
+        if severity.lower() == "critical":
+            vuln_data["impact_summary"] = result.get("impact", "Critical vulnerability detected")
+            vuln_data["evidence_snippet"] = str(result.get("evidence", ""))[:200]
+            self.dispatcher.send("critical_finding", vuln_data)
+        else:
+            self.dispatcher.send("vulnerability_found", vuln_data)
 
     async def _dispatch(
         self, tool_name: str, args: Dict, session_state: Any
