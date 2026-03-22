@@ -24,7 +24,8 @@ class AIAssistant:
             self._log_ai_interaction("recommend_tools", f"[AI ERROR] {e}", False)
             return ["nmap", "subfinder", "httpx", "nuclei"]
 
-    def _log_ai_interaction(self, query, response, debug):
+    @staticmethod
+    def _log_ai_interaction(query, response, debug):
         log_path = os.path.expanduser("~/.neurorift/sessions/logs/ai_controller.log")
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         with open(log_path, "a") as f:

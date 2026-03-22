@@ -23,11 +23,16 @@ logger = logging.getLogger("neurorift")
 
 
 def load_config(config_path: str = "config.yaml") -> dict:
-    with open(config_path, encoding="utf-8") as f:
+    from pathlib import Path
+    safe_path = Path(config_path).resolve()
+    # Ensure it's inside the project root or at least a regular file
+    if not safe_path.is_file():
+        raise FileNotFoundError(f"Config file not found: {config_path}")
+    with open(safe_path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
-def build_tool_registry(scope_map, config: dict):
+def build_tool_registry(scope_map):
     """Register all AI-callable tools with scope enforcer applied."""
     from scope.enforcer import enforce_scope
     from tools.sqli import SQLiTool
@@ -90,7 +95,7 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
     logger.info("📁 Session: %s", session_id)
 
     # 4. Build tool registry (scope-enforced)
-    tool_registry = build_tool_registry(scope_map, config)
+    tool_registry = build_tool_registry(scope_map)
     logger.info("🔧 %d tools registered", len(tool_registry))
 
     # 5. Recon phase

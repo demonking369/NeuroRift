@@ -201,7 +201,7 @@ class CVECollector:
                                             "cve_ids": cve_ids,
                                         }
                                     )
-                            except:
+                            except Exception:
                                 continue
 
                         await self._save_to_cache(cache_path, exploits)
@@ -490,7 +490,8 @@ class CVECollector:
 
         return any(keyword in description for keyword in target_keywords if keyword)
 
-    def _check_cpe_match(self, cpe: str, target_info: Dict) -> bool:
+    @staticmethod
+    def _check_cpe_match(cpe: str, target_info: Dict) -> bool:
         """Check if CPE string matches target"""
         if not cpe:
             return False

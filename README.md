@@ -79,9 +79,11 @@ graph TD
 *   **NR Analyst**: Performs advanced vulnerability analysis with CVSS 3.1 scoring and false positive reduction
 *   **NR Scribe**: Generates professional reports in multiple formats (Markdown, JSON, HTML, PDF)
 
-### 2. **Advanced Web Control Plane (V2.1)**
+### 2. **Advanced Web Control Plane (V2.2)**
 *   **Next.js Architecture**: A premium, high-performance React dashboard replacing legacy frameworks.
 *   **Manual Operator Plane**: Direct tool execution (nmap, nuclei, ffuf) with real-time output streaming.
+*   **Dynamic Model Selection**: Connects to the local Ollama instance and allows real-time swapping between available local LLMs (e.g. Llama 3.2, Qwen 2.5 Coder) entirely through the UI.
+*   **Uncensored AI Execution**: Features advanced prompt-injection techniques (ChatML framing) in the backend to ensure local standard models perform authorized technical security actions without artificial safety refusals.
 *   **Session & Artifact Management**: Comprehensive system to list, load, and browse session artifacts/reports via an interactive tree viewer.
 *   **Dynamic State Visualization**: Real-time rendering of agent dependencies, cognitive memory decay, and risk vectors.
 
@@ -162,8 +164,9 @@ neurorift --webmod --prototype
 ```
 *   **Access**: Open your browser to `http://localhost:3000`
 *   **Operator Plane**: Switch to the **'Operator'** tab to execute tools manually and browse session artifacts.
+*   **Configuration Matrix**: Adjust AI parameters and select your desired Ollama model dynamically.
 
-#### 📸 Web Interface Gallery (V2.1)
+#### 📸 Web Interface Gallery (V2.2)
 <img width="1920" height="1080" alt="NeuroRift Dashboard" src="https://github.com/user-attachments/assets/1d8f4c62-7a48-405d-a5a0-22a802fe56e1" />
 
 *(Dashboard Core: Intent Fabric & Agent Constellation)*
@@ -223,7 +226,9 @@ NeuroRift utilizes a centralized configuration file at `configs/neurorift_config
 | Variable | Description | Default |
 | :--- | :--- | :--- |
 | `AI_ENABLED` | Master switch for AI features | `true` |
-| `LLAMA_MODEL` | Primary LLM for complex reasoning | `hermes-2-pro` |
+| `OLLAMA_MODEL` | Primary LLM for CLI Mode (Legacy) | `llama3.2` |
+| `NEUROCORE_MODEL` | Primary LLM for Orchestrated Pipeline (NeuroCore) | `hermes-2-pro` |
+
 | `ROBIN_TOR_PROXY` | SOCKS proxy for Dark Web traffic | `socks5h://127.0.0.1:9050` |
 
 ---

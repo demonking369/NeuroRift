@@ -264,8 +264,9 @@ class NeuroRiftOpenClawAdapter:
         rpc_method = self._map_method(tool_call)
         command_preview = json.dumps(tool_call, ensure_ascii=False)
 
+        correlation_id = event.get("id", str(uuid.uuid4()))
         approval = await self.approval_forwarder.evaluate(
-            command_preview, self.session_id
+            command_preview, self.session_id, correlation_id
         )
         if not approval.approved:
             return {
@@ -277,7 +278,6 @@ class NeuroRiftOpenClawAdapter:
                     "message": approval.reason,
                 },
             }
-        correlation_id = event.get("id", str(uuid.uuid4()))
         session_ctx = event.get("session", {})
         if "sessionKey" not in session_ctx:
             session_ctx["sessionKey"] = self.session_id

@@ -7,7 +7,6 @@ Handles llama.cpp integration, prompt engineering, and AI-powered analysis
 import json
 import os
 import httpx
-import subprocess
 import logging
 from typing import Dict, List, Optional, Any
 import time
@@ -40,7 +39,7 @@ class LocalAIClient:
             async with httpx.AsyncClient(timeout=2) as client:
                 response = await client.get(f"{self.base_url}/models")
                 return response.status_code == 200
-        except (httpx.RequestError, httpx.TimeoutException):
+        except httpx.RequestError:
             return False
 
     async def ensure_service_running(self) -> bool:

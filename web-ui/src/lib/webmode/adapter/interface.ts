@@ -68,7 +68,7 @@ export interface WebModeAdapter {
     subscribeToEvents(callback: (event: StreamEvent) => void): () => void;
 
     // AI Control
-    sendAIMessage(prompt: string): AsyncGenerator<string, void, unknown>;
+    sendAIMessage(prompt: string, model?: string): AsyncGenerator<string, void, unknown>;
     cancelAI(): void;
 
     // System Control
@@ -78,6 +78,10 @@ export interface WebModeAdapter {
 export interface SystemState {
     status: 'healthy' | 'degraded' | 'critical';
     llama: {
+        status: 'connected' | 'disconnected';
+        model: string;
+    };
+    ollama: {
         status: 'connected' | 'disconnected';
         model: string;
     };

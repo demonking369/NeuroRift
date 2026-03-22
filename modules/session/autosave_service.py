@@ -81,7 +81,7 @@ class AutoSaveService:
 
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals"""
-        self.logger.info(f"Received signal {signum}, saving session...")
+        self.logger.info("Received signal %s, saving session...", signum)
         self.save_now()
         self.stop()
 
@@ -104,7 +104,7 @@ class AutoSaveService:
         self._save_thread.start()
 
         self.logger.info(
-            f"Auto-save service started (interval: {self.interval_seconds}s)"
+            "Auto-save service started (interval: %ss)", self.interval_seconds
         )
 
     def stop(self):
@@ -129,7 +129,7 @@ class AutoSaveService:
                 self._perform_auto_save()
 
             except Exception as e:
-                self.logger.error(f"Auto-save error: {e}", exc_info=True)
+                self.logger.error("Auto-save error: %s", e, exc_info=True)
 
     def _perform_auto_save(self):
         """Perform automatic save"""
@@ -148,14 +148,14 @@ class AutoSaveService:
                 try:
                     callback()
                 except Exception as e:
-                    self.logger.error(f"Save callback error: {e}")
+                    self.logger.error("Save callback error: %s", e)
 
             self.logger.debug(
-                f"Auto-saved session: {self.session_manager.current_session_id}"
+                "Auto-saved session: %s", self.session_manager.current_session_id
             )
 
         except Exception as e:
-            self.logger.error(f"Auto-save failed: {e}", exc_info=True)
+            self.logger.error("Auto-save failed: %s", e, exc_info=True)
 
     def save_now(self):
         """Trigger immediate save"""
@@ -183,7 +183,7 @@ class AutoSaveService:
             interval_seconds: New interval in seconds
         """
         self.interval_seconds = interval_seconds
-        self.logger.info(f"Auto-save interval changed to {interval_seconds}s")
+        self.logger.info("Auto-save interval changed to %ss", interval_seconds)
 
     def enable(self):
         """Enable auto-save"""
@@ -222,17 +222,17 @@ class EventDrivenSave:
 
     def on_mode_change(self, old_mode: str, new_mode: str):
         """Trigger save on mode change"""
-        self.logger.info(f"Mode changed: {old_mode} → {new_mode}, saving session...")
+        self.logger.info("Mode changed: %s → %s, saving session...", old_mode, new_mode)
         self.auto_save_service.save_now()
 
     def on_tool_execution(self, tool_name: str):
         """Trigger save after tool execution"""
-        self.logger.debug(f"Tool executed: {tool_name}, saving session...")
+        self.logger.debug("Tool executed: %s, saving session...", tool_name)
         self.auto_save_service.save_now()
 
     def on_error(self, error: Exception):
         """Trigger save on error (for recovery)"""
-        self.logger.error(f"Error occurred: {error}, saving session for recovery...")
+        self.logger.error("Error occurred: %s, saving session for recovery...", error)
         self.auto_save_service.save_now()
 
     def on_checkpoint(self):

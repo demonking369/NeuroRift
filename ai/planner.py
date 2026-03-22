@@ -26,6 +26,7 @@ with open("ai/prompts/planner_system.txt") as _f:
 
 class Planner:
     def __init__(self):
+        # Initialize any required state if needed in future
         pass
 
     @staticmethod

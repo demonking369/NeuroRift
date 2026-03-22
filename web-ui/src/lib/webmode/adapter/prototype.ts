@@ -121,13 +121,14 @@ export class PrototypeAdapter implements WebModeAdapter {
     async getSystemState(): Promise<SystemState> {
         return {
             status: 'healthy',
+            llama: { status: 'connected', model: 'neurocore-v1' },
             ollama: { status: 'connected', model: 'simulated-llama3' }
         };
     }
 
     private isAICancelled = false;
 
-    async *sendAIMessage(prompt: string): AsyncGenerator<string, void, unknown> {
+    async *sendAIMessage(prompt: string, model?: string): AsyncGenerator<string, void, unknown> {
         this.isAICancelled = false;
 
         // Simulating "thinking" delay
