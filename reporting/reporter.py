@@ -149,14 +149,17 @@ class Reporter:
         )
 
         messages = [
-            {"role": "system", "content": "You are an expert security reporter. Polish the following report formatting."},
-            {"role": "user", "content": report}
+            {
+                "role": "system",
+                "content": "You are an expert security reporter. Polish the following report formatting.",
+            },
+            {"role": "user", "content": report},
         ]
-        
+
         neurocore.load_model("report_writing")
         resp = neurocore.infer(messages)
         neurocore.unload_model()
-        
+
         final_report = resp.get("content", report) if isinstance(resp, dict) else report
 
         out_path = self.output_dir / f"report_{state.session_id}.md"

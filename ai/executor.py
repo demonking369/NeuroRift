@@ -69,7 +69,7 @@ class Executor:
                 history, tools=self._tool_schemas, temperature=0.1
             )
             neurocore.unload_model()
-            
+
             if not response or response.get("error"):
                 logger.error(
                     "Executor LLM call failed on iteration %d: %s", iteration, response

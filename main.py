@@ -73,6 +73,7 @@ async def run_assessment(args: argparse.Namespace, config: dict) -> None:
 
     # 1. Initialize NeuroCore (No HTTP Server check needed)
     import neurocore
+
     logger.info("✅ NeuroCore FFI engine initialized")
 
     # 2. Parse scope

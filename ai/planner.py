@@ -66,7 +66,7 @@ class Planner:
         if not response:
             logger.error("Planner LLM call returned empty")
             return []
-            
+
         if isinstance(response, dict) and response.get("error"):
             logger.error("Planner LLM call failed: %s", response)
             return []
@@ -74,7 +74,11 @@ class Planner:
         if isinstance(response, list):
             steps_data = response
         else:
-            raw = response.get("content", str(response)) if isinstance(response, dict) else str(response)
+            raw = (
+                response.get("content", str(response))
+                if isinstance(response, dict)
+                else str(response)
+            )
             try:
                 match = re.search(r"\[\s*\{[\s\S]*\}\s*\]", raw)
                 cleaned = (
@@ -84,7 +88,9 @@ class Planner:
                 )
                 steps_data = json.loads(cleaned)
             except Exception as e:
-                logger.error("Failed to parse planner output: %s\nRaw: %s", e, raw[:500])
+                logger.error(
+                    "Failed to parse planner output: %s\nRaw: %s", e, raw[:500]
+                )
                 return []
 
         return [
